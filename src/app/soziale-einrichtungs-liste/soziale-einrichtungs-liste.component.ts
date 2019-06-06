@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { T30SozialeEinrichtungService } from '../t30-soziale-einrichtung.service';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-soziale-einrichtungs-liste',

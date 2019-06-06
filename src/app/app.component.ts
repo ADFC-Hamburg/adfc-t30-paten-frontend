@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
 import { environment } from '../environments/environment';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ErrorNotifierService } from './error-notifier.service';
 import { AuthenticationService } from './authentication.service';

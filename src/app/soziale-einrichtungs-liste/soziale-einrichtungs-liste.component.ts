@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { T30SozialeEinrichtungService } from '../t30-soziale-einrichtung.service';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-soziale-einrichtungs-liste',
@@ -12,8 +14,8 @@ export class SozialeEinrichtungsListeComponent implements OnInit {
 
   public sozEinrList = new MatTableDataSource();
   public displayedSozEinrColumns: string[] = [ 'status', 'Name', 'Strasse', 'PLZ', 'Bezirk', 'aktion'];
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(
         private sozEinrService: T30SozialeEinrichtungService,
   ) { }

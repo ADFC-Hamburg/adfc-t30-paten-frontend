@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OSM_TILE_LAYER_URL } from '@yaga/leaflet-ng2';
-import { T30SozialeEinrichtungService } from '../t30-soziale-einrichtung.service';
+import { ForderungService } from '../forderung.service';
 const HAMBURG_LAT = 53.551086;
 const HAMBURG_LON = 9.993682;
 import { Point } from 'leaflet';
@@ -63,13 +63,13 @@ export class ForderungEditComponent implements OnInit {
     };
   constructor(
     private route: ActivatedRoute,
-      private sozService: T30SozialeEinrichtungService,
+      private forderungService: ForderungService,
   ) { }
   ngOnInit() {
     this.route.params.subscribe(param => {
       this.id = param.id;
       // FIXME anderen Service: StraßenabschnittService
-      this.sozService.get(param.id).subscribe( data => {
+      this.forderungService.get(param.id).subscribe( data => {
         this.einrichtung = data;
         this.newLon = data.lon;
         this.newLat = data.lat;

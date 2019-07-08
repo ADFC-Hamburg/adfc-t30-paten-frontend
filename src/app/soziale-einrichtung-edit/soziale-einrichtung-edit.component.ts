@@ -196,7 +196,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
           this.validateAllFormFields(this.einrichtung);
           if (this.einrichtung.valid) {
             this.sozService.save(new SozialeEinrichtung(this.einrichtung.value)).subscribe(results => {
-              this.router.navigate(['main']);
+              this.router.navigate(['einrichtung', 'view', this.id]);
             });
           } else {
             console.log('INVALID', this.einrichtung);

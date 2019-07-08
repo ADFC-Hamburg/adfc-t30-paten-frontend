@@ -55,7 +55,6 @@
     </div>
   </div>
   <h2>Angrenzende Straßen mit Quell- und Zielverkehr und Haupteingängen</h2>
-  Für folgende Straßen soll laut StVO geprüft werden, ob Tempo 30 eingeführt werden muss:
   <div *ngIf=" getStrassenAbschnitte().length === 0">
     <mat-icon color="warn">warning</mat-icon> Hier fehlen die Straßen mit Qull- und Zielverkehr. Wir suchen freiwillige mit Ortskenntnissen!
   </div>
@@ -90,10 +89,8 @@
       </mat-form-field>
       <mat-form-field class="t30-half-width">
         <mat-select placeholder="Art der Straße" formControlName="spurigkeit">
-          <mat-option value="0">Eine Spur insgesammt</mat-option>
           <mat-option value="1">Je eine Spur je Fahrtrichtung</mat-option>
-          <mat-option value="2">Zwei je Fahrtrichtung</mat-option>
-          <mat-option value="3">Mehr als zwei je Fahrtrichtung</mat-option>
+          <mat-option value="3">Mehr als eine Spur je Fahrtrichtung</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="t30-full-width">

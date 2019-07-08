@@ -9,7 +9,7 @@ import { User } from './user';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     baseUrl = environment.API_BASE_URL;
-
+    baseStubUrl = environment.API_STUB_BASE_URL;
     public currentUser: User;
 
     constructor(
@@ -43,7 +43,7 @@ export class AuthenticationService {
             }));
     }
     passwordReset(username: string) {
-      return this.http.post<any>(this.baseUrl + 'pw-reset.php', { username });
+      return this.http.post<any>(this.baseStubUrl + 'pw-reset.php', { username });
     }
     getCurrentUser() {
       return this.currentUser;

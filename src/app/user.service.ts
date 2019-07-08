@@ -6,30 +6,31 @@ import { User } from './user';
 @Injectable({ providedIn: 'root' })
 export class UserService {
   baseUrl = environment.API_BASE_URL;
+  baseStubUrl = environment.API_STUB_BASE_URL;
     constructor(private http: HttpClient) { }
 
     getAll() {
-        return this.http.get<User[]>(this.baseUrl + '/get_all_users.php');
+        return this.http.get<User[]>(this.baseStubUrl + '/get_all_users.php');
     }
 
     getById(id: number) {
-        return this.http.get(this.baseUrl + '/get_user.php?id=' + id);
+        return this.http.get(this.baseStubUrl + '/get_user.php?id=' + id);
     }
 
     getCurrentUser() {
-      return this.http.get(this.baseUrl + '/get_current_user.php');
+      return this.http.get(this.baseStubUrl + '/get_current_user.php');
     }
 
     register(user: User) {
-        let merged = Object.assign(user, {concern: "register"})
+        const merged = Object.assign(user, {concern: 'register'})
         return this.http.post(this.baseUrl + '/portal.php', merged);
     }
 
     update(user: User) {
-        return this.http.put(this.baseUrl + '/change_user.php?id=' + user.id, user);
+        return this.http.put(this.baseStubUrl + '/change_user.php?id=' + user.id, user);
     }
 
     delete(id: number) {
-        return this.http.delete(this.baseUrl + '/delete_user.php?id=' + id);
+        return this.http.delete(this.baseStubUrl + '/delete_user.php?id=' + id);
     }
 }

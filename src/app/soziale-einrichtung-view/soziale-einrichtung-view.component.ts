@@ -24,6 +24,7 @@ export class SozialeEinrichtungViewComponent implements OnInit {
     'ort': '',
     'id': -1,
     'tempo30': 1,
+    'angrenzendeStrassen': [],
   };
     lat = HAMBURG_LAT;
     lon = HAMBURG_LON;

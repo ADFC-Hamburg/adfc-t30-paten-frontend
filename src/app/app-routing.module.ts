@@ -15,7 +15,6 @@ import { SozialeEinrichtungsListeComponent } from './soziale-einrichtungs-liste/
 import { ProfileComponent } from './profile/profile.component';
 import { SozialeEinrichtungViewComponent } from './soziale-einrichtung-view/soziale-einrichtung-view.component';
 import { SozialeEinrichtungEditComponent } from './soziale-einrichtung-edit/soziale-einrichtung-edit.component';
-import { SozialeEinrichtungT30FordernComponent } from './soziale-einrichtung-t30-fordern/soziale-einrichtung-t30-fordern.component';
 import { CanDeactivateGuard } from './can-deactivate.guard';
 
 const routes: Routes = [{
@@ -31,10 +30,6 @@ const routes: Routes = [{
   component: SozialeEinrichtungEditComponent,
   canActivate: [AuthGuard],
   canDeactivate: [CanDeactivateGuard],
-}, {
-  path: 'einrichtung/t30fordern/:id',
-  component: SozialeEinrichtungT30FordernComponent,
-  canActivate: [AuthGuard],
 }, {
   path: 'einrichtung/view/:id',
   component: SozialeEinrichtungViewComponent,

@@ -46,7 +46,6 @@ import { T30StatusShortTextPipe } from './t30-status-short-text.pipe';
 import { T30StatusStarSvgUrlPipe } from './t30-status-star-svg-url.pipe';
 import { SozialeEinrichtungViewComponent } from './soziale-einrichtung-view/soziale-einrichtung-view.component';
 import { SozialeEinrichtungEditComponent } from './soziale-einrichtung-edit/soziale-einrichtung-edit.component';
-import { SozialeEinrichtungT30FordernComponent } from './soziale-einrichtung-t30-fordern/soziale-einrichtung-t30-fordern.component';
 
 
 export function tokenGetter() {
@@ -75,7 +74,6 @@ export function tokenGetter() {
     T30StatusStarSvgUrlPipe,
     SozialeEinrichtungViewComponent,
     SozialeEinrichtungEditComponent,
-    SozialeEinrichtungT30FordernComponent,
   ],
   imports: [
     BrowserModule,

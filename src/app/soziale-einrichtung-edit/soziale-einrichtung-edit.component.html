@@ -81,25 +81,61 @@
       <mat-form-field class="t30-hausnummer-width">
         <input matInput placeholder="bis Hausnummer" formControlName="bis">
       </mat-form-field>
-      <mat-form-field class="t30-3-width">
+      <mat-form-field class="t30-half-width">
         <mat-select placeholder="Forderungsgrund" formControlName="haupteingang">
           <mat-option value="2">Haupteingang und An- und Abreiseverkehr</mat-option>
           <mat-option value="1">Haupteingang</mat-option>
           <mat-option value="0">An- und Abreiseverkehr</mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field class="t30-3-width">
+      <mat-form-field class="t30-half-width">
+        <mat-select placeholder="Art der Straße" formControlName="spurigkeit">
+          <mat-option value="0">Eine Spur insgesammt</mat-option>
+          <mat-option value="1">Je eine Spur je Fahrtrichtung</mat-option>
+          <mat-option value="2">Zwei je Fahrtrichtung</mat-option>
+          <mat-option value="3">Mehr als zwei je Fahrtrichtung</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="t30-full-width">
         <mat-select placeholder="Stand der Dinge" formControlName="status">
-          <mat-option value="1">Unsicher wie der Stand ist</mat-option>
+          <mat-option value="0">Unklar ob hier Tempo 30 ist.</mat-option>
           <mat-option value="2">Hier ist Tempo 30</mat-option>
           <mat-option value="3">Hier sollte Tempo 30 gefordert werden</mat-option>
           <mat-option value="4">Die Behörde hat abgelehnt Tempo 30 einzuführen</mat-option>
           <mat-option value="5">Tempo 30 wurde angeordnet, die Schilder stehen aber noch nicht</mat-option>
         </mat-select>
       </mat-form-field>
-      <div class="t30-button-width">
+      <mat-form-field class="t30-full-width">
+        <textarea  matInput formControlName="anmerkung" placeholder="Warum sollte gerade hier Tempo 30 gelten?"></textarea>
+        <mat-hint>
+         Uneinsichtige Stelle? Beobachtete Unfälle? Parkende Autos? Viel Radverkehr?...
+        </mat-hint>
+      </mat-form-field>
+      <mat-form-field class="t30-half-width">
+        <mat-select placeholder="Busverkehr" formControlName="busverkehr">
+          <mat-option value="1">Kein Busverkehr</mat-option>
+          <mat-option value="2">weniger als 6 mal pro h</mat-option>
+          <mat-option value="3">mind. 6 mal pro h</mat-option>
+        </mat-select>
+        <mat-hint>
+          in mindestens eine Richtung
+        </mat-hint>
+      </mat-form-field>
+      <mat-form-field class="t30-half-width">
+        <input matInput placeholder="Buslinien" formControlName="buslinien">
+        <mat-hint>
+        Welche Buslininien fahren hier? Bitte mit Komma trennen
+        </mat-hint>
+      </mat-form-field>
+      <mat-form-field class="t30-full-width">
+        <textarea  matInput formControlName="anmerkung_bus" placeholder="Anmerkung zum Busverkehr"></textarea>
+        <mat-hint>
+         Kann ein Bus hier wirklich schneller als 30 km/h fahren? Oder ist hier sowieso eine Ampel/Bushaltestelle etc. Bitte unterscheide Hauptverkehrszeit / Nebenzeiten.
+        </mat-hint>
+      </mat-form-field>
+      <div class="t30-full-width">
         <button mat-raised-button matTooltip="Diesen Straßenabschnitt löschen" (click)="deleteStrassenAbschnitt(i)" type="submit">
-          <mat-icon>delete</mat-icon>
+          Diesen Straßenabschnitt löschen <mat-icon>delete</mat-icon>
         </button>
       </div>
     </li>
@@ -112,17 +148,6 @@
     <button mat-raised-button color="primary" (click)="onSave()">
       <mat-icon>save</mat-icon> Speichern
     </button>
-    <button mat-raised-button
-  matTooltip="Speichern und hier Tempo 30 fordern."
-  (click)="onSaveAndFordern()"
-  type="submit">
-  <mat-icon>save</mat-icon>
-  <mat-icon>arrow_forward</mat-icon>
-  <mat-icon>mail</mat-icon>
-  <mat-icon>arrow_forward</mat-icon>
-  <mat-icon>sentiment_satisfied_alt</mat-icon>
-  Tempo 30 fordern
-</button>
     <button mat-raised-button routerLink="/einrichtung/view/{{id}}">
       <mat-icon>undo</mat-icon> Änderungen verwerfen
     </button>

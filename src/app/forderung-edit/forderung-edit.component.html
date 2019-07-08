@@ -1,0 +1,31 @@
+<h2>{{ ART_STR[einrichtung.art] }} {{ einrichtung.name}} {{einrichtung.zusatz || '' }}</h2>
+<div class="block">
+  <div class="line">
+    <div class="key">Name:</div>
+    <div class="value">{{ einrichtung.name}} {{einrichtung.zusatz || '' }}</div>
+  </div>
+  <div class="line">
+    <div class="key">Art:</div>
+    <div class="value">{{ ART_STR[einrichtung.art] }}</div>
+  </div>
+  <div class="line">
+    <div class="key">Anschrift:</div>
+    <div class="value">{{einrichtung.strasse}}, {{einrichtung.plz}} {{einrichtung.ort}}</div>
+  </div>
+  <yaga-map class="t30-map" zoom="17" [(lat)]="mapLat" [(lng)]="mapLon">
+    <yaga-tile-layer [(url)]="tileLayerUrl"></yaga-tile-layer>
+    <yaga-zoom-control></yaga-zoom-control>
+    <yaga-marker [(lat)]="newLat" [(lng)]="newLon">
+      <yaga-icon iconUrl="assets/marker-icon.png" shadowUrl="assets/marker-shadow.png" [(iconSize)]="marker.iconSize" [(iconAnchor)]="marker.iconAnchor" [(popupAnchor)]="marker.popupAnchor" [(tooltipAnchor)]="marker.tooltipAnchor" [(shadowSize)]="marker.shadowSize"></yaga-icon>
+    </yaga-marker>
+  </yaga-map>
+  </div>
+  <div class="line">
+  FIXME: Hier fehlt info zum Straßenabschnitt
+</div>
+<div class="line">
+  FIXME: Hier fehtl Info zum Antragssteller (Bezeichnung zur Einrichtung)
+</div>
+<div class="line">
+  FIXME: Hier fehlt E-Mail Text Edit
+</div>

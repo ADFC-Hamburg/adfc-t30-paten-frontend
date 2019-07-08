@@ -14,6 +14,15 @@ div.value {
   width: 70%;
   display: inline;
 }
+div.block {
+  width: 100%;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+div.tblock {
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
 div.half {
   width: 50%;
   display: inline-block;

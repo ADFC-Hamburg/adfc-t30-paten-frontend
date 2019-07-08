@@ -3,7 +3,9 @@
   max-width: 500px;
   width: 100%;
 }
-
+.t30-checkbox {
+  width: 100%;
+}
 .t30-full-width {
   width: 100%;
 }

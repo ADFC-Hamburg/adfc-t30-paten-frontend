@@ -41,7 +41,8 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
         t50: [true],
         angrenzendeStrassen: this.fb.array( [
           this.createAngrStrassenFbGroup()
-        ])
+        ]),
+        keineWeiterenStrassen: [false],
       });
       filteredUsers = [];
       strassenliste = [];
@@ -66,6 +67,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
       ];
       createAngrStrassenFbGroup() {
         return this.fb.group({
+            id: [''],
             name: ['', Validators.required],
             von: [''],
             bis: [''],

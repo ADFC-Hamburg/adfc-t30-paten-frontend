@@ -1,14 +1,5 @@
 <h2>{{ ART_STR[einrichtung.art] }} {{ einrichtung.name}} {{einrichtung.zusatz || '' }}</h2>
-<div class="half">
-  <yaga-map class="t30-map" zoom="17" [(lat)]="mapLat" [(lng)]="mapLon">
-    <yaga-tile-layer [(url)]="tileLayerUrl"></yaga-tile-layer>
-    <yaga-zoom-control></yaga-zoom-control>
-    <yaga-marker [(lat)]="newLat" [(lng)]="newLon">
-      <yaga-icon iconUrl="assets/marker-icon.png" shadowUrl="assets/marker-shadow.png" [(iconSize)]="marker.iconSize" [(iconAnchor)]="marker.iconAnchor" [(popupAnchor)]="marker.popupAnchor" [(tooltipAnchor)]="marker.tooltipAnchor" [(shadowSize)]="marker.shadowSize"></yaga-icon>
-    </yaga-marker>
-  </yaga-map>
-</div>
-<div class="half">
+<div class="block">
   <div class="line">
     <div class="key">Name:</div>
     <div class="value">{{ einrichtung.name}} {{einrichtung.zusatz || '' }}</div>
@@ -21,13 +12,39 @@
     <div class="key">Anschrift:</div>
     <div class="value">{{einrichtung.strasse}}, {{einrichtung.plz}} {{einrichtung.ort}}</div>
   </div>
+  <yaga-map class="t30-map" zoom="17" [(lat)]="mapLat" [(lng)]="mapLon">
+    <yaga-tile-layer [(url)]="tileLayerUrl"></yaga-tile-layer>
+    <yaga-zoom-control></yaga-zoom-control>
+    <yaga-marker [(lat)]="newLat" [(lng)]="newLon">
+      <yaga-icon iconUrl="assets/marker-icon.png" shadowUrl="assets/marker-shadow.png" [(iconSize)]="marker.iconSize" [(iconAnchor)]="marker.iconAnchor" [(popupAnchor)]="marker.popupAnchor" [(tooltipAnchor)]="marker.tooltipAnchor" [(shadowSize)]="marker.shadowSize"></yaga-icon>
+    </yaga-marker>
+  </yaga-map>
   <h2>Angrenzende Straßen mit Quell- und Zielverkehr und Haupteingängen</h2>
   <div *ngFor="let abschnitt of einrichtung.angrenzendeStrassen; let i = index;">
     <h3>{{ abschnitt.name}} Hausnummer {{ abschnitt.von }} bis {{ abschnitt.bis}}</h3>
+    <div class="tblock">
+    <div class="line">
+      <div class="key">Status:</div>
+      <div class="value">{{ STATUS[abschnitt.status] }}</div>
+    </div>
+    <div class="line">
+      {{abschnitt.anmerkung}}
+      </div>
+    <div class="line">
+      <div class="key">Busverkehr:</div>
+      <div class="value">{{ BUSVERKEHR[abschnitt.busverkehr] }}</div>
+    </div>
+    <div class="line" *ngIf="abschnitt.buslinien">
+      <div class="key">Buslinien:</div>
+      <div class="value">{{ abschnitt.buslinien }}</div>
+    </div>
+    <div class="line">
+      {{abschnitt.anmerkung_bus}}
+      </div>
     <button
        mat-raised-button
       matTooltip="Ich möchte hier Tempo 30 fordern."
-      routerLink="/einrichtung/t30fordern/{{id}}"
+      routerLink="/forderung/edit/{{abschnitt.id}}"
       type="submit">
       Tempo 30 fordern:
       <mat-icon>mail</mat-icon>
@@ -35,11 +52,12 @@
       <mat-icon>sentiment_satisfied_alt</mat-icon>
     </button>
   </div>
+  </div>
+</div>
   <button
      mat-raised-button
      matTooltip="Einrichtung bearbeiten oder Fehler korrigieren"
      routerLink="/einrichtung/edit/{{id}}"
      type="submit">
-     Einrichtung und Straßenabschnitt bearbeiten <mat-icon>edit</mat-icon>
+     Bearbeiten <mat-icon>edit</mat-icon>
   </button>
-</div>

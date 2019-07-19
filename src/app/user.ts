@@ -9,5 +9,6 @@
     ort: string;
     telefon: string;
     strasse: string;
-    password: string;
+    passwort1: string;
+    passwort2: string;
 }

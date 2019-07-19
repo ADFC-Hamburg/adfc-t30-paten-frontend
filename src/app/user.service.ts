@@ -26,11 +26,12 @@ export class UserService {
 	return this.http.post<any>(this.baseUrl + 'portal.php', {
             'concern': 'register',
             'username': user.email,
-            'password': user.password,
-	    'userdata': {
+            'password': user.passwort1,
+	    'userData': {
 		'firstName': user.vorname,
 		'lastName': user.nachname,
 		'street': user.strasse,
+		'number': '',
 		'city': user.ort,
 		'zip': user.plz,
 		'phone': user.telefon

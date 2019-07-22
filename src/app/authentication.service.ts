@@ -2,6 +2,9 @@
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { JwtHelperService } from "@auth0/angular-jwt";
+
+
 
 import { environment } from '../environments/environment';
 import { User } from './user';
@@ -15,6 +18,7 @@ export class AuthenticationService {
     constructor(
       private http: HttpClient,
       private router: Router,
+      private jwtHelper: JwtHelperService,
     ) {
         const o = localStorage.getItem('currentUser');
         let obj = null;
@@ -37,7 +41,9 @@ export class AuthenticationService {
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('access_token', user.token);
-                    this.currentUser = user;
+		    const decodedToken = this.jwtHelper.decodeToken(user.token)
+		    console.log(decodedToken);
+                    this.currentUser = decodedToken.data.username;
                 }
                 return user;
             }));
@@ -65,10 +71,10 @@ export class AuthenticationService {
             'concern': 'logout',
           }).subscribe(results => {
             console.log(results);
+            localStorage.removeItem('access_token');
+            this.router.navigate(['/login']);
           });
         }
         // remove user from local storage to log user out
-        localStorage.removeItem('access_token');
-        this.router.navigate(['/login']);
     }
 }

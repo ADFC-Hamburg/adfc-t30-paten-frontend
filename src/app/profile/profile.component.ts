@@ -54,6 +54,7 @@ export class ProfileComponent  extends CanDeactivateFormControlComponent impleme
 
       });
       this.userService.getCurrentUser().subscribe( data => {
+	  console.log(data);
         this.profileForm.patchValue(data);
       });
   }

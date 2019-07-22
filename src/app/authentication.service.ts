@@ -48,16 +48,24 @@ export class AuthenticationService {
                 return user;
             }));
     }
-    passwordReset(username: string) {
-      return this.http.post<any>(this.baseStubUrl + 'pw-reset.php', { username });
+
+    passwordReset(username: string, newPassword: string) {
+	return this.http.post<any>(this.baseUrl + 'portal.php', {
+            'concern': 'passwordChange',
+            'email': username,
+            'newPassword': newPassword,
+        });
     }
+
     getCurrentUser() {
       return this.currentUser;
     }
+
     authError() {
       this.currentUser = null;
       localStorage.removeItem('access_token');
     }
+
     getSessionId() {
       return this.currentUser.sessionId;
     }

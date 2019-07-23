@@ -5,7 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { T30sozialeEinrichtungComponent } from '../t30soziale-einrichtung/t30soziale-einrichtung.component';
 import { T30PatenService } from '../t30-paten.service';
 import { T30Pate } from '../t30pate';
-import { AuthenticationService } from '../authentication.service';
+import { User } from '../user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-t30paten',
@@ -14,6 +15,15 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class T30patenComponent implements OnInit {
   displayValidatorMarker = false;
+    public currentUser: User = {
+	firstName: '',
+	lastName: '',
+	user: '',
+	city: '',
+	zip: '',
+	street: '',
+	phone: '',
+    };
   id = -1;
   t30pate = this.fb.group({
     id: [-1],
@@ -47,25 +57,18 @@ export class T30patenComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private service: T30PatenService,
-    private authenticationService: AuthenticationService,
+    private userService: UserService,
 ) { }
 
-  getFirstName() {
-    return this.authenticationService.getCurrentUser().firstName;
-  }
-
-  getLastName() {
-    return this.authenticationService.getCurrentUser().lastName;
-  }
-  getEMail() {
-    return this.authenticationService.getCurrentUser().eMail;
-  }
   mainMenu() {
     // FIXME Fragen ob Änderungen wirklich verworfen werden sollen
     console.log(this.t30pate.dirty);
       this.router.navigate(['main']);
   }
-  ngOnInit() {
+    ngOnInit() {
+	this.userService.getCurrentUser().subscribe(user => {
+	    this.currentUser=user;
+	});
     this.route.params.subscribe(params => {
       console.log('x1', params);
       this.id = params['id'];
@@ -91,7 +94,7 @@ export class T30patenComponent implements OnInit {
       }
     });
     this.t30pate.valueChanges.subscribe(val => {
-      const pate = this.authenticationService.getCurrentUser();
+      const pate = this.currentUser;
       const einr = val.einrichtung;
       const newSubject = `Bitte um Prüfung von Tempo 30 vor der Einrichtung ${einr.name} ${einr.zusatz}`;
       if ((!this.t30pate.get('email').get('subject').dirty) && (newSubject !== val.email.subject)) {

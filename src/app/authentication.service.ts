@@ -3,17 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { JwtHelperService } from "@auth0/angular-jwt";
-
-
-
 import { environment } from '../environments/environment';
-import { User } from './user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     baseUrl = environment.API_BASE_URL;
     baseStubUrl = environment.API_STUB_BASE_URL;
-    public currentUser: User;
+    public currentUser: string;
 
     constructor(
       private http: HttpClient,
@@ -57,7 +53,7 @@ export class AuthenticationService {
         });
     }
 
-    getCurrentUser() {
+    getCurrentUserId() {
       return this.currentUser;
     }
 
@@ -66,9 +62,6 @@ export class AuthenticationService {
       localStorage.removeItem('access_token');
     }
 
-    getSessionId() {
-      return this.currentUser.sessionId;
-    }
     isLoggedIn(): boolean {
       return (this.currentUser !== null);
     }

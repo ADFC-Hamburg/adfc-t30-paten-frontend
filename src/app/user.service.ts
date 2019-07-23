@@ -23,7 +23,7 @@ export class UserService {
     }
 
     getCurrentUser() {
-	const currentUser = this.authenticationService.getCurrentUser();
+	const currentUser = this.authenticationService.getCurrentUserId();
 	return this.http.get(this.baseUrl +
 			     'crud.php?entity=userdata&filter=[user,\''+
 			     currentUser+
@@ -38,7 +38,7 @@ export class UserService {
     }
 
     update(user: User) {
-        return this.http.put(this.baseStubUrl + '/change_user.php?id=' + user.id, user);
+        return this.http.put(this.baseUrl + '/crud.php?entity=userdata',user);
     }
 
     delete(id: number) {

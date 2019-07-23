@@ -40,7 +40,7 @@ export class ProfileComponent  extends CanDeactivateFormControlComponent impleme
         password2: [{value: '', disabled: true}, [ Validators.required ] ],
     }, {validator: this.checkPasswords});
      this.profileForm.get('change_pw').valueChanges.subscribe(value => {
-       const pwFields = [  'passwort1', 'passwort2' ];
+       const pwFields = [  'password1', 'password2' ];
        if (value) {
          pwFields.forEach( field => {
            this.profileForm.controls[field].enable();
@@ -84,7 +84,7 @@ export class ProfileComponent  extends CanDeactivateFormControlComponent impleme
       }
       console.log(this.router); // FIXME
       this.loading = true;
-     this.userService.register(this.profileForm.value)
+     this.userService.update(this.profileForm.value)
           .pipe(first())
           .subscribe(
               data => {

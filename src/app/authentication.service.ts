@@ -52,6 +52,12 @@ export class AuthenticationService {
             'newPassword': newPassword,
         });
     }
+    changePassword(newPassword: string) {
+	return this.http.post<any>(this.baseUrl + 'portal.php', {
+            'concern': 'passwordChange',
+            'newPassword': newPassword,
+        });
+    }
 
     getCurrentUserId() {
       return this.currentUser;

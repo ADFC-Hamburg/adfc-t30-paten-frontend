@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { CanDeactivateFormControlComponent } from '../can-deactivate-form-control/can-deactivate-form-control.component';
 import { UserService } from '../user.service';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-profile',
@@ -19,6 +20,7 @@ export class ProfileComponent  extends CanDeactivateFormControlComponent impleme
     private formBuilder: FormBuilder,
     private router: Router,
     private userService: UserService,
+    private authenticationService: AuthenticationService,  
     ) {
       super();
    }
@@ -84,11 +86,20 @@ export class ProfileComponent  extends CanDeactivateFormControlComponent impleme
       }
       console.log(this.router); // FIXME
       this.loading = true;
-     this.userService.update(this.profileForm.value)
+
+      this.userService.update(this.profileForm.value)
           .pipe(first())
           .subscribe(
               data => {
-                  this.router.navigate(['/token/:fehler']);
+		  if (this.profileForm.get('change_pw').value) {
+		      console.log(this.authenticationService.changePassword);
+		      this.authenticationService.changePassword(this.profileForm.get('password1').value).subscribe(
+			  data2 => {
+			      this.router.navigate(['/main']);
+			  });
+		  } else {
+  		      this.router.navigate(['/main']);
+		  }
               },
               error => {
                   this.loading = false;

@@ -51,14 +51,14 @@ export class T30patenComponent implements OnInit {
 ) { }
 
   getFirstName() {
-    return this.authenticationService.getCurrentUser().firstName;
+    return this.authenticationService.getCurrentUser().vorname;
   }
 
   getLastName() {
-    return this.authenticationService.getCurrentUser().lastName;
+    return this.authenticationService.getCurrentUser().nachname;
   }
   getEMail() {
-    return this.authenticationService.getCurrentUser().eMail;
+    return this.authenticationService.getCurrentUser().email;
   }
   mainMenu() {
     // FIXME Fragen ob Änderungen wirklich verworfen werden sollen
@@ -99,7 +99,7 @@ export class T30patenComponent implements OnInit {
       }
       /* tslint:disable:max-line-length */
       const newEMailText = `Sehr geehrte Damen und Herren,
-mein Name ist ${pate.firstName} ${pate.lastName} und mir ist aufgefallen, dass an der ${einr.name}, ${einr.zusatz} leider Tempo 50 ist.
+mein Name ist ${pate.vorname} ${pate.nachname} und mir ist aufgefallen, dass an der ${einr.name}, ${einr.zusatz} leider Tempo 50 ist.
 Ich fordere Sie auf hier Tempo 30 einzuführen.
 
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
@@ -124,7 +124,7 @@ Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lo
 
 Viele Grüße
 
-${pate.firstName} ${pate.lastName}
+${pate.vorname} ${pate.nachname}
 
 --
 Diese E-Mail wurde durch das T30-Tool des ADFC-Hamburg verschickt, mehr Infos dazu unter

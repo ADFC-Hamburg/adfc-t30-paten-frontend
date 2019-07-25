@@ -33,8 +33,23 @@ export class UserService {
     }
 
     register(user: User) {
-        const merged = Object.assign(user, {concern: 'register'})
-        return this.http.post(this.baseUrl + '/portal.php', merged);
+	console.log(user);
+	return this.http.post<any>(this.baseUrl + 'portal.php', {
+            'concern': 'register',
+            'username': user.email,
+            'password': user.passwort1,
+	    'userData': {
+		'firstName': user.vorname,
+		'lastName': user.nachname,
+		'street': user.strasse,
+		'number': '',
+		'city': user.ort,
+		'zip': user.plz,
+		'phone': user.telefon
+	    }
+        });
+
+
     }
 
     update(user: User) {

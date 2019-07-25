@@ -6,5 +6,4 @@
     zip: string;
     street: string;
     phone: string;
-
 }

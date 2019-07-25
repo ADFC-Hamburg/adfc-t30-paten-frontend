@@ -28,28 +28,28 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            vorname: ['', Validators.required],
-            nachname: ['', Validators.required],
-            email: ['', [ Validators.required, Validators.email ]],
-            strasse: ['', Validators.minLength(3)],
-            plz: ['', Validators.pattern(/^\d\d\d\d\d$/)],
-            ort: ['', Validators.minLength(3)],
-            telefon: ['', [  Validators.maxLength(20), Validators.minLength(4), Validators.pattern(/^[0-9\- \/]*$/)]],
+            firstName: ['', Validators.required],
+            lastName: ['', Validators.required],
+            user: ['', [ Validators.required, Validators.email ]],
+            street: ['', Validators.minLength(3)],
+            zip: ['', Validators.pattern(/^\d\d\d\d\d$/)],
+            city: ['', Validators.minLength(3)],
+            phone: ['', [  Validators.maxLength(20), Validators.minLength(4), Validators.pattern(/^[0-9\- \/]*$/)]],
             speichern: [true, Validators.required],
             mailingliste: [false, Validators.required],
             newsletter: [false, Validators.required],
-            passwort1: ['', [Validators.required, Validators.minLength(5)]],
-            passwort2: ['', Validators.required],
+            password1: ['', [Validators.required, Validators.minLength(5)]],
+            password2: ['', Validators.required],
         }, {validator: this.checkPasswords});
     }
     checkPasswords(fg: FormGroup) { // here we have the 'passwords' group
-      const pw1 = fg.get('passwort1').value;
-      const pw2 = fg.get('passwort2').value;
+      const pw1 = fg.get('password1').value;
+      const pw2 = fg.get('password2').value;
       const samePw = (pw1 === pw2);
       if (samePw) {
-        fg.get('passwort2').setErrors(null);
+        fg.get('password2').setErrors(null);
       } else {
-        fg.get('passwort2').setErrors({
+        fg.get('password2').setErrors({
            notMatched: true
         });
       }
@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit {
         }
         console.log(this.router); // FIXME
         this.loading = true;
-       this.userService.register(this.registerForm.value)
+	this.userService.register(this.registerForm.value, this.registerForm.get('password1').value)
             .pipe(first())
             .subscribe(
                 data => {

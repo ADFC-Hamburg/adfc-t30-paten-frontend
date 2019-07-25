@@ -32,20 +32,19 @@ export class UserService {
 			     }));
     }
 
-    register(user: User) {
+    register(user: User, password: string) {
 	console.log(user);
 	return this.http.post<any>(this.baseUrl + 'portal.php', {
             'concern': 'register',
-            'username': user.email,
-            'password': user.passwort1,
+            'username': user.user,
+            'password': password,
 	    'userData': {
-		'firstName': user.vorname,
-		'lastName': user.nachname,
-		'street': user.strasse,
-		'number': '',
-		'city': user.ort,
-		'zip': user.plz,
-		'phone': user.telefon
+		'firstName': user.firstName,
+		'lastName': user.lastName,
+		'street': user.street,
+		'city': user.city,
+		'zip': user.zip,
+		'phone': user.phone
 	    }
         });
 

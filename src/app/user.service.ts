@@ -1,13 +1,18 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
+import { map } from 'rxjs/operators';
 import { User } from './user';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
   baseUrl = environment.API_BASE_URL;
   baseStubUrl = environment.API_STUB_BASE_URL;
-    constructor(private http: HttpClient) { }
+    constructor(
+	private http: HttpClient,
+	private authenticationService: AuthenticationService,
+    ) { }
 
     getAll() {
         return this.http.get<User[]>(this.baseStubUrl + '/get_all_users.php');
@@ -18,23 +23,28 @@ export class UserService {
     }
 
     getCurrentUser() {
-      return this.http.get(this.baseStubUrl + '/get_current_user.php');
+	const currentUser = this.authenticationService.getCurrentUserId();
+	return this.http.get(this.baseUrl +
+			     'crud.php?entity=userdata&filter=[user,\''+
+			     currentUser+
+			     '\']').pipe(map(userdata => {
+				 return userdata[0];
+			     }));
     }
 
-    register(user: User) {
+    register(user: User, password: string) {
 	console.log(user);
 	return this.http.post<any>(this.baseUrl + 'portal.php', {
             'concern': 'register',
-            'username': user.email,
-            'password': user.passwort1,
+            'username': user.user,
+            'password': password,
 	    'userData': {
-		'firstName': user.vorname,
-		'lastName': user.nachname,
-		'street': user.strasse,
-		'number': '',
-		'city': user.ort,
-		'zip': user.plz,
-		'phone': user.telefon
+		'firstName': user.firstName,
+		'lastName': user.lastName,
+		'street': user.street,
+		'city': user.city,
+		'zip': user.zip,
+		'phone': user.phone
 	    }
         });
 
@@ -42,7 +52,7 @@ export class UserService {
     }
 
     update(user: User) {
-        return this.http.put(this.baseStubUrl + '/change_user.php?id=' + user.id, user);
+        return this.http.put(this.baseUrl + '/crud.php?entity=userdata',user);
     }
 
     delete(id: number) {

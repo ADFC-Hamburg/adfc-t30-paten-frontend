@@ -6,13 +6,23 @@
   <mat-form-field>
     <input matInput type="email" placeholder="E-Mail" autocomplete="email" formControlName="email" required>
   </mat-form-field>
-  <mat-form-field>
-    <input matInput type="password" placeholder="Passwort" autocomplete="current-password" formControlName="password" required>
-  </mat-form-field>
-        <mat-checkbox formControlName="passwordResend">
-            Ich habe mein Passwort vergessen.
-            </mat-checkbox>
+    <mat-form-field *ngIf="!passwordResend">
+      <input matInput type="password" placeholder="Passwort" autocomplete="current-password" formControlName="password" required>
 
+  </mat-form-field>
+  <mat-form-field *ngIf="passwordResend">
+    <input matInput type="password" placeholder="Neues Passwort eingeben" autocomplete="current-password" formControlName="password1" required>
+    <mat-error class="error-message" *ngIf="checkValidateError('password1', 'required')">Passwort erforderlich</mat-error>
+    <mat-error class="error-message" *ngIf="checkValidateError('password1', 'minlength')">Passwort zu kurz</mat-error>
+  </mat-form-field>
+    <mat-form-field *ngIf="passwordResend">
+      <input matInput type="password" placeholder="Passwort wiederholung" autocomplete="current-password" formControlName="password2" required>
+      <mat-error class="error-message"  *ngIf="checkValidateError('password2', 'notMatched')"><mat-icon>warning</mat-icon>Passwörter sind nicht identisch.</mat-error>
+
+  </mat-form-field>
+  <mat-checkbox formControlName="passwordResend">
+    Ich habe mein Passwort vergessen.
+  </mat-checkbox>
   <mat-action-row>
     <button mat-raised-button color="primary" type="submit">
       <mat-icon>send</mat-icon> Anmelden

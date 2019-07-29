@@ -2,19 +2,19 @@
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
+import { JwtHelperService } from "@auth0/angular-jwt";
 import { environment } from '../environments/environment';
-import { User } from './user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     baseUrl = environment.API_BASE_URL;
     baseStubUrl = environment.API_STUB_BASE_URL;
-    public currentUser: User;
+    public currentUser: string;
 
     constructor(
       private http: HttpClient,
       private router: Router,
+      private jwtHelper: JwtHelperService,
     ) {
         const o = localStorage.getItem('currentUser');
         let obj = null;
@@ -37,24 +37,37 @@ export class AuthenticationService {
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('access_token', user.token);
-                    this.currentUser = user;
+		    const decodedToken = this.jwtHelper.decodeToken(user.token)
+		    console.log(decodedToken);
+                    this.currentUser = decodedToken.data.username;
                 }
                 return user;
             }));
     }
-    passwordReset(username: string) {
-      return this.http.post<any>(this.baseStubUrl + 'pw-reset.php', { username });
+
+    passwordReset(username: string, newPassword: string) {
+	return this.http.post<any>(this.baseUrl + 'portal.php', {
+            'concern': 'passwordChange',
+            'email': username,
+            'newPassword': newPassword,
+        });
     }
-    getCurrentUser() {
+    changePassword(newPassword: string) {
+	return this.http.post<any>(this.baseUrl + 'portal.php', {
+            'concern': 'passwordChange',
+            'newPassword': newPassword,
+        });
+    }
+
+    getCurrentUserId() {
       return this.currentUser;
     }
+
     authError() {
       this.currentUser = null;
       localStorage.removeItem('access_token');
     }
-    getSessionId() {
-      return this.currentUser.sessionId;
-    }
+
     isLoggedIn(): boolean {
       return (this.currentUser !== null);
     }
@@ -65,10 +78,10 @@ export class AuthenticationService {
             'concern': 'logout',
           }).subscribe(results => {
             console.log(results);
+            localStorage.removeItem('access_token');
+            this.router.navigate(['/login']);
           });
         }
         // remove user from local storage to log user out
-        localStorage.removeItem('access_token');
-        this.router.navigate(['/login']);
     }
 }

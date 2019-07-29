@@ -2,65 +2,60 @@
   <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <mat-form-field class="t30-half-width">
-          <input matInput placeholder="Vorname" formControlName="vorname" autocomplete="given-name" required>
-          <mat-error class="error-message" *ngIf="checkValidateError('vorname', 'required')">Vorname erforderlich</mat-error>
+          <input matInput placeholder="Vorname" formControlName="firstName" autocomplete="given-name" required>
+          <mat-error class="error-message" *ngIf="checkValidateError('firstName', 'required')">Vorname erforderlich</mat-error>
         </mat-form-field>
         <mat-form-field class="t30-half-width">
-          <input matInput placeholder="Nachname" formControlName="nachname" autocomplete="family-name" required>
-          <mat-error class="error-message" *ngIf="checkValidateError('nachname', 'required')">Nachname erforderlich</mat-error>
+          <input matInput placeholder="Nachname" formControlName="lastName" autocomplete="family-name" required>
+          <mat-error class="error-message" *ngIf="checkValidateError('lastName', 'required')">Nachname erforderlich</mat-error>
         </mat-form-field>
         <mat-form-field class="t30-full-width">
-          <input matInput placeholder="E-Mail" type="email" formControlName="email" autocomplete="email" required>
-          <mat-error class="error-message" *ngIf="checkValidateError('email', 'required')">E-Mail erforderlich</mat-error>
-          <mat-error class="error-message" *ngIf="checkValidateError('email', 'email')">ungültige E-Mail</mat-error>
+          <input matInput placeholder="E-Mail" type="email" formControlName="user" autocomplete="email" required>
+          <mat-error class="error-message" *ngIf="checkValidateError('user', 'required')">E-Mail erforderlich</mat-error>
+          <mat-error class="error-message" *ngIf="checkValidateError('user', 'email')">ungültige E-Mail</mat-error>
         </mat-form-field>
         <mat-checkbox formControlName="change_pw">
           Ich möchte mein Passwort ändern
         </mat-checkbox>
         <mat-form-field class="t30-full-width">
-          <input matInput placeholder="Altes Passwort" type="password" formControlName="oldpasswort" required>
-          <mat-error class="error-message" *ngIf="checkValidateError('passwort1', 'required')">Passwort erforderlich</mat-error>
-          <mat-error class="error-message" *ngIf="checkValidateError('passwort1', 'minlength')">Passwort zu kurz</mat-error>
+          <input matInput placeholder="Neues Passwort" type="password" formControlName="password1" required>
+          <mat-error class="error-message" *ngIf="checkValidateError('password1', 'required')">Passwort erforderlich</mat-error>
+          <mat-error class="error-message" *ngIf="checkValidateError('password1', 'minlength')">Passwort zu kurz</mat-error>
         </mat-form-field>
         <mat-form-field class="t30-full-width">
-          <input matInput placeholder="Neues Passwort" type="password" formControlName="passwort1" required>
-          <mat-error class="error-message" *ngIf="checkValidateError('passwort1', 'required')">Passwort erforderlich</mat-error>
-          <mat-error class="error-message" *ngIf="checkValidateError('passwort1', 'minlength')">Passwort zu kurz</mat-error>
+          <input matInput placeholder="Neues Passwort wiederholen" type="password" formControlName="password2" required>
+          <mat-error class="error-message"  *ngIf="checkValidateError('password2', 'notMatched')"><mat-icon>warning</mat-icon>Passwörter sind nicht identisch.</mat-error>
         </mat-form-field>
         <mat-form-field class="t30-full-width">
-          <input matInput placeholder="Neues Passwort wiederholen" type="password" formControlName="passwort2" required>
-          <mat-error class="error-message"  *ngIf="checkValidateError('passwort2', 'notMatched')"><mat-icon>warning</mat-icon>Passwörter sind nicht identisch.</mat-error>
-        </mat-form-field>
-        <mat-form-field class="t30-full-width">
-          <input matInput placeholder="Straße und Hausnummer" formControlName="strasse" autocomplete="street-address">
-          <mat-error class="error-message" *ngIf="checkValidateError('strasse', 'minlength')">zu kurz</mat-error>
+          <input matInput placeholder="Straße und Hausnummer" formControlName="street" autocomplete="street-address">
+          <mat-error class="error-message" *ngIf="checkValidateError('street', 'minlength')">zu kurz</mat-error>
         </mat-form-field>
         <mat-form-field class="t30-half-width">
-          <input matInput placeholder="PLZ" formControlName="plz" autocomplete="postal-code">
-          <mat-error class="error-message" *ngIf="checkValidateError('plz', 'pattern')">PLZ besteht aus 5 Ziffern</mat-error>
+          <input matInput placeholder="PLZ" formControlName="zip" autocomplete="postal-code">
+          <mat-error class="error-message" *ngIf="checkValidateError('zip', 'pattern')">PLZ besteht aus 5 Ziffern</mat-error>
         </mat-form-field>
         <mat-form-field class="t30-half-width">
-          <input matInput placeholder="Ort" formControlName="ort" autocomplete="address-level1">
-          <mat-error class="error-message" *ngIf="checkValidateError('ort', 'minlength')">zu kurz</mat-error>
+          <input matInput placeholder="Ort" formControlName="city" autocomplete="address-level1">
+          <mat-error class="error-message" *ngIf="checkValidateError('city', 'minlength')">zu kurz</mat-error>
         </mat-form-field>
         <mat-form-field class="t30-full-width">
-          <input matInput placeholder="Telefon" formControlName="telefon" autocomplete="tel">
-          <mat-error class="error-message" *ngIf="checkValidateError('telefon', 'minlength')">zu kurz</mat-error>
-          <mat-error class="error-message" *ngIf="checkValidateError('telefon', 'pattern')">unerlaubte Zeichen</mat-error>
+          <input matInput placeholder="Telefon" formControlName="phone" autocomplete="tel">
+          <mat-error class="error-message" *ngIf="checkValidateError('phone', 'minlength')">zu kurz</mat-error>
+          <mat-error class="error-message" *ngIf="checkValidateError('phone', 'pattern')">unerlaubte Zeichen</mat-error>
         </mat-form-field>
 
         <mat-action-row>
-          <button mat-raised-button color="primary" type="submit" [disabled]="!(profileForm.get('speichern').value)">
+          <button mat-raised-button color="primary" type="submit" [disabled]="!(profileForm.get('save').value)">
             <mat-icon>save</mat-icon> Speichern
           </button>
-          <button mat-raised-button color="basic" type="submit" [disabled]="!(profileForm.get('speichern').value)">
+          <button mat-raised-button color="basic" type="submit" [disabled]="!(profileForm.get('save').value)">
             <mat-icon>email</mat-icon> ADFC Newsletter verwalten
           </button>
-          <button mat-raised-button color="basic" type="submit" [disabled]="!(profileForm.get('speichern').value)">
+          <button mat-raised-button color="basic" type="submit" [disabled]="!(profileForm.get('save').value)">
             <mat-icon>email</mat-icon> Mailingliste verwalten
           </button>
 
-          <button mat-raised-button color="warn" type="submit" [disabled]="!(profileForm.get('speichern').value)">
+          <button mat-raised-button color="warn" type="submit" [disabled]="!(profileForm.get('save').value)">
             <mat-icon>delete_forever</mat-icon> Profil Löschen
             </button>
       </mat-action-row>

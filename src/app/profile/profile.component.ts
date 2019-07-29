@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { CanDeactivateFormControlComponent } from '../can-deactivate-form-control/can-deactivate-form-control.component';
 import { UserService } from '../user.service';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-profile',
@@ -19,6 +20,7 @@ export class ProfileComponent  extends CanDeactivateFormControlComponent impleme
     private formBuilder: FormBuilder,
     private router: Router,
     private userService: UserService,
+    private authenticationService: AuthenticationService,  
     ) {
       super();
    }
@@ -27,21 +29,20 @@ export class ProfileComponent  extends CanDeactivateFormControlComponent impleme
   }
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
-        vorname: ['', Validators.required],
-        nachname: ['', Validators.required],
-        email: ['', [ Validators.required, Validators.email ]],
-        strasse: ['', Validators.minLength(3)],
-        plz: ['', Validators.pattern(/^\d\d\d\d\d$/)],
-        ort: ['', Validators.minLength(3)],
-        telefon: ['', [  Validators.maxLength(20), Validators.minLength(4), Validators.pattern(/^[0-9\- \/]*$/)]],
-        speichern: [true, Validators.required],
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        user: ['', [ Validators.required, Validators.email ]],
+        street: ['', Validators.minLength(3)],
+        zip: ['', Validators.pattern(/^\d\d\d\d\d$/)],
+        city: ['', Validators.minLength(3)],
+        phone: ['', [  Validators.maxLength(20), Validators.minLength(4), Validators.pattern(/^[0-9\- \/]*$/)]],
+        save: [true, Validators.required],
         change_pw: [false, Validators.required],
-        oldpasswort: [ {value: '', disabled: true}, [ Validators.required ] ],
-        passwort1: [{value: '', disabled: true}, [ Validators.required, Validators.minLength(5)]],
-        passwort2: [{value: '', disabled: true}, [ Validators.required ] ],
+        password1: [{value: '', disabled: true}, [ Validators.required, Validators.minLength(5)]],
+        password2: [{value: '', disabled: true}, [ Validators.required ] ],
     }, {validator: this.checkPasswords});
      this.profileForm.get('change_pw').valueChanges.subscribe(value => {
-       const pwFields = [ 'oldpasswort', 'passwort1', 'passwort2' ];
+       const pwFields = [  'password1', 'password2' ];
        if (value) {
          pwFields.forEach( field => {
            this.profileForm.controls[field].enable();
@@ -54,17 +55,18 @@ export class ProfileComponent  extends CanDeactivateFormControlComponent impleme
 
       });
       this.userService.getCurrentUser().subscribe( data => {
+	  console.log(data);
         this.profileForm.patchValue(data);
       });
   }
   checkPasswords(fg: FormGroup) { // here we have the 'passwords' group
-    const pw1 = fg.get('passwort1').value;
-    const pw2 = fg.get('passwort2').value;
+    const pw1 = fg.get('password1').value;
+    const pw2 = fg.get('password2').value;
     const samePw = (pw1 === pw2);
     if (samePw) {
-      fg.get('passwort2').setErrors(null);
+      fg.get('password2').setErrors(null);
     } else {
-      fg.get('passwort2').setErrors({
+      fg.get('password2').setErrors({
          notMatched: true
       });
     }
@@ -84,11 +86,20 @@ export class ProfileComponent  extends CanDeactivateFormControlComponent impleme
       }
       console.log(this.router); // FIXME
       this.loading = true;
-     this.userService.register(this.profileForm.value)
+
+      this.userService.update(this.profileForm.value)
           .pipe(first())
           .subscribe(
               data => {
-                  this.router.navigate(['/token/:fehler']);
+		  if (this.profileForm.get('change_pw').value) {
+		      console.log(this.authenticationService.changePassword);
+		      this.authenticationService.changePassword(this.profileForm.get('password1').value).subscribe(
+			  data2 => {
+			      this.router.navigate(['/main']);
+			  });
+		  } else {
+  		      this.router.navigate(['/main']);
+		  }
               },
               error => {
                   this.loading = false;

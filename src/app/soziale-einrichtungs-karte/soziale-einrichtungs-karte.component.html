@@ -1,20 +1,27 @@
 <h2>Karte der sozialen Einrichtungen</h2>
+<mat-action-row>
+  <button mat-raised-button color="primary" routerLink="/einrichtung/edit/-1" type="submit">
+    <mat-icon>add_box</mat-icon> Fehlende soziale Einrichtung einfügen
+  </button>
+</mat-action-row> <br>
 <div class="t30-map-div">
   <yaga-map class="adfc-map" [(zoom)]="mapZoom" [(lat)]="mapLat" [(lng)]="mapLon">
     <yaga-tile-layer [(url)]="tileLayerUrl"></yaga-tile-layer>
-    <yaga-geojson
-      [data]="geoData"
-      [pointToLayer]="pointToLayerFunc"
-    >
-    <yaga-popup (open)="popupOpen($event)" minWidth="350" maxWidth="500">
-      <b>{{ popupProperties.Name }}</b><br>
-      {{ popupProperties.Strasse}} {{popupProperties.Nummer}}, {{ popupProperties.PLZ }} Hamburg <br>
-      <div [matTooltip]="popupProperties.tempo30 |t30StatusLongText"><img class="starImg" [src]="popupProperties.tempo30 |t30StatusStarSvgUrl">{{ popupProperties.tempo30 |t30StatusShortText}} <mat-icon>help</mat-icon></div><br>
-      <app-soz-einr-buttons [id]="popupProperties.id" [tempo30]="popupProperties.tempo30"></app-soz-einr-buttons>
-    </yaga-popup>
-  </yaga-geojson>
+    <yaga-geojson [data]="geoData" [pointToLayer]="pointToLayerFunc">
+      <yaga-popup (open)="popupOpen($event)" minWidth="350" maxWidth="500">
+        <b>{{ popupProperties.Name }}</b><br>
+        {{ popupProperties.Strasse}} {{popupProperties.Nummer}}, {{ popupProperties.PLZ }} Hamburg <br>
+        <div [matTooltip]="popupProperties.tempo30 |t30StatusLongText"><img class="starImg" [src]="popupProperties.tempo30 |t30StatusStarSvgUrl">{{ popupProperties.tempo30 |t30StatusShortText}}
+          <mat-icon>help</mat-icon>
+        </div><br>
+        <app-soz-einr-buttons [id]="popupProperties.id" [tempo30]="popupProperties.tempo30"></app-soz-einr-buttons>
+      </yaga-popup>
+    </yaga-geojson>
     <yaga-zoom-control></yaga-zoom-control>
-
   </yaga-map>
-
 </div>
+<mat-action-row>
+  <button mat-raised-button color="primary" routerLink="/einrichtung/edit/-1" type="submit">
+    <mat-icon>add_box</mat-icon> Fehlende soziale Einrichtung einfügen
+  </button>
+</mat-action-row> <br>

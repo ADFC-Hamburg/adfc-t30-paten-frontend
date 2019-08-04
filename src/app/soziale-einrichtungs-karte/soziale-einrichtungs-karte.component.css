@@ -1,6 +1,8 @@
 .t30-map-div {
     width: 90%;
     height: 500px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 .adfc-map {
   height: 100%;

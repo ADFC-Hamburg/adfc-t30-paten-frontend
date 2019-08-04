@@ -2,7 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { JwtHelperService } from "@auth0/angular-jwt";
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -16,16 +16,11 @@ export class AuthenticationService {
       private router: Router,
       private jwtHelper: JwtHelperService,
     ) {
-        const o = localStorage.getItem('currentUser');
-        let obj = null;
-        if (o) {
-         if (o !== '[object Object]') {
-          obj  = JSON.parse(o);
-          }
-        }
-        this.currentUser = obj;
+        const o = localStorage.getItem('access_token');
+        const decodedToken = this.jwtHelper.decodeToken(o);
+        console.log(decodedToken);
+        this.currentUser = decodedToken.data.username;
     }
-
     login(username: string, password: string) {
         return this.http.post<any>(this.baseUrl + 'portal.php', {
           'concern': 'login',
@@ -37,8 +32,8 @@ export class AuthenticationService {
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('access_token', user.token);
-		    const decodedToken = this.jwtHelper.decodeToken(user.token)
-		    console.log(decodedToken);
+                    const decodedToken = this.jwtHelper.decodeToken(user.token);
+                    console.log(decodedToken);
                     this.currentUser = decodedToken.data.username;
                 }
                 return user;
@@ -46,14 +41,14 @@ export class AuthenticationService {
     }
 
     passwordReset(username: string, newPassword: string) {
-	return this.http.post<any>(this.baseUrl + 'portal.php', {
+        return this.http.post<any>(this.baseUrl + 'portal.php', {
             'concern': 'passwordChange',
             'email': username,
             'newPassword': newPassword,
         });
     }
     changePassword(newPassword: string) {
-	return this.http.post<any>(this.baseUrl + 'portal.php', {
+        return this.http.post<any>(this.baseUrl + 'portal.php', {
             'concern': 'passwordChange',
             'newPassword': newPassword,
         });
@@ -81,7 +76,9 @@ export class AuthenticationService {
             localStorage.removeItem('access_token');
             this.router.navigate(['/login']);
           });
+        } else {
+          localStorage.removeItem('access_token');
+          this.router.navigate(['/login']);
         }
-        // remove user from local storage to log user out
     }
 }

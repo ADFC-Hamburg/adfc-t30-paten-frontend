@@ -8,8 +8,10 @@ import { CanDeactivateComponent } from './can-deactivate/can-deactivate.componen
 })
 export class CanDeactivateGuard implements CanDeactivate<CanDeactivateComponent>   {
   canDeactivate(component: CanDeactivateComponent): boolean {
-    if (!component.canDeactivate()) {
+    if (typeof component.canDeactivate === 'function') {
+      if (!component.canDeactivate()) {
         return confirm('Ungesicherte Änderungen werden nicht gespeichert');
+      }
     }
     return true;
   }

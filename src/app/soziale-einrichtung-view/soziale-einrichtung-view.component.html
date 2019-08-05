@@ -23,41 +23,39 @@
   <div *ngFor="let abschnitt of einrichtung.angrenzendeStrassen; let i = index;">
     <h3>{{ abschnitt.name}} Hausnummer {{ abschnitt.von }} bis {{ abschnitt.bis}}</h3>
     <div class="tblock">
-    <div class="line">
-      <div class="key">Status:</div>
-      <div class="value">{{ STATUS[abschnitt.status] }}</div>
-    </div>
-    <div class="line">
-      {{abschnitt.anmerkung}}
+      <div class="line">
+        <div class="key">Status:</div>
+        <div class="value">{{ STATUS[abschnitt.status] }}</div>
       </div>
-    <div class="line">
-      <div class="key">Busverkehr:</div>
-      <div class="value">{{ BUSVERKEHR[abschnitt.busverkehr] }}</div>
-    </div>
-    <div class="line" *ngIf="abschnitt.buslinien">
-      <div class="key">Buslinien:</div>
-      <div class="value">{{ abschnitt.buslinien }}</div>
-    </div>
-    <div class="line">
-      {{abschnitt.anmerkung_bus}}
+      <div class="line">
+        {{abschnitt.anmerkung}}
       </div>
-    <button
-       mat-raised-button
-      matTooltip="Ich möchte hier Tempo 30 fordern."
-      routerLink="/forderung/edit/{{abschnitt.id}}"
-      type="submit">
-      Tempo 30 fordern:
-      <mat-icon>mail</mat-icon>
-      <mat-icon>arrow_forward</mat-icon>
-      <mat-icon>sentiment_satisfied_alt</mat-icon>
-    </button>
+      <div class="line">
+        <div class="key">Busverkehr:</div>
+        <div class="value">{{ BUSVERKEHR[abschnitt.busverkehr] }}</div>
+      </div>
+      <div class="line" *ngIf="abschnitt.buslinien">
+        <div class="key">Buslinien:</div>
+        <div class="value">{{ abschnitt.buslinien }}</div>
+      </div>
+      <div class="line">
+        {{abschnitt.anmerkung_bus}}
+      </div>
+      <button mat-raised-button matTooltip="Ich möchte hier Tempo 30 fordern." routerLink="/forderung/edit/{{abschnitt.id}}" type="submit">
+        Tempo 30 fordern:
+        <mat-icon>mail</mat-icon>
+        <mat-icon>arrow_forward</mat-icon>
+        <mat-icon>sentiment_satisfied_alt</mat-icon>
+      </button>
+    </div>
   </div>
+  <div *ngIf="(!einrichtung.keineWeiterenStrassen)">
+    <mat-icon color="warn">warning</mat-icon> Fehlen noch andere Straßenabschnitte? Bitte bearbeiten und vervollständigen oder als vollständig markieren!
+  </div>
+  <div *ngIf="(einrichtung.keineWeiterenStrassen)">
+    <mat-icon>done</mat-icon>Weitere Straßenabschnitte ohne Tempo 30 sind uns nicht bekannt.
   </div>
 </div>
-  <button
-     mat-raised-button
-     matTooltip="Einrichtung bearbeiten oder Fehler korrigieren"
-     routerLink="/einrichtung/edit/{{id}}"
-     type="submit">
-     Bearbeiten <mat-icon>edit</mat-icon>
-  </button>
+<button mat-raised-button matTooltip="Einrichtung bearbeiten oder Fehler korrigieren" routerLink="/einrichtung/edit/{{id}}" type="submit">
+  Bearbeiten <mat-icon>edit</mat-icon>
+</button>

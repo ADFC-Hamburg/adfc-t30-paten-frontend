@@ -6,10 +6,8 @@ import { T30SozialeEinrichtungService } from '../t30-soziale-einrichtung.service
 import { FormBuilder, Validators } from '@angular/forms';
 import { User } from '../user';
 import { UserService } from '../user.service';
-
-const HAMBURG_LAT = 53.551086;
-const HAMBURG_LON = 9.993682;
 import { Point } from 'leaflet';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-forderung-edit',
@@ -31,7 +29,7 @@ export class ForderungEditComponent implements OnInit {
     'angrenzendeStrassen': [],
   };
   public forderung: any = {
-    'anemerkung': '',
+    'anmerkung': '',
     'anmerkung_bus': '',
     'bis': '',
     'busverkehr': '',
@@ -53,18 +51,34 @@ export class ForderungEditComponent implements OnInit {
     subject: ['', Validators.required],
     mailtext: ['', Validators.required]
   });
-  lat = HAMBURG_LAT;
-  lon = HAMBURG_LON;
-  mapLat = HAMBURG_LAT;
-  mapLon = HAMBURG_LON;
-  newLat = HAMBURG_LAT;
-  newLon = HAMBURG_LON;
+
   ART_STR = [
     'Unklar',
     'Kindergaten',
     'Schule',
     'Alten- und Pflegeheim / Tagespflege',
     'Krankenhaus',
+  ];
+  BEZUG_ART = [
+    'der/des <Art der Einrichtung im Genitiv>',
+    'des Kindergatens',
+    'der Schule',
+    'des Alten- und Pflegeheims',
+    'des Krankehaueses'
+  ];
+  ANGR_ART = [
+    'die/das <Art der Einrichtung>',
+    'den Kindergaten',
+    'die Schule',
+    'das Alten- und Pflegeheim',
+    'das Krankenhaus'
+  ];
+  BESUCHER_ART = [
+    'die Kinder/ Schülerinnen/ Bewohnerinnen/ Patientinnen/ Besucherinnen, die im Umfeld der/des <Art der Einrichtung im Genitiv>',
+    'die Kinder die im Umfeld des Kindergatens',
+    'die Kinder die im Umfeld der Schule',
+    'die Senioren die im Umfeld des Heims',
+    'die Patentent*innen und Besucher*innen die im Umfeld des Krankehaueses',
   ];
   STATUS = [
     'unklar',
@@ -114,26 +128,74 @@ export class ForderungEditComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService
   ) { }
+  genEMailText() {
+    const user = this.currentUser;
+    const einr = this.einrichtung;
+    const forderung = this.forderung;
+
+    let newEMailText = 'Sehr geehrte Damen und Herren,\n' +
+      `mein Name ist ${user.firstName} ${user.lastName}. ` +
+      `Ich bin ${this.forderungFG.get('bezugZurEinrichtung').value } ${this.BEZUG_ART[einr.art]} "${einr.name}", `;
+    if (einr.zusatz !== '') {
+      newEMailText = newEMailText + einr.zusatz + ', ';
+    }
+    newEMailText = newEMailText +
+      `${einr.strasse}, ${einr.plz} ${einr.ort}.\nIm Umfeld dieser Einrichtung fehlt leider noch Tempo 30.\n\n` +
+      `Ich ersuche Sie hiermit, an diesem an ${this.ANGR_ART[einr.art]} angrenzenden Straßenabschnitt ` +
+      `${forderung.name} von Hausnummer ${forderung.von} bis Hausnummer ${forderung.bis} Tempo 30 einzuführen.\n\n` +
+      `Begründung:\n${this.HAUPTEINGANG[forderung.haupteingang]}\n\n` +
+      forderung.anmerkung + '\n\n' +
+      '(gerne durch Beschreibungen der Umstände vor Ort ergänzen)\n\n' +
+      `Aus meiner Sicht sind ${this.BESUCHER_ART[einr.art]} am Verkehr teilnehmen, nicht ausreichend vor dem schnellen ` +
+      'KFZ-Verkehr geschützt.\nDie KFZ-Fahrer*innen müssen durch ein geringeres Tempo in die Lage versetzt werden, ' +
+      'besondere Aufmerksamkeit walten zu lassen.\n';
+
+    if (forderung.busverkehr > 1) {
+      newEMailText = newEMailText + 'Die Änderung für den KFZ- und Busverkehr';
+    } else {
+      newEMailText = newEMailText + 'Die Änderung für den KFZ-Verkehr';
+    }
+    newEMailText = newEMailText + 'halte ich angesichts des Sicherheitsgewinns für angemessen. ' +
+      'Der Sicherheit muss Vorrang vor Geschwindigkeit gewährt werden.\n\n' +
+      forderung.anmerkung_bus + '\n\n' +
+      'Laut §45 Absatz 9 Satz 4 Ziffer 6 der StVO in Verbindung mit der Verwaltungsvorschrift zu ' +
+      '§45 StVO soll zum Schutz besonders schützenswerter Personen im Umfeld sozialer Einrichtungen,\n' +
+      'also dort wo Haupteingänge sind oder Quell- und Zielverkehr zur Einrichtung herrscht, regulär Tempo 30 ' +
+      'gelten, ohne dass eine besondere Gefahrenlage erwiesen ist.\n\nVielen Dank und mit freundlichen Grüßen\n\n' +
+      `${user.firstName} ${user.lastName}\n\n` +
+      `${user.street}\n` +
+      `${user.zip} ${user.city}\n` +
+      `${user.phone}\n\n` +
+      '--\nDiese E-Mail wurde durch das Tempo 30-Tool des ADFC-Hamburg verschickt, mehr Infos dazu unter\n' +
+      'https://hamburg.adfc.de/hast-nicht-gesehen-FIXME';
+      console.log('gen-email');
+      if ((!this.forderungFG.get('mailtext').dirty) && (newEMailText !== this.forderungFG.get('mailtext').value)) {
+        this.forderungFG.get('mailtext').setValue(newEMailText);
+      }
+  }
   ngOnInit() {
+    this.forderungFG.get('bezugZurEinrichtung').valueChanges.subscribe(bezug => {
+      this.genEMailText();
+    });
     this.route.params.subscribe(param => {
       this.id = param.id;
-      // FIXME anderen Service: StraßenabschnittService
-      this.forderungService.get(param.id).subscribe(data => {
-        console.log(data);
-        this.forderung = data;
-        if (data.einrichtung) {
-          this.sozService.get(data.einrichtung).subscribe(einrData => {
-            this.einrichtung = einrData;
-            this.newLon = einrData.lon;
-            this.newLat = einrData.lat;
-            this.mapLon = einrData.lon;
-            this.mapLat = einrData.lat;
-          });
-        }
+      this.userService.getCurrentUser().pipe(take(1)).subscribe(user => {
+        this.currentUser = user;
+        this.forderungService.get(param.id).pipe(take(1)).subscribe(forderung => {
+          this.forderung = forderung;
+          if (forderung.einrichtung) {
+            this.sozService.get(forderung.einrichtung).pipe(take(1)).subscribe(einr => {
+              this.einrichtung = einr;
+              const newSubject = `Bitte um Prüfung von Tempo 30 vor der Einrichtung ${einr.name} ${einr.zusatz}`;
+              if ((!this.forderungFG.get('subject').dirty) && (newSubject !== this.forderungFG.get('subject').value)) {
+                this.forderungFG.get('subject').setValue(newSubject);
+              }
+              this.genEMailText();
+
+            });
+          }
+        });
       });
-    });
-    this.userService.getCurrentUser().subscribe(user => {
-      this.currentUser = user;
     });
   }
 }

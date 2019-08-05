@@ -15,27 +15,27 @@ import { UserService } from '../user.service';
 })
 export class T30patenComponent implements OnInit {
   displayValidatorMarker = false;
-    public currentUser: User = {
-	firstName: '',
-	lastName: '',
-	user: '',
-	city: '',
-	zip: '',
-	street: '',
-	phone: '',
-    };
+  public currentUser: User = {
+    firstName: '',
+    lastName: '',
+    user: '',
+    city: '',
+    zip: '',
+    street: '',
+    phone: '',
+  };
   id = -1;
   t30pate = this.fb.group({
     id: [-1],
     mailSend: [false],
     sendMailNow: [false],
     einrichtung: T30sozialeEinrichtungComponent.buildItem(this.fb),
-    patenschaft:   this.fb.group({
-        standDerDinge: [''],
-      }),
+    patenschaft: this.fb.group({
+      standDerDinge: [''],
+    }),
     email: this.fb.group({
-        subject: ['', Validators.required],
-        mailtext: ['', Validators.required]
+      subject: ['', Validators.required],
+      mailtext: ['', Validators.required]
     })
   });
   step = 0;
@@ -58,22 +58,22 @@ export class T30patenComponent implements OnInit {
     private route: ActivatedRoute,
     private service: T30PatenService,
     private userService: UserService,
-) { }
+  ) { }
 
   mainMenu() {
     // FIXME Fragen ob Änderungen wirklich verworfen werden sollen
     console.log(this.t30pate.dirty);
-      this.router.navigate(['main']);
+    this.router.navigate(['main']);
   }
-    ngOnInit() {
-	this.userService.getCurrentUser().subscribe(user => {
-	    this.currentUser=user;
-	});
+  ngOnInit() {
+    this.userService.getCurrentUser().subscribe(user => {
+      this.currentUser = user;
+    });
     this.route.params.subscribe(params => {
       console.log('x1', params);
       this.id = params['id'];
       if (String(this.id) !== '-1') {
-        this.service.loadPatenschaft(this.id).subscribe( data => {
+        this.service.loadPatenschaft(this.id).subscribe(data => {
           console.log(data);
           if (data.mailSend) {
             this.step = 1;
@@ -98,37 +98,31 @@ export class T30patenComponent implements OnInit {
       const einr = val.einrichtung;
       const newSubject = `Bitte um Prüfung von Tempo 30 vor der Einrichtung ${einr.name} ${einr.zusatz}`;
       if ((!this.t30pate.get('email').get('subject').dirty) && (newSubject !== val.email.subject)) {
-          this.t30pate.get('email').get('subject').setValue(newSubject);
+        this.t30pate.get('email').get('subject').setValue(newSubject);
       }
       /* tslint:disable:max-line-length */
       const newEMailText = `Sehr geehrte Damen und Herren,
-mein Name ist ${pate.firstName} ${pate.lastName} und mir ist aufgefallen, dass an der ${einr.name}, ${einr.zusatz} leider Tempo 50 ist.
-Ich fordere Sie auf hier Tempo 30 einzuführen.
+mein Name ist ${pate.firstName} ${pate.lastName}. Ich bin „Bezug zur Einrichtung“ der/des „Art der Einrichtung im Genitiv“   "${einr.name}", ${einr.zusatz}, ${einr.strasse}. Im Umfeld dieser Einrichtung fehlt leider noch Tempo 30.
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Ich ersuche Sie hiermit, an diesem an die/das „Art der Einrichtung“ angrenzenden Straßenabschnitt Tempo 30 einzuführen:
 
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+„Straßenabschnitt 1“, Begründung:
+Haupteingang zur Einrichtung und/oder Quell- und Zielverkehr
 
-Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+(Unzutreffendes bitte streichen, gerne durch Beschreibungen der Umstände vor Ort ergänzen)
+Aus meiner Sicht sind die Kinder/ Schülerinnen/ Bewohnerinnen/ Patientinnen/ Besucherinnen, die im Umfeld der/des „Art der Einrichtung im Genitiv“ am Verkehr teilnehmen, nicht ausreichend vor dem schnellen KFZ-Verkehr geschützt. Die KFZ-Fahrer*innen müssen durch ein geringeres Tempo in die Lage versetzt werden, besondere Aufmerksamkeit walten zu lassen.
 
-Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+Die Änderung für den KFZ- „wenn Bus, dann : „und ggf. den Busverkehr halte“ ich angesichts des Sicherheitsgewinns für angemessen. Der Sicherheit muss Vorrang vor Geschwindigkeit gewährt werden.
+„ggf. Begründung Bus Verlangsamung“ (Die Busse verlangsamen an der Stelle ohnehin wegen einer Bushaltestelle/der abbiegenden Buslinie ihre Fahrt.)
 
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis.
+Laut § 45 Absatz 9 Satz 4 Ziffer 6 der StVO in Verbindung mit der Verwaltungsvorschrift zu § 45 StVO soll zum Schutz besonders schützenswerter Personen im Umfeld sozialer Einrichtungen, also dort wo Haupteingänge sind oder Quell- und Zielverkehr zur Einrichtung herrscht, regulär Tempo 30 gelten, ohne dass eine besondere Gefahrenlage erwiesen ist.
 
-At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.
-
-Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus.
-
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-
-Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
-
-Viele Grüße
+Vielen Dank und mit freundlichen Grüßen
 
 ${pate.firstName} ${pate.lastName}
-
+${pate.street}
+${pate.zip} ${pate.city}
+${pate.phone}
 --
 Diese E-Mail wurde durch das T30-Tool des ADFC-Hamburg verschickt, mehr Infos dazu unter
 https://hamburg.adfc.de/hast-nicht-gesehen-FIXME `;

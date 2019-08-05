@@ -5,7 +5,6 @@ import { AbmeldenAskComponent } from './abmelden-ask/abmelden-ask.component';
 import { TokenEingebenComponent } from './token-eingeben/token-eingeben.component';
 import { TokenBestaetigungComponent } from './token-bestaetigung/token-bestaetigung.component';
 import { EmailVersandComponent } from './email-versand/email-versand.component';
-import { T30patenComponent } from './t30paten/t30paten.component';
 import { MainComponent } from './main/main.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -21,10 +20,6 @@ import { ForderungEditComponent } from './forderung-edit/forderung-edit.componen
 const routes: Routes = [{
   path: 'main',
   component: MainComponent,
-  canActivate: [AuthGuard],
-}, {
-  path: 'patenschaft/:id',
-  component: T30patenComponent,
   canActivate: [AuthGuard],
 }, {
   path: 'einrichtung/edit/:id',

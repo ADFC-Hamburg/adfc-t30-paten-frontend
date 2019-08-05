@@ -2,3 +2,35 @@
     width: 100%;
     height: 300px;
 }
+.t30-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.t30-full-width {
+  width: 100%;
+}
+.line {
+  width: 100%;
+}
+.key {
+  display: inline-block;
+    width: 10em;
+  }
+.value {
+    display: inline-block;
+  }
+
+.t30-half-width {
+  width: 50%;
+}
+.t30-email-area {
+    height: 400px;
+}
+.t30-yes {
+  color: green;
+}
+textarea#standDerDinge {
+  height: 200px;
+}

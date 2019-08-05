@@ -18,12 +18,12 @@
           Ich möchte mein Passwort ändern
         </mat-checkbox>
         <mat-form-field class="t30-full-width">
-          <input matInput placeholder="Neues Passwort" type="password" formControlName="password1" required>
+          <input matInput placeholder="Neues Passwort" type="password" formControlName="password1" autocomplete="new-password" required>
           <mat-error class="error-message" *ngIf="checkValidateError('password1', 'required')">Passwort erforderlich</mat-error>
           <mat-error class="error-message" *ngIf="checkValidateError('password1', 'minlength')">Passwort zu kurz</mat-error>
         </mat-form-field>
         <mat-form-field class="t30-full-width">
-          <input matInput placeholder="Neues Passwort wiederholen" type="password" formControlName="password2" required>
+          <input matInput placeholder="Neues Passwort wiederholen" type="password" formControlName="password2" autocomplete="new-password" required>
           <mat-error class="error-message"  *ngIf="checkValidateError('password2', 'notMatched')"><mat-icon>warning</mat-icon>Passwörter sind nicht identisch.</mat-error>
         </mat-form-field>
         <mat-form-field class="t30-full-width">

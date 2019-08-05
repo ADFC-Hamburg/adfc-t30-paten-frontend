@@ -89,8 +89,8 @@
       </mat-form-field>
       <mat-form-field class="t30-half-width">
         <mat-select placeholder="Art der Straße" formControlName="spurigkeit">
-          <mat-option value="1">Je eine Spur je Fahrtrichtung</mat-option>
-          <mat-option value="3">Mehr als eine Spur je Fahrtrichtung</mat-option>
+          <mat-option value="0">Je eine Spur je Fahrtrichtung</mat-option>
+          <mat-option value="1">Mehr als eine Spur je Fahrtrichtung</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="t30-full-width">
@@ -115,7 +115,7 @@
           <mat-option value="3">mind. 6 mal pro h</mat-option>
         </mat-select>
         <mat-hint>
-          in mindestens eine Richtung
+          in mindestens eine Richtung, Werktags zwischen 7 und 8 Uhr
         </mat-hint>
       </mat-form-field>
       <mat-form-field class="t30-half-width">
@@ -128,6 +128,7 @@
         <textarea  matInput formControlName="anmerkung_bus" placeholder="Anmerkung zum Busverkehr"></textarea>
         <mat-hint>
          Kann ein Bus hier wirklich schneller als 30 km/h fahren? Oder ist hier sowieso eine Ampel/Bushaltestelle etc. Bitte unterscheide Hauptverkehrszeit / Nebenzeiten.
+         z.B. "Die Busse verlangsamen an der Stelle ohnehin wegen einer Bushaltestelle/der abbiegenden Buslinie ihre Fahrt."
         </mat-hint>
       </mat-form-field>
       <div class="t30-full-width">

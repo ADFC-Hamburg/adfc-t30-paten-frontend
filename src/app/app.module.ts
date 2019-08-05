@@ -23,8 +23,6 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { T30patenComponent } from './t30paten/t30paten.component';
-import { T30sozialeEinrichtungComponent } from './t30soziale-einrichtung/t30soziale-einrichtung.component';
 import { TokenEingebenComponent } from './token-eingeben/token-eingeben.component';
 import { TokenBestaetigungComponent } from './token-bestaetigung/token-bestaetigung.component';
 import { EmailVersandComponent } from './email-versand/email-versand.component';
@@ -56,8 +54,6 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    T30patenComponent,
-    T30sozialeEinrichtungComponent,
     TokenEingebenComponent,
     TokenBestaetigungComponent,
     EmailVersandComponent,

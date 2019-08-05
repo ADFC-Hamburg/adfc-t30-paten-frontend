@@ -2,11 +2,13 @@ import { Injectable, ErrorHandler } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorNotifierService } from './error-notifier.service';
 import { NotificationError } from './notification-error';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable()
 export class ErrorHandleService implements ErrorHandler {
 
   constructor(private readonly clientNotifierService: ErrorNotifierService,
+    private authenticationService: AuthenticationService
   ) {
     console.log('CREATE');
   }
@@ -19,6 +21,7 @@ export class ErrorHandleService implements ErrorHandler {
       let msg = 'Fehler im Backend';
       if (error.status === 401) {
           msg = 'Benutzername oder Passwort ungültig';
+          this.authenticationService.logout();
       }
       this.clientNotifierService.addError(msg);
       // throw error;

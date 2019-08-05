@@ -42,7 +42,7 @@ export class ForderungEditComponent implements OnInit {
   };
   forderungFG = this.fb.group({
     id: [-1],
-    geprueft: [false],
+    geprueft: ['1'],
     bezugZurEinrichtung: ['', Validators.required],
     standDerDinge: [''],
     mailSend: [false],

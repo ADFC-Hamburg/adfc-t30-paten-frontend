@@ -1,16 +1,17 @@
 <h2>{{ ART_STR[einrichtung.art] }} {{ einrichtung.name}} {{einrichtung.zusatz || '' }}</h2>
-  <div class="line">
-    <div class="key">Name:</div>
-    <div class="value">{{ einrichtung.name}} {{einrichtung.zusatz || '' }}</div>
-  </div>
-  <div class="line">
-    <div class="key">Art:</div>
-    <div class="value">{{ ART_STR[einrichtung.art] }}</div>
-  </div>
-  <div class="line">
-    <div class="key">Anschrift:</div>
-    <div class="value">{{einrichtung.strasse}}, {{einrichtung.plz}} {{einrichtung.ort}}</div>
-  </div>
+<p>Bitte prüfe die folgenden Angaben:</p>
+<div class="line">
+  <div class="key">Name:</div>
+  <div class="value">{{ einrichtung.name}} {{einrichtung.zusatz || '' }}</div>
+</div>
+<div class="line">
+  <div class="key">Art:</div>
+  <div class="value">{{ ART_STR[einrichtung.art] }}</div>
+</div>
+<div class="line">
+  <div class="key">Anschrift:</div>
+  <div class="value">{{einrichtung.strasse}}, {{einrichtung.plz}} {{einrichtung.ort}}</div>
+</div>
 <div class="line">
   <div class="key">Straßenabschnitt:</div>
   <div class="value">{{ forderung.name}} Hausnummern: {{forderung.von}} bis {{forderung.bis}}</div>
@@ -39,74 +40,66 @@
   <div class="key">Anmerkungen zur Verkehrssituation:</div>
   <div class="value">{{ forderung.anmerkung }}</div>
 </div>
-
 <div [formGroup]="forderungFG">
-  <div *ngIf="!(forderungFG.get('geprueft').value)">
-    <mat-icon color="warn">warning</mat-icon> Bitte zuerst alle Fehler korrigieren und die einrichtung
-    <button
-       mat-raised-button
-       matTooltip="Einrichtung bearbeiten oder Fehler korrigieren"
-       routerLink="/einrichtung/edit/{{id}}"
-       type="submit">
-       <mat-icon>edit</mat-icon> Bearbeiten
+  <mat-radio-group class="tp-radio-group" formControlName="geprueft" aria-label="Bitte prüfe die obigen Angaben">
+    <mat-radio-button class="tp-radio-button" value="1">Ich möchte etwas korrigieren.</mat-radio-button>
+    <mat-radio-button class="tp-radio-button" value="2">Ja, alles ist korrekt.</mat-radio-button>
+  </mat-radio-group>
+  <div *ngIf="(forderungFG.get('geprueft').value==='1')">
+    <mat-icon color="warn">warning</mat-icon> Bitte zuerst alle Fehler korrigieren und die Einrichtung
+    <button mat-raised-button matTooltip="Einrichtung bearbeiten oder Fehler korrigieren" routerLink="/einrichtung/edit/{{id}}" type="submit">
+      <mat-icon>edit</mat-icon> Bearbeiten
     </button>
     und dann hierher zurückkehren.
     <hr>
-    <button
-    mat-raised-button
-    matTooltip="Einrichtung ansehen"
-    routerLink="/einrichtung/view/{{id}}"
-    type="submit">
+    <button mat-raised-button matTooltip="Einrichtung ansehen" routerLink="/einrichtung/view/{{id}}" type="submit">
       <mat-icon>undo</mat-icon> zurück
     </button>
     <hr>
   </div>
-  <div>
-    <mat-checkbox formControlName="geprueft">Alle obigen Angaben sind korrekt</mat-checkbox>
-  </div>
-<div  *ngIf="(forderungFG.get('geprueft').value)">
-  <p>Der ADFC hat mit der Elternkammer vereinbart, dass bis zum FIXME nur Mitglieder der Elternkammer mit einem speziellen Stichwort Anträge bei der Polizei abgeben sollen.
+  <div *ngIf="(forderungFG.get('geprueft').value==='2')">
+    <p>Der ADFC hat mit der Elternkammer vereinbart, dass bis zum FIXME nur Mitglieder der Elternkammer mit einem speziellen Stichwort Anträge bei der Polizei abgeben sollen.
     </p>
-  <mat-form-field class="t30-full-width">
-    <input matInput placeholder="Stichwort" formControlName="password">
-     <mat-hint>Dieses wird dir von der Elternkammer oder dem Elternrat mitgeteilt</mat-hint>
-   </mat-form-field>
- <mat-form-field class="t30-full-width">
-    <input matInput placeholder="Dein Bezug zur Einrichtung" formControlName="bezugZurEinrichtung">
-    <mat-hint>Schülerin, Nachbar, Leiterin, Angehörige, Mitarbeiter...</mat-hint>
-  </mat-form-field>
-  <p>Bitte informiere ggf. die Einrichtung, dass Du Tempo 30 für sie beantragt hast.</p>
-  <mat-form-field class="t30-full-width">
-    <textarea id="standDerDinge" matInput placeholder="Stand der Dinge" formControlName="standDerDinge"></textarea>
-    <mat-hint> Sind sie schon in Kontakt mit der Einrichtung, mit der Polizei, hat ein Politiker dafür/dagegen etwas gesagt?</mat-hint>
-  </mat-form-field>
-   <div><b>Von:</b>
-     {{ currentUser.firstName }}
-     {{ currentUser.lastName  }}
-     &lt;{{ currentUser.user }}&gt;
-   </div>
-   <div><b>An:</b>{{ polizeirevierMail }}</div>
-   <div><b>CC:</b> ADFC Hamburg &lt;laeuft@hamburg.adfc.de&gt;</div>
-   <div *ngIf="forderungFG.get('mailSend').value"><mat-icon>report</mat-icon><b>Die E-Mail wurde bereits verschickt und kann nicht mehr bearbeitet werden</b></div>
-   <mat-form-field class="t30-full-width">
-     <input matInput placeholder="Betreff" formControlName="subject">
-   </mat-form-field>
-   <mat-form-field class="t30-full-width">
-     <textarea class="t30-email-area" matInput formControlName="mailtext" placeholder="E-Mail">
+    <mat-form-field class="t30-full-width">
+      <input matInput placeholder="Stichwort" formControlName="password">
+      <mat-hint>Dieses wird dir von der Elternkammer oder dem Elternrat mitgeteilt</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="t30-full-width">
+      <input matInput placeholder="Dein Bezug zur Einrichtung" formControlName="bezugZurEinrichtung">
+      <mat-hint>Schülerin, Nachbar, Leiterin, Angehörige, Mitarbeiter...</mat-hint>
+    </mat-form-field>
+    <p>Bitte informiere ggf. die Einrichtung, dass Du Tempo 30 für sie beantragt hast.</p>
+    <mat-form-field class="t30-full-width">
+      <textarea id="standDerDinge" matInput placeholder="Stand der Dinge" formControlName="standDerDinge"></textarea>
+      <mat-hint> Sind sie schon in Kontakt mit der Einrichtung, mit der Polizei, hat ein Politiker dafür/dagegen etwas gesagt?</mat-hint>
+    </mat-form-field>
+    <div><b>Von:</b>
+      {{ currentUser.firstName }}
+      {{ currentUser.lastName  }}
+      &lt;{{ currentUser.user }}&gt;
+    </div>
+    <div><b>An:</b>{{ polizeirevierMail }}</div>
+    <div><b>CC:</b> ADFC Hamburg &lt;laeuft@hamburg.adfc.de&gt;</div>
+    <div *ngIf="forderungFG.get('mailSend').value">
+      <mat-icon>report</mat-icon><b>Die E-Mail wurde bereits verschickt und kann nicht mehr bearbeitet werden</b>
+    </div>
+    <mat-form-field class="t30-full-width">
+      <input matInput placeholder="Betreff" formControlName="subject">
+    </mat-form-field>
+    <mat-form-field class="t30-full-width">
+      <textarea class="t30-email-area" matInput formControlName="mailtext" placeholder="E-Mail">
    </textarea>
-   </mat-form-field>
- <mat-action-row>
- <button mat-button color="warn" (click)="mainMenu()">
-   <mat-icon>cancel</mat-icon> Änderungen verwerfen
- </button>
-   <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="primary" (click)="onSave(2, false)">
-   <mat-icon>save</mat-icon> Speichern und später weiter bearbeiten
- </button>
- <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="accent" (click)="onSave(2, true)">
-   <mat-icon>email</mat-icon> Speichern und E-Mail Absenden
- </button>
- </mat-action-row>
-</div>
-
-
+    </mat-form-field>
+    <mat-action-row>
+      <button mat-button color="warn" (click)="mainMenu()">
+        <mat-icon>cancel</mat-icon> Änderungen verwerfen
+      </button>
+      <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="primary" (click)="onSave(2, false)">
+        <mat-icon>save</mat-icon> Speichern und später weiter bearbeiten
+      </button>
+      <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="accent" (click)="onSave(2, true)">
+        <mat-icon>email</mat-icon> Speichern und E-Mail Absenden
+      </button>
+    </mat-action-row>
+  </div>
 </div>

@@ -17,9 +17,12 @@ export class AuthenticationService {
       private jwtHelper: JwtHelperService,
     ) {
         const o = localStorage.getItem('access_token');
-        const decodedToken = this.jwtHelper.decodeToken(o);
-        console.log(decodedToken);
-        this.currentUser = decodedToken.data.username;
+        if (o != null) {
+          const decodedToken = this.jwtHelper.decodeToken(o);
+          if (decodedToken != null) {
+            this.currentUser = decodedToken.data.username;
+          }
+        }
     }
     login(username: string, password: string) {
         return this.http.post<any>(this.baseUrl + 'portal.php', {

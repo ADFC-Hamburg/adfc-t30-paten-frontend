@@ -1,4 +1,12 @@
 <h1>{{ title }}</h1>
+<h3 *ngIf="isLoggedIn()">Tipps zur Anwendung:</h3>
+<ol *ngIf="isLoggedIn()">
+  <li>Check der sozialen Einrichtung: Bitte wähle die Einrichtung über die Suchfunktion,
+    die Liste oder die Karte aus und klicke "Bearbeiten". Gibt dort alle angrenzenden
+    Straßen mit Haupteingang oder
+    An- und Abreiseverkehr zur Einrichtung mit dem jeweiligen Tempo-30-Status ein.</li>
+  <li>Tempo 30 für eine Einrichtung fordern bei Klick auf "Details".</li>
+</ol>
 <nav mat-tab-nav-bar *ngIf="isLoggedIn()">
    <a mat-tab-link
      *ngFor="let link of myNavLinks"

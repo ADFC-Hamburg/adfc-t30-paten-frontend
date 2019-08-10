@@ -1,51 +1,51 @@
 <h2>Liste der sozialen Einrichtungen</h2>
 <mat-action-row>
-<button mat-raised-button color="primary" routerLink="/einrichtung/edit/-1" type="submit">
+  <button mat-raised-button color="primary" routerLink="/einrichtung/edit/-1" type="submit">
     <mat-icon>add_box</mat-icon> Fehlende soziale Einrichtung einfügen
-</button>
+  </button>
 </mat-action-row> <br>
 
 <mat-form-field>
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Suche nach Name, Straße, Plz">
 </mat-form-field>
 <table mat-table [dataSource]="sozEinrList" matSort class="mat-elevation-z8">
-   <ng-container matColumnDef="Name">
-     <!-- TODO mat-sort-header does not work -->
-     <th mat-header-cell mat-sort-header *matHeaderCellDef> Einrichtung </th>
-     <td mat-cell *matCellDef="let einrichtung">{{einrichtung.Name}}</td>
-   </ng-container>
-   <ng-container matColumnDef="Strasse">
-     <th mat-header-cell *matHeaderCellDef> Straße </th>
-     <td mat-cell *matCellDef="let einrichtung">{{einrichtung.Strasse}} {{einrichtung.Nummer}}  </td>
-   </ng-container>
-   <ng-container matColumnDef="PLZ">
-     <th mat-header-cell mat-sort-header *matHeaderCellDef> PLZ / Ort </th>
-     <td mat-cell *matCellDef="let einrichtung"> {{einrichtung.PLZ}} Hamburg</td>
-   </ng-container>
-   <ng-container matColumnDef="Bezirk">
+  <ng-container matColumnDef="Name">
+    <!-- TODO mat-sort-header does not work -->
+    <th mat-header-cell mat-sort-header *matHeaderCellDef> Einrichtung </th>
+    <td mat-cell *matCellDef="let einrichtung">{{einrichtung.Name}}</td>
+  </ng-container>
+  <ng-container matColumnDef="Strasse">
+    <th mat-header-cell *matHeaderCellDef> Straße </th>
+    <td mat-cell *matCellDef="let einrichtung">{{einrichtung.Strasse}} {{einrichtung.Nummer}} </td>
+  </ng-container>
+  <ng-container matColumnDef="PLZ">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef> PLZ / Ort </th>
+    <td mat-cell *matCellDef="let einrichtung"> {{einrichtung.PLZ}} Hamburg</td>
+  </ng-container>
+  <ng-container matColumnDef="Bezirk">
     <th mat-header-cell *matHeaderCellDef> Bezirk </th>
-     <td mat-cell *matCellDef="let einrichtung"> {{einrichtung.Bezirk}}</td>
-   </ng-container>
-   <ng-container matColumnDef="status">
-     <th mat-header-cell *matHeaderCellDef> Status </th>
-     <td mat-cell *matCellDef="let einrichtung">
-       <div [matTooltip]="einrichtung.tempo30 |t30StatusLongText">
-         <img class="starImg" [src]="einrichtung.tempo30 |t30StatusStarSvgUrl">
-       </div>
-     </td>
-   </ng-container>
-   <ng-container matColumnDef="aktion">
-     <th mat-header-cell *matHeaderCellDef> Aktionen </th>
-     <td mat-cell *matCellDef="let pate">
-       <app-soz-einr-buttons [id]="pate.id" [tempo30]="pate.tempo30"></app-soz-einr-buttons>
+    <td mat-cell *matCellDef="let einrichtung"> {{einrichtung.Bezirk}}</td>
+  </ng-container>
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef> Status </th>
+    <td mat-cell *matCellDef="let einrichtung">
+      <div [matTooltip]="einrichtung.tempo30 |t30StatusLongText">
+        <img class="starImg" [src]="einrichtung.tempo30 |t30StatusStarSvgUrl">
+      </div>
     </td>
-   </ng-container>
-   <tr mat-header-row *matHeaderRowDef="displayedSozEinrColumns"></tr>
-   <tr mat-row *matRowDef="let row; columns: displayedSozEinrColumns;"></tr>
+  </ng-container>
+  <ng-container matColumnDef="aktion">
+    <th mat-header-cell *matHeaderCellDef> Aktionen </th>
+    <td mat-cell *matCellDef="let pate">
+      <app-soz-einr-buttons [id]="pate.id" [tempo30]="pate.tempo30"></app-soz-einr-buttons>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedSozEinrColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedSozEinrColumns;"></tr>
 </table>
 <mat-paginator [pageSizeOptions]="[10, 25, 100, 200]"></mat-paginator>
 <mat-action-row>
-<button mat-raised-button color="primary" routerLink="/einrichtung/edit/-1" type="submit">
+  <button mat-raised-button color="primary" routerLink="/einrichtung/edit/-1" type="submit">
     <mat-icon>add_box</mat-icon> Fehlende soziale Einrichtung einfügen
-</button>
+  </button>
 </mat-action-row>

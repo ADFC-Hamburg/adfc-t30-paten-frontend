@@ -1,4 +1,4 @@
-<h2>Einrichtung bearbeiten</h2>
+<h2>Angaben zut Einrichtung ändern oder ergänzen</h2>
 <div [formGroup]="einrichtung">
   <mat-form-field class="t30-full-width">
     <input matInput placeholder="Name der Einrichtung" formControlName="name">
@@ -18,7 +18,7 @@
       <mat-option value="4">Krankenhaus</mat-option>
     </mat-select>
   </mat-form-field>
-  <b>Adresse der Einrichtung</b>
+  <b>Adresse der Einrichtung bzw. Nebenstelle</b>
   <mat-form-field class="t30-full-width">
     <input matInput placeholder="Straße und Hausnummer" autocomplete="false" formControlName="strasse">
   </mat-form-field>
@@ -39,7 +39,7 @@
           <yaga-icon iconUrl="assets/marker-icon.png" shadowUrl="assets/marker-shadow.png" [(iconSize)]="marker.iconSize" [(iconAnchor)]="marker.iconAnchor" [(popupAnchor)]="marker.popupAnchor" [(tooltipAnchor)]="marker.tooltipAnchor" [(shadowSize)]="marker.shadowSize"></yaga-icon>
         </yaga-marker>
       </yaga-map>
-      <mat-hint>Bitte ggf. Position korrigiren: Marker mit der Maus verschieben oder Doppelkick auf neue Position</mat-hint>
+      <mat-hint>Bitte ggf. Position korrigieren: Marker mit der Maus verschieben oder Doppelkick auf neue Position</mat-hint>
     </div>
     <div class="t30-daneben-div">
       <div *ngIf="isMarkerMoved()">
@@ -88,13 +88,13 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field class="t30-half-width">
-        <mat-select placeholder="Art der Straße" formControlName="spurigkeit">
+        <mat-select placeholder="Anzahl der KFZ-Spuren pro Fahrtrichtung" formControlName="spurigkeit">
           <mat-option value="0">Je eine KFZ-Spur je Fahrtrichtung</mat-option>
           <mat-option value="1">Mehr als eine KFZ-Spur je Fahrtrichtung</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="t30-full-width">
-        <mat-select placeholder="Stand der Dinge" formControlName="status">
+        <mat-select placeholder="Tempo-30-Status" formControlName="status">
           <mat-option value="0">Keine Angabe</mat-option>
           <mat-option value="2">Hier ist Tempo 30</mat-option>
           <mat-option value="3">Hier sollte Tempo 30 gefordert werden</mat-option>
@@ -142,7 +142,7 @@
     Straßenabschnitt hinzufügen <mat-icon>add</mat-icon>
   </button>
   <div class="t30-checkbox">
-  <mat-checkbox formControlName="keineWeiterenStrassen">Außer den hier aufgeführten Straßenabschnitten gibt es keine keine weiteren Strassenabschnitte für die Tempo 30 gefordert werden sollte</mat-checkbox>
+  <mat-checkbox formControlName="keineWeiterenStrassen">Alle mir bekannten an die Einrichtung angrenzenden Straßenabschnitte sind aufgeführt.</mat-checkbox>
   </div>
   <hr>
   <mat-action-row>

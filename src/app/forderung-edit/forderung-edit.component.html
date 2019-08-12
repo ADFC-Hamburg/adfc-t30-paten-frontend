@@ -58,17 +58,17 @@
     <hr>
   </div>
   <div *ngIf="(forderungFG.get('geprueft').value==='2')">
-    <p>Der ADFC hat mit der Elternkammer vereinbart, dass bis zum FIXME nur Mitglieder der Elternkammer mit einem speziellen Stichwort Anträge bei der Polizei abgeben sollen.
+    <p>Der ADFC hat mit der Hamburger Elternkammer vereinbart, dass zunächst nur zur jeweiligen Schule Gehörige die Tempo-30-Forderungen stellen sollen. Daher können die Tempo-30-Forderungen für Schulen bis zum FIXME nur nach Eingabe des richtigen Stichworts gestellt werden. Dies erhälst du bei der Elternkammer oder dem Elternrat der Schule.
     </p>
     <mat-form-field class="t30-full-width">
       <input matInput placeholder="Stichwort" formControlName="password">
-      <mat-hint>Dieses wird dir von der Elternkammer oder dem Elternrat mitgeteilt</mat-hint>
+
     </mat-form-field>
     <mat-form-field class="t30-full-width">
       <input matInput placeholder="Dein Bezug zur Einrichtung" formControlName="bezugZurEinrichtung">
       <mat-hint>Schülerin, Nachbar, Leiterin, Angehörige, Mitarbeiter...</mat-hint>
     </mat-form-field>
-    <p>Bitte informiere ggf. die Einrichtung, dass Du Tempo 30 für sie beantragt hast.</p>
+    <p>Bitte informiere die Einrichtung, dass du Tempo 30 für ihre angrenzenden Straßen beantragen möchtest/ beantragt hast und besprich das Anliegen bestenfalls vorher mit Vertreter*innen. Danke!</p>
     <mat-form-field class="t30-full-width">
       <textarea id="standDerDinge" matInput placeholder="Verlauf der Tempo-30-Forderung" formControlName="standDerDinge"></textarea>
       <mat-hint> Sind sie schon in Kontakt mit der Einrichtung, mit der Polizei, hat ein Politiker dafür/dagegen etwas gesagt?</mat-hint>

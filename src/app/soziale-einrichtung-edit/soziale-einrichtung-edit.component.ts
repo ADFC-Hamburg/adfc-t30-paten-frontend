@@ -124,9 +124,10 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
           fa.push(this.createAngrStrassenFbGroup());
         }
         deleteStrassenAbschnitt( index: number) {
-          const fa = this.einrichtung.get('angrenzendeStrassen') as FormArray;
-          fa.removeAt(index);
-          console.log(index);
+          if (confirm('Soll der Straßenabschnitt wirklich gelöscht werden?')) {
+            const fa = this.einrichtung.get('angrenzendeStrassen') as FormArray;
+            fa.removeAt(index);
+          }
         }
         changeLatFB(value) {
           if (this.lat !== value) {

@@ -70,16 +70,18 @@
     </mat-form-field>
     <p>Bitte informiere ggf. die Einrichtung, dass Du Tempo 30 für sie beantragt hast.</p>
     <mat-form-field class="t30-full-width">
-      <textarea id="standDerDinge" matInput placeholder="Stand der Dinge" formControlName="standDerDinge"></textarea>
+      <textarea id="standDerDinge" matInput placeholder="Verlauf der Tempo-30-Forderung" formControlName="standDerDinge"></textarea>
       <mat-hint> Sind sie schon in Kontakt mit der Einrichtung, mit der Polizei, hat ein Politiker dafür/dagegen etwas gesagt?</mat-hint>
     </mat-form-field>
+    <hr>
+    <h2>Forderungsmail an zuständiges Polizeikommissariat</h2>
     <div><b>Von:</b>
       {{ currentUser.firstName }}
       {{ currentUser.lastName  }}
       &lt;{{ currentUser.user }}&gt;
     </div>
     <div><b>An:</b>{{ polizeirevierMail }}</div>
-    <div><b>CC:</b> ADFC Hamburg &lt;laeuft@hamburg.adfc.de&gt;</div>
+    <div><b>CC:</b> ADFC Hamburg &lt;tempo30sozial@hamburg.adfc.de&gt;</div>
     <div *ngIf="forderungFG.get('mailSend').value">
       <mat-icon>report</mat-icon><b>Die E-Mail wurde bereits verschickt und kann nicht mehr bearbeitet werden</b>
     </div>

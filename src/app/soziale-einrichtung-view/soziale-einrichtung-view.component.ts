@@ -53,6 +53,10 @@ export class SozialeEinrichtungViewComponent implements OnInit {
       'weniger als 6 mal/h',
       '6 mal/h oder mehr'
     ];
+    SPURIGKEIT = [
+      'eine',
+      'mehr als eine'
+    ];
     public tileLayerUrl: string = OSM_TILE_LAYER_URL;
     public marker = {
       draggable: true,

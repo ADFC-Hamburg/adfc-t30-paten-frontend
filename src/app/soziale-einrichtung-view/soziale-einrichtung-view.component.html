@@ -1,4 +1,4 @@
-<h2>{{ ART_STR[einrichtung.art] }} {{ einrichtung.name}} {{einrichtung.zusatz || '' }}</h2>
+<h2>{{ einrichtung.name}} {{einrichtung.zusatz || '' }} {{ ART_STR[einrichtung.art] }}</h2>
 <div class="block">
   <div class="line">
     <div class="key">Name:</div>
@@ -19,7 +19,8 @@
       <yaga-icon iconUrl="assets/marker-icon.png" shadowUrl="assets/marker-shadow.png" [(iconSize)]="marker.iconSize" [(iconAnchor)]="marker.iconAnchor" [(popupAnchor)]="marker.popupAnchor" [(tooltipAnchor)]="marker.tooltipAnchor" [(shadowSize)]="marker.shadowSize"></yaga-icon>
     </yaga-marker>
   </yaga-map>
-  <h2>Angrenzende Straßen mit Quell- und Zielverkehr und Haupteingängen</h2>
+  <h2>Angrenzende Straßen mit Haupteingang oder An- und Abreiseverkehr zur Einrichtung</h2>
+  <p>Hier kannst du für die einzelnen Straßenabschnitte jeweils eine Tempo-30-Forderungsmail an das zuständige Polizeikommissariat generieren, wenn diese im Bereich "Bearbeiten (Button)" mit dem Status "Hier fehlt Tempo 30" markiert wurden.</p>
   <div *ngFor="let abschnitt of einrichtung.angrenzendeStrassen; let i = index;">
     <h3>{{ abschnitt.name}} Hausnummer {{ abschnitt.von }} bis {{ abschnitt.bis}}</h3>
     <div class="tblock">
@@ -29,6 +30,10 @@
       </div>
       <div class="line">
         {{abschnitt.anmerkung}}
+      </div>
+      <div class="line">
+        <div class="key">KFZ Spuren pro Fahrtrichtung:</div>
+        <div class="value">{{ SPURIGKEIT[abschnitt.spurigkeit] }}</div>
       </div>
       <div class="line">
         <div class="key">Busverkehr:</div>
@@ -56,6 +61,7 @@
     <mat-icon>done</mat-icon>Weitere Straßenabschnitte ohne Tempo 30 sind uns nicht bekannt.
   </div>
 </div>
+<p>Angaben zur Einrichtung oder deren angrenzenden Straßenabschnitten ändern oder hinzufügen:</p>
 <button mat-raised-button matTooltip="Einrichtung bearbeiten oder Fehler korrigieren" routerLink="/einrichtung/edit/{{id}}" type="submit">
   Bearbeiten <mat-icon>edit</mat-icon>
 </button>

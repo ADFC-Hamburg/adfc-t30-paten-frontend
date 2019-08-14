@@ -46,9 +46,9 @@
     <mat-radio-button class="tp-radio-button" value="2">Ja, alles ist korrekt.</mat-radio-button>
   </mat-radio-group>
   <div *ngIf="(forderungFG.get('geprueft').value==='1')">
-    <mat-icon color="warn">warning</mat-icon> Bitte zuerst alle Fehler korrigieren und die Einrichtung
+    <mat-icon color="warn">warning</mat-icon> Bitte korrigiere zunächst die Angaben:
     <button mat-raised-button matTooltip="Einrichtung bearbeiten oder Fehler korrigieren" routerLink="/einrichtung/edit/{{id}}" type="submit">
-      <mat-icon>edit</mat-icon> Bearbeiten
+      <mat-icon>edit</mat-icon>
     </button>
     und dann hierher zurückkehren.
     <hr>

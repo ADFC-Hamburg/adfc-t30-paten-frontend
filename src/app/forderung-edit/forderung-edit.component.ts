@@ -63,14 +63,14 @@ export class ForderungEditComponent implements OnInit {
     'der/des <Art der Einrichtung im Genitiv>',
     'des Kindergatens',
     'der Schule',
-    'des Alten- und Pflegeheims',
+    'des Alten- und Pflegeheims/ der Tagespflege',
     'des Krankehaueses'
   ];
   ANGR_ART = [
     'die/das <Art der Einrichtung>',
     'den Kindergaten',
     'die Schule',
-    'das Alten- und Pflegeheim',
+    'das Alten-, Pflege- Tagespflegeheim',
     'das Krankenhaus'
   ];
   BESUCHER_ART = [

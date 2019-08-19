@@ -5,19 +5,15 @@ export class SozialeEinrichtung {
   mapLat: number;
   mapLon: number;
   name: string;
-  zusatz: string; // z.B. Filiale: Harburg
-  strasse: string;
-  t50strasse: string;
-  plz: string;
-  ort: string;
-  telefon: string;
-  art: string;
-  t50: boolean;
-  angrenzendeStrassen: any;
+  address_supplement: string; // z.B. Filiale: Harburg
+  street_house_no: string;
+  zip: string;
+  city: string;
+  type: string;
   public constructor(init?: Partial<SozialeEinrichtung>) {
     Object.assign(this, init);
   }
   public static get DEFAULT() {
-      return new this();
+    return new this();
   }
 }

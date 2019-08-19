@@ -12,15 +12,15 @@
   <ng-container matColumnDef="Name">
     <!-- TODO mat-sort-header does not work -->
     <th mat-header-cell mat-sort-header *matHeaderCellDef> Einrichtung </th>
-    <td mat-cell *matCellDef="let einrichtung">{{einrichtung.Name}}</td>
+    <td mat-cell *matCellDef="let einrichtung">{{einrichtung.name}}</td>
   </ng-container>
   <ng-container matColumnDef="Strasse">
     <th mat-header-cell *matHeaderCellDef> Straße </th>
-    <td mat-cell *matCellDef="let einrichtung">{{einrichtung.Strasse}} {{einrichtung.Nummer}} </td>
+    <td mat-cell *matCellDef="let einrichtung">{{einrichtung.street_house_no}}</td>
   </ng-container>
   <ng-container matColumnDef="PLZ">
     <th mat-header-cell mat-sort-header *matHeaderCellDef> PLZ / Ort </th>
-    <td mat-cell *matCellDef="let einrichtung"> {{einrichtung.PLZ}} Hamburg</td>
+    <td mat-cell *matCellDef="let einrichtung"> {{einrichtung.zip}} {{einrichtung.city}}</td>
   </ng-container>
   <ng-container matColumnDef="Bezirk">
     <th mat-header-cell *matHeaderCellDef> Bezirk </th>

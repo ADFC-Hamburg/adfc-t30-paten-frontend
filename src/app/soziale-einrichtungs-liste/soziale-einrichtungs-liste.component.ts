@@ -13,23 +13,23 @@ import { MatTableDataSource } from '@angular/material/table';
 export class SozialeEinrichtungsListeComponent implements OnInit {
 
   public sozEinrList = new MatTableDataSource();
-  public displayedSozEinrColumns: string[] = [ 'status', 'Name', 'Strasse', 'PLZ', 'Bezirk', 'aktion'];
+  public displayedSozEinrColumns: string[] = ['status', 'Name', 'Strasse', 'PLZ', 'Bezirk', 'aktion'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(
-        private sozEinrService: T30SozialeEinrichtungService,
+    private sozEinrService: T30SozialeEinrichtungService,
   ) { }
 
   ngOnInit() {
     this.sozEinrService.list().subscribe(
       data => {
-        this.sozEinrList =  new MatTableDataSource(data);
+        this.sozEinrList = new MatTableDataSource(data);
         this.sozEinrList.paginator = this.paginator;
         this.sozEinrList.sort = this.sort;
       }
     );
   }
-applyFilter(filterValue: string) {
+  applyFilter(filterValue: string) {
     this.sozEinrList.filter = filterValue.trim().toLowerCase();
 
     if (this.sozEinrList.paginator) {

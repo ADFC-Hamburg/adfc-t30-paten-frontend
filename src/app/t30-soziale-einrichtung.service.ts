@@ -20,18 +20,19 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class T30SozialeEinrichtungService {
-  baseUrl = environment.API_STUB_BASE_URL;
+  baseUrl = environment.API_BASE_URL;
+  baseStubUrl = environment.API_STUB_BASE_URL;
 
   constructor(
     private http: HttpClient
   ) { }
   getRandomInt(min, max) {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min + 1)) + min;
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   get(id): Observable<SozialeEinrichtung> {
-    return this.http.get<any>(this.baseUrl + 'soz-einr-get.php?id=' + id, httpOptions)
+    return this.http.get<any>(this.baseUrl + 'crud.php?entity=institution&filter=[id,\'' + id + '\']', httpOptions)
       .pipe(
         map(res => {
           console.log('res', res);
@@ -43,7 +44,7 @@ export class T30SozialeEinrichtungService {
         }));
   }
   list() {
-    return this.http.get<any>(this.baseUrl + 'soz-einr-list.php', httpOptions)
+    return this.http.get<any>(this.baseUrl + 'crud.php?entity=institution', httpOptions)
       .pipe(
         map(res => {
           console.log('res', res);
@@ -57,7 +58,7 @@ export class T30SozialeEinrichtungService {
         }));
   }
   save(einr: SozialeEinrichtung) {
-    return this.http.post<any>(this.baseUrl + 'soz-einr-save.php', einr, httpOptions)
+    return this.http.post<any>(this.baseStubUrl + 'soz-einr-save.php', einr, httpOptions)
       .pipe(
         map(res => {
           if (res.error) {

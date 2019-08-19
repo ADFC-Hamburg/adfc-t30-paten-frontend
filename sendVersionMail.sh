@@ -1,6 +1,6 @@
 #!/bin/bash
-old_version=0.0.23
-new_version=0.0.24
+old_version=$(git tag |grep version |sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n  |tail -2 |head -1)
+new_version=version$(grep version package.json |sed -e 's/\s*"version":\s"\(.*\)",/\1/')
 output=$(mktemp)
 
 cat >$output <<EOF

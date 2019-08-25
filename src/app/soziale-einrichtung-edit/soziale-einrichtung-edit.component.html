@@ -4,14 +4,14 @@
     <input matInput placeholder="Name der Einrichtung" formControlName="name">
   </mat-form-field>
   <mat-form-field class="t30-full-width">
-    <input matInput placeholder="ggf. anderer Standort/ Zweigstelle/ Nebengebäude (bei Namensgleicheit zu eine andreren Einrichtung/Standort ausfüllen)" formControlName="zusatz">
+    <input matInput placeholder="ggf. anderer Standort/ Zweigstelle/ Nebengebäude (bei Namensgleicheit zu eine andreren Einrichtung/Standort ausfüllen)" formControlName="address_supplement">
     <mat-hint>
       z.B. wenn es drei Standorte gibt und bei zweien Tempo 30 Sinn macht,
       dann bitte für jeden von diesen einen eigenen Antrag ausfüllen und hier jeweils die Bezeichnung des Standortes angeben
     </mat-hint>
   </mat-form-field>
   <mat-form-field class="t30-full-width">
-    <mat-select placeholder="Art der Einrichtung" formControlName="art">
+    <mat-select placeholder="Art der Einrichtung" formControlName="type">
       <mat-option value="1">Kindergaten</mat-option>
       <mat-option value="2">Schule</mat-option>
       <mat-option value="3">Alten- und Pflegeheim / Tagespflege</mat-option>
@@ -20,13 +20,13 @@
   </mat-form-field>
   <b>Adresse der Einrichtung bzw. Nebenstelle</b>
   <mat-form-field class="t30-full-width">
-    <input matInput placeholder="Straße und Hausnummer" autocomplete="false" formControlName="strasse">
+    <input matInput placeholder="Straße und Hausnummer" autocomplete="false" formControlName="street_house_no">
   </mat-form-field>
   <mat-form-field class="t30-half-width">
-    <input matInput placeholder="PLZ" formControlName="plz">
+    <input matInput placeholder="PLZ" formControlName="zip">
   </mat-form-field>
   <mat-form-field class="t30-half-width">
-    <input matInput placeholder="Ort" formControlName="ort">
+    <input matInput placeholder="Ort" formControlName="city">
   </mat-form-field>
   <div class="t30-full-width-flex">
     <div class="t30-map-div">
@@ -59,8 +59,9 @@
     <mat-icon color="warn">warning</mat-icon> Hier fehlen die Straßen mit Qull- und Zielverkehr. Wir suchen freiwillige mit Ortskenntnissen!
   </div>
 
-  <ul formArrayName="angrenzendeStrassen" *ngFor="let item of getStrassenAbschnitte().controls; let i = index;">
+  <ul formArrayName="streetSections" *ngFor="let item of getStrassenAbschnitte().controls; let i = index;">
     <li [formGroupName]="i">
+      <!-- FIXME
       <mat-form-field class="t30-half-width">
         <input matInput placeholder="Straße" [matAutocomplete]="auto" autocomplete="false" (ngModelChange)="changeStrassenname($event)" formControlName="name">
       </mat-form-field>
@@ -74,11 +75,15 @@
           </mat-option>
         </ng-container>
       </mat-autocomplete>
+     -->
+     <mat-form-field class="t30-half-width">
+       <input matInput placeholder="Straße" formControlName="street">
+     </mat-form-field>
       <mat-form-field class="t30-hausnummer-width">
-        <input matInput placeholder="von Hausnummer" formControlName="von">
+        <input matInput placeholder="von Hausnummer" formControlName="house_no_from">
       </mat-form-field>
       <mat-form-field class="t30-hausnummer-width">
-        <input matInput placeholder="bis Hausnummer" formControlName="bis">
+        <input matInput placeholder="bis Hausnummer" formControlName="house_no_to">
       </mat-form-field>
       <mat-form-field class="t30-half-width">
         <mat-select placeholder="Forderungsgrund" formControlName="haupteingang">
@@ -88,7 +93,7 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field class="t30-half-width">
-        <mat-select placeholder="Anzahl der KFZ-Spuren pro Fahrtrichtung" formControlName="spurigkeit">
+        <mat-select placeholder="Anzahl der KFZ-Spuren pro Fahrtrichtung" formControlName="multilane">
           <mat-option value="0">Je eine KFZ-Spur je Fahrtrichtung</mat-option>
           <mat-option value="1">Mehr als eine KFZ-Spur je Fahrtrichtung</mat-option>
         </mat-select>
@@ -103,13 +108,13 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field class="t30-full-width">
-        <textarea  matInput formControlName="anmerkung" placeholder="Warum sollte gerade hier Tempo 30 gelten?"></textarea>
+        <textarea  matInput formControlName="user_note" placeholder="Warum sollte gerade hier Tempo 30 gelten?"></textarea>
         <mat-hint>
          Uneinsichtige Stelle? Beobachtete Unfälle? Parkende Autos? Viel Radverkehr?...
         </mat-hint>
       </mat-form-field>
       <mat-form-field class="t30-half-width">
-        <mat-select placeholder="Busverkehr" formControlName="busverkehr">
+        <mat-select placeholder="Busverkehr" formControlName="much_bus_traffic">
           <mat-option value="1">Kein Busverkehr</mat-option>
           <mat-option value="2">weniger als 6 mal pro h</mat-option>
           <mat-option value="3">mind. 6 mal pro h</mat-option>
@@ -119,13 +124,13 @@
         </mat-hint>
       </mat-form-field>
       <mat-form-field class="t30-half-width">
-        <input matInput placeholder="Buslinien" formControlName="buslinien">
+        <input matInput placeholder="Buslinien" formControlName="bus_lines">
         <mat-hint>
         Welche Buslininien fahren hier? Bitte mit Komma trennen
         </mat-hint>
       </mat-form-field>
       <mat-form-field class="t30-full-width">
-        <textarea  matInput formControlName="anmerkung_bus" placeholder="Anmerkung zum Busverkehr"></textarea>
+        <textarea  matInput formControlName="reason_slower_buses" placeholder="Anmerkung zum Busverkehr"></textarea>
         <mat-hint>
          Kann ein Bus hier wirklich schneller als 30 km/h fahren? Oder ist hier sowieso eine Ampel/Bushaltestelle etc. Bitte unterscheide Hauptverkehrszeit / Nebenzeiten.
          z.B. "Die Busse verlangsamen an der Stelle ohnehin wegen einer Bushaltestelle/der abbiegenden Buslinie ihre Fahrt."
@@ -142,7 +147,7 @@
     Straßenabschnitt hinzufügen <mat-icon>add</mat-icon>
   </button>
   <div class="t30-checkbox">
-  <mat-checkbox formControlName="keineWeiterenStrassen">Alle mir bekannten an die Einrichtung angrenzenden Straßenabschnitte sind aufgeführt.</mat-checkbox>
+  <mat-checkbox formControlName="streetsection_complete">Alle mir bekannten an die Einrichtung angrenzenden Straßenabschnitte sind aufgeführt.</mat-checkbox>
   </div>
   <hr>
   <mat-action-row>

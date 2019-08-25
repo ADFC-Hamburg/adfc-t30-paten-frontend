@@ -12,10 +12,10 @@
         <b>{{ popupProperties.name }}</b>
         {{ popupProperties.address_supplement }} <br>
         {{ popupProperties.street_house_no}}, {{ popupProperties.zip }} {{popupProperties.city}} <br>
-        <div [matTooltip]="popupProperties.tempo30 |t30StatusLongText"><img class="starImg" [src]="popupProperties.tempo30 |t30StatusStarSvgUrl">{{ popupProperties.tempo30 |t30StatusShortText}}
+        <div [matTooltip]="popupProperties.status |t30StatusLongText"><img class="starImg" [src]="popupProperties.status |t30StatusStarSvgUrl">{{ popupProperties.status |t30StatusShortText}}
           <mat-icon>help</mat-icon>
         </div><br>
-        <app-soz-einr-buttons [id]="popupProperties.id" [tempo30]="popupProperties.tempo30"></app-soz-einr-buttons>
+        <app-soz-einr-buttons [id]="popupProperties.id" [tempo30]="popupProperties.status"></app-soz-einr-buttons>
       </yaga-popup>
     </yaga-geojson>
     <yaga-zoom-control></yaga-zoom-control>

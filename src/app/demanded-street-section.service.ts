@@ -3,9 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { map } from 'rxjs/operators';
-import { SozialeEinrichtung } from './sozialeEinrichtung';
 import { NotificationError } from './notification-error';
-import { Observable } from 'rxjs';
+// import { Observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -15,29 +14,20 @@ const httpOptions = {
     // 'Authorization': 'my-auth-token'
   })
 };
-
 @Injectable({
   providedIn: 'root'
 })
-export class T30SozialeEinrichtungService {
+export class DemandedStreetSectionService {
   baseUrl = environment.API_BASE_URL;
 
   constructor(
     private http: HttpClient
   ) { }
-  get(id): Observable<SozialeEinrichtung> {
-    return this.http.get<any>(this.baseUrl + 'crud.php?entity=institution&filter=[id,\'' + id + '\']', httpOptions)
-      .pipe(
-        map(res => {
-          if (res.error) {
-            throw new NotificationError(res.error);
-          }
-          res = res[0];
-          return res;
-        }));
-  }
-  list() {
-    return this.http.get<any>(this.baseUrl + 'crud.php?entity=institution', httpOptions)
+  list(institutionId) {
+    return this.http.get<any>(
+      this.baseUrl + 'crud.php?entity=demandedstreetsection&nores=[]&filter=[institution,' +
+      institutionId + ']', httpOptions
+    )
       .pipe(
         map(res => {
           if (res.error) {
@@ -46,8 +36,8 @@ export class T30SozialeEinrichtungService {
           return res;
         }));
   }
-  create(einr: SozialeEinrichtung) {
-    return this.http.post<any>(this.baseUrl + 'crud.php?entity=institution', einr, httpOptions)
+  create(einr) {
+    return this.http.post<any>(this.baseUrl + 'crud.php?entity=demandedstreetsection', einr, httpOptions)
       .pipe(
         map(res => {
           if (res.error) {
@@ -55,8 +45,8 @@ export class T30SozialeEinrichtungService {
           }
         }));
   }
-  save(einr: SozialeEinrichtung) {
-    return this.http.put<any>(this.baseUrl + 'crud.php?entity=institution', einr, httpOptions)
+  save(einr) {
+    return this.http.put<any>(this.baseUrl + 'crud.php?entity=demandedstreetsection', einr, httpOptions)
       .pipe(
         map(res => {
           if (res.error) {

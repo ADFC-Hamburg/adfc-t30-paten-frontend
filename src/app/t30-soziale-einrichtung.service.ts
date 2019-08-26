@@ -47,12 +47,14 @@ export class T30SozialeEinrichtungService {
         }));
   }
   create(einr: SozialeEinrichtung) {
+    console.log('create', einr);
     return this.http.post<any>(this.baseUrl + 'crud.php?entity=institution', einr, httpOptions)
       .pipe(
         map(res => {
           if (res.error) {
             throw new NotificationError(res.error);
           }
+          return res;
         }));
   }
   save(einr: SozialeEinrichtung) {
@@ -62,6 +64,7 @@ export class T30SozialeEinrichtungService {
           if (res.error) {
             throw new NotificationError(res.error);
           }
+          return res;
         }));
   }
 }

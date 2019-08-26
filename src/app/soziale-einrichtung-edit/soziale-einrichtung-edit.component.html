@@ -61,9 +61,8 @@
 
   <ul formArrayName="streetSections" *ngFor="let item of getStrassenAbschnitte().controls; let i = index;">
     <li [formGroupName]="i">
-      <!-- FIXME
       <mat-form-field class="t30-half-width">
-        <input matInput placeholder="Straße" [matAutocomplete]="auto" autocomplete="false" (ngModelChange)="changeStrassenname($event)" formControlName="name">
+        <input matInput placeholder="Straße" [matAutocomplete]="auto" autocomplete="false" (ngModelChange)="changeStrassenname($event)" formControlName="street">
       </mat-form-field>
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngIf="isLoading" class="is-loading">
@@ -75,10 +74,10 @@
           </mat-option>
         </ng-container>
       </mat-autocomplete>
-     -->
-     <mat-form-field class="t30-half-width">
+
+<!--     <mat-form-field class="t30-half-width">
        <input matInput placeholder="Straße" formControlName="street">
-     </mat-form-field>
+     </mat-form-field>-->
       <mat-form-field class="t30-hausnummer-width">
         <input matInput placeholder="von Hausnummer" formControlName="house_no_from">
       </mat-form-field>

@@ -95,9 +95,11 @@ export class ProfileComponent extends CanDeactivateFormControlComponent implemen
             console.log(this.authenticationService.changePassword);
             this.authenticationService.changePassword(this.profileForm.get('password1').value).subscribe(
               data2 => {
+                this.setSubmitted();
                 this.router.navigate(['/main']);
               });
           } else {
+            this.setSubmitted();
             this.router.navigate(['/main']);
           }
         },

@@ -43,7 +43,7 @@ export class SozialeEinrichtungViewComponent implements OnInit {
   ];
   STATUS = [
     'unklar',
-    'hier wird Tempo 30gefordert',
+    'hier wird Tempo 30 gefordert',
     'hier ist Tempo 30',
     'hier fehlt Tempo 30',
     'die Behörde hat Tempo 30 abgelehnt',

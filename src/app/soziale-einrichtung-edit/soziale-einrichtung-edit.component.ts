@@ -10,6 +10,7 @@ import { T30SozialeEinrichtungService } from '../t30-soziale-einrichtung.service
 import { SozialeEinrichtung } from '../sozialeEinrichtung';
 import { NotificationError } from '../notification-error';
 import { DemandedStreetSectionService } from '../demanded-street-section.service';
+import { forkJoin } from 'rxjs';
 
 const HAMBURG_LAT = 53.551086;
 const HAMBURG_LON = 9.993682;
@@ -196,46 +197,44 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     if (this.einrichtung.valid) {
       const val = this.einrichtung.value;
       delete val.streetSections;
-      this.sozService.save(new SozialeEinrichtung(val)).subscribe(results => {
-        this.streetSectionService.save(this.getStrassenAbschnitte().value).subscribe(results2 => {
-          this.router.navigate(['einrichtung', 'view', this.id]);
-        });
+      let action;
+      let institutionId = val.id;
+      if (val.id === -1) {
+        delete val.id;
+        action = this.sozService.create(new SozialeEinrichtung(val));
+      } else {
+        action = this.sozService.save(new SozialeEinrichtung(val));
+      }
+      action.subscribe(result => {
+        const forkArray = [];
+        const sss = this.streetSectionService;
+        console.log('res', result);
+        if ('id' in result) {
+          institutionId = result.id;
+        }
+        if (this.getStrassenAbschnitte().value.length === 0) {
+          this.router.navigate(['einrichtung', 'view', institutionId]);
+        } else {
+          this.getStrassenAbschnitte().value.forEach(function(streetSectionValue) {
+            streetSectionValue.institution = institutionId;
+            if (streetSectionValue.id === '') {
+              delete streetSectionValue.id;
+              forkArray.push(sss.create(streetSectionValue));
+            } else {
+              forkArray.push(sss.save(streetSectionValue));
+            }
+          });
+          forkJoin(forkArray).subscribe(results => {
+            // FIXME: checkResults
+            this.setSubmitted();
+            this.router.navigate(['einrichtung', 'view', institutionId]);
+          });
+        }
       });
     } else {
       console.log('INVALID', this.einrichtung);
       throw new NotificationError('Bitte Fehler korrigieren.');
     }
-  }
-  public onSaveAndFordern() {
-    console.log('saveAndFordern');
-    let valid = false;
-    let unsicher = false;
-    this.getStrassenAbschnitte().controls.forEach(abschnitt => {
-      if (abschnitt.get('status').value === '3') {
-        valid = true;
-      }
-      if (abschnitt.get('status').value === '1') {
-        unsicher = true;
-      }
-    });
-    console.log(valid);
-    if (!valid) {
-      throw new NotificationError('Bitte Straßenabschnitte angeben für die Tempo 30 fehlt.');
-    }
-    if (unsicher) {
-      throw new NotificationError('Bitte unklare Straßenabschnitte prüfen.');
-    }
-    this.einrichtung.get('id').setValue(this.id);
-    this.validateAllFormFields(this.einrichtung);
-    if (this.einrichtung.valid) {
-      this.sozService.save(new SozialeEinrichtung(this.einrichtung.value)).subscribe(results => {
-        this.router.navigate(['einrichtung', 't30fordern', this.id]);
-      });
-    } else {
-      console.log('INVALID', this.einrichtung);
-      throw new NotificationError('Bitte Fehler korrigieren.');
-    }
-
   }
   load(id) {
     this.id = id;
@@ -273,7 +272,9 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     this.einrichtung.get('lon').valueChanges.subscribe(x => this.changeLonFB(x));
     this.route.params.subscribe(param => {
       console.log('x1', param);
-      this.load(param.id);
+      if (param.id !== '-1') {
+        this.load(param.id);
+      }
 
     });
     this.strassenlisteService.getAll().subscribe(liste => {

@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
 export class AuthenticationService {
   baseUrl = environment.API_BASE_URL;
   baseStubUrl = environment.API_STUB_BASE_URL;
-  public currentUser: string;
+  public currentUser: string = null;
 
   constructor(
     private http: HttpClient,
@@ -77,11 +77,11 @@ export class AuthenticationService {
       }).subscribe(results => {
         console.log(results);
         localStorage.removeItem('access_token');
-        this.router.navigate(['/login']);
+        this.router.navigate(['/sozEinrKarte']);
       });
     } else {
+      this.currentUser = null;
       localStorage.removeItem('access_token');
-      this.router.navigate(['/login']);
     }
   }
 }

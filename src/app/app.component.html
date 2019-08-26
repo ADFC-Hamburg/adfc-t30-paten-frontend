@@ -9,9 +9,11 @@
   <li>Soziale Einrichtungen, die hier noch nicht aufgeführt sind, können über den entsprechenden Button bei der Liste oder der Karte der sozialen Einrichtungen hinzugefügt werden.</li>
   <li>Jede Nebenstelle einer Einrichtung (z. B. Turnhalle, Mensa, Zweigstelle) mit einer eigenen Adresse muss als eigene soziale Einrichtung angelegt werden.</li>
 </ol>
-<nav mat-tab-nav-bar *ngIf="isLoggedIn()">
+<nav mat-tab-nav-bar>
+  <div    *ngFor="let link of myNavLinks">
    <a mat-tab-link
-     *ngFor="let link of myNavLinks"
+
+     *ngIf="showLink(link)"
      [routerLink]="link.path"
      routerLinkActive #rla="routerLinkActive"
      [active]="rla.isActive"
@@ -19,6 +21,7 @@
 
       {{ link.label }} &nbsp; <mat-icon *ngIf="link.icon!==undefined">{{ link.icon }}</mat-icon>
   </a>
+  </div>
 </nav>
 
 <router-outlet></router-outlet>
@@ -29,3 +32,5 @@ ist Teil der Kampagne des ADFC Hamburg
 <a target="_blank" href="https://hamburg.adfc.de/tempo30sozial">Tempo 30 an sozialen Einrichtungen</a>.
 <hr>
 Version: {{ version }}
+<div *ngIf="isLoggedIn()">Angemeldet</div>
+<div *ngIf="!isLoggedIn()">Abgemeldet</div>

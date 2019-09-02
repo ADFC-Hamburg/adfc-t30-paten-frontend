@@ -23,6 +23,14 @@ export class DemandedStreetSectionService {
   constructor(
     private http: HttpClient
   ) { }
+
+  optionValueToString(entry) {
+    const OPTION_KEYS = ['much_bus_traffic', 'multilane', 'entrance', 'status'];
+    OPTION_KEYS.forEach(key => {
+      entry[key] = String(entry[key]);
+    });
+    return entry;
+  }
   list(institutionId) {
     return this.http.get<any>(
       this.baseUrl + 'crud.php?entity=demandedstreetsection&nores=[]&filter=[institution,' +
@@ -33,7 +41,7 @@ export class DemandedStreetSectionService {
           if (res.error) {
             throw new NotificationError(res.error);
           }
-          return res;
+          return res.map(this.optionValueToString);
         }));
   }
   create(einr) {

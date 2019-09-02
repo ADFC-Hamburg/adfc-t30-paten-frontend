@@ -15,7 +15,6 @@ import { forkJoin } from 'rxjs';
 const HAMBURG_LAT = 53.551086;
 const HAMBURG_LON = 9.993682;
 
-
 @Component({
   selector: 'app-soziale-einrichtung-edit',
   templateUrl: './soziale-einrichtung-edit.component.html',
@@ -71,14 +70,14 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
       street: ['', Validators.required],
       house_no_from: [''],
       house_no_to: [''],
-      haupteingang: [0, Validators.required],
+      entrance: ['0', Validators.required],
       time_restriction: [''],
       status: ['1', Validators.required],
       reason_slower_buses: [''],
       bus_lines: [''],
-      much_bus_traffic: [0, Validators.required],
+      much_bus_traffic: ['0', Validators.required],
       user_note: [''],
-      multilane: [0, Validators.required],
+      multilane: ['0', Validators.required],
     });
   }
   constructor(
@@ -275,14 +274,9 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
       if (param.id !== '-1') {
         this.load(param.id);
       }
-
     });
     this.strassenlisteService.getAll().subscribe(liste => {
       this.strassenliste = liste;
     });
-
   }
-
-
-
 }

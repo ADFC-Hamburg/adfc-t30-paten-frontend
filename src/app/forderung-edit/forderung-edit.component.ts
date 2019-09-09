@@ -56,21 +56,21 @@ export class ForderungEditComponent implements OnInit {
     'Unklar',
     'Kindergaten',
     'Schule',
-    'Alten- und Pflegeheim / Tagespflege',
+    'Alten-, Pflege- und Tagespflegeheim',
     'Krankenhaus',
   ];
   BEZUG_ART = [
     'der/des <Art der Einrichtung im Genitiv>',
     'des Kindergatens',
     'der Schule',
-    'des Alten- und Pflegeheims',
+    'des Alten-, Pflege- und Tagespflegeheims',
     'des Krankehaueses'
   ];
   ANGR_ART = [
     'die/das <Art der Einrichtung>',
     'den Kindergaten',
     'die Schule',
-    'das Alten- und Pflegeheim',
+    'das Alten-, Pflege- und Tagespflegeheim',
     'das Krankenhaus'
   ];
   BESUCHER_ART = [
@@ -135,7 +135,7 @@ export class ForderungEditComponent implements OnInit {
 
     let newEMailText = 'Sehr geehrte Damen und Herren,\n' +
       `mein Name ist ${user.firstName} ${user.lastName}. ` +
-      `Ich bin ${this.forderungFG.get('bezugZurEinrichtung').value } ${this.BEZUG_ART[einr.art]} "${einr.name}", `;
+      `Ich bin ${this.forderungFG.get('bezugZurEinrichtung').value} ${this.BEZUG_ART[einr.art]} "${einr.name}", `;
     if (einr.zusatz !== '') {
       newEMailText = newEMailText + einr.zusatz + ', ';
     }
@@ -168,10 +168,10 @@ export class ForderungEditComponent implements OnInit {
       `${user.phone}\n\n` +
       '--\nDiese E-Mail wurde durch das Tempo 30-Tool des ADFC-Hamburg verschickt, mehr Infos dazu unter\n' +
       'https://hamburg.adfc.de/hast-nicht-gesehen-FIXME';
-      console.log('gen-email');
-      if ((!this.forderungFG.get('mailtext').dirty) && (newEMailText !== this.forderungFG.get('mailtext').value)) {
-        this.forderungFG.get('mailtext').setValue(newEMailText);
-      }
+    console.log('gen-email');
+    if ((!this.forderungFG.get('mailtext').dirty) && (newEMailText !== this.forderungFG.get('mailtext').value)) {
+      this.forderungFG.get('mailtext').setValue(newEMailText);
+    }
   }
   ngOnInit() {
     this.forderungFG.get('bezugZurEinrichtung').valueChanges.subscribe(bezug => {

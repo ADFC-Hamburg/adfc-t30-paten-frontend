@@ -73,6 +73,13 @@ export class ForderungEditComponent implements OnInit {
     'das Alten-, Pflege- und Tagespflegeheim',
     'das Krankenhaus'
   ];
+  ART = [
+    '',
+    'Kingertagesstätte',
+    'Schule',
+    'Alten- und Pflegeheim',
+    'Krankenhaus'
+  ];
   BESUCHER_ART = [
     'die Kinder/ Schülerinnen/ Bewohnerinnen/ Patientinnen/ Besucherinnen, die im Umfeld der/des <Art der Einrichtung im Genitiv>',
     'die Kinder die im Umfeld des Kindergatens',
@@ -186,7 +193,8 @@ export class ForderungEditComponent implements OnInit {
           if (forderung.einrichtung) {
             this.sozService.get(forderung.einrichtung).pipe(take(1)).subscribe(einr => {
               this.einrichtung = einr;
-              const newSubject = `Bitte um Prüfung von Tempo 30 vor der Einrichtung ${einr.name} ${einr.address_supplement}`;
+              const newSubject = `Tempo 30 für ${forderung.name} ${forderung.von}-${forderung.bis} an ` +
+                `${einr.name} ${einr.address_supplement}`;
               if ((!this.forderungFG.get('subject').dirty) && (newSubject !== this.forderungFG.get('subject').value)) {
                 this.forderungFG.get('subject').setValue(newSubject);
               }

@@ -25,6 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
   sub: any;
   myNavLinks = [];
   myRoute = null;
+  showHint = true;
   constructor(
     private snackBar: MatSnackBar,
     private errorService: ErrorNotifierService,

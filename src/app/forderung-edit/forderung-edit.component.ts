@@ -194,7 +194,7 @@ export class ForderungEditComponent implements OnInit {
             this.sozService.get(forderung.einrichtung).pipe(take(1)).subscribe(einr => {
               this.einrichtung = einr;
               const newSubject = `Tempo 30 für ${forderung.name} ${forderung.von}-${forderung.bis} an ` +
-                `${einr.name} ${einr.zusatz} ${this.ART[einr.art]}`;
+                `${einr.name} ${einr.zusatz}`;
               if ((!this.forderungFG.get('subject').dirty) && (newSubject !== this.forderungFG.get('subject').value)) {
                 this.forderungFG.get('subject').setValue(newSubject);
               }

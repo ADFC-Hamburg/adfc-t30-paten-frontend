@@ -19,9 +19,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
-// import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-
+import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TokenEingebenComponent } from './token-eingeben/token-eingeben.component';
@@ -83,6 +82,7 @@ export function tokenGetter() {
     MatInputModule,
     MatCheckboxModule,
     MatSelectModule,
+    MatCardModule,
     ReactiveFormsModule,
     MatIconModule,
     MatExpansionModule,

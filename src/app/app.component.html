@@ -1,14 +1,25 @@
 <h1>{{ title }}</h1>
-<h3 *ngIf="isLoggedIn()">Tipps zur Anwendung:</h3>
-<ol *ngIf="isLoggedIn()">
-  <li>Check der sozialen Einrichtung: Bitte wähle die Einrichtung über die Suchfunktion,
+<mat-card *ngIf="isLoggedIn() && showHint">
+  <mat-card-title>Tipps zur Anwendung:</mat-card-title>
+<mat-card-content>
+  <ol>
+   <li>Check der sozialen Einrichtung: Bitte wähle die Einrichtung über die Suchfunktion,
     die Liste oder die Karte aus und klicke "Bearbeiten". Gibt dort alle angrenzenden
     Straßen mit Haupteingang oder
     An- und Abreiseverkehr zur Einrichtung mit dem jeweiligen Tempo-30-Status ein.</li>
   <li>Tempo 30 für eine Einrichtung fordern bei Klick auf "Details".</li>
-  <li>Soziale Einrichtungen, die hier noch nicht aufgeführt sind, können über den entsprechenden Button bei der Liste oder der Karte der sozialen Einrichtungen hinzugefügt werden.</li>
-  <li>Jede Nebenstelle einer Einrichtung (z. B. Turnhalle, Mensa, Zweigstelle) mit einer eigenen Adresse muss als eigene soziale Einrichtung angelegt werden.</li>
+  <li>Soziale Einrichtungen, die hier noch nicht aufgeführt sind, können über den
+    entsprechenden Button bei der Liste oder der Karte der sozialen Einrichtungen
+    hinzugefügt werden.</li>
+  <li>Jede Nebenstelle einer Einrichtung (z. B. Turnhalle, Mensa, Zweigstelle)
+    mit einer eigenen Adresse muss als eigene soziale Einrichtung angelegt werden.</li>
 </ol>
+</mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="showHint=false;"><mat-icon>close</mat-icon> Diesen Hinweis nicht mehr anzeigen</button>
+  </mat-card-actions>
+</mat-card>
+<button *ngIf="isLoggedIn() && showHint===false" mat-raised-button (click)="showHint=true;"><mat-icon>help</mat-icon> Tipps zur Anwendung</button>
 <nav mat-tab-nav-bar>
   <div    *ngFor="let link of myNavLinks">
    <a mat-tab-link

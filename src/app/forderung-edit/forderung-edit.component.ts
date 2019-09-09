@@ -56,21 +56,21 @@ export class ForderungEditComponent implements OnInit {
     'Unklar',
     'Kindergaten',
     'Schule',
-    'Alten- und Pflegeheim / Tagespflege',
+    'Alten-, Pflege- und Tagespflegeheim',
     'Krankenhaus',
   ];
   BEZUG_ART = [
     'der/des <Art der Einrichtung im Genitiv>',
     'des Kindergatens',
     'der Schule',
-    'des Alten- und Pflegeheims',
+    'des Alten-, Pflege- und Tagespflegeheims',
     'des Krankehaueses'
   ];
   ANGR_ART = [
     'die/das <Art der Einrichtung>',
     'den Kindergaten',
     'die Schule',
-    'das Alten- und Pflegeheim',
+    'das Alten-, Pflege- und Tagespflegeheim',
     'das Krankenhaus'
   ];
   BESUCHER_ART = [

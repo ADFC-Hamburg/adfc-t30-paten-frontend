@@ -1,16 +1,16 @@
-<h2>{{ einrichtung.name}} {{einrichtung.zusatz || '' }} {{ ART_STR[einrichtung.art] }}</h2>
+<h2>{{ einrichtung.name}} {{einrichtung.address_supplement || '' }} {{ ART_STR[einrichtung.type] }}</h2>
 <div class="block">
   <div class="line">
     <div class="key">Name:</div>
-    <div class="value">{{ einrichtung.name}} {{einrichtung.zusatz || '' }}</div>
+    <div class="value">{{ einrichtung.name}} {{einrichtung.address_supplement || '' }}</div>
   </div>
   <div class="line">
     <div class="key">Art:</div>
-    <div class="value">{{ ART_STR[einrichtung.art] }}</div>
+    <div class="value">{{ ART_STR[einrichtung.type] }}</div>
   </div>
   <div class="line">
     <div class="key">Anschrift:</div>
-    <div class="value">{{einrichtung.strasse}}, {{einrichtung.plz}} {{einrichtung.ort}}</div>
+    <div class="value">{{einrichtung.street_house_no}}, {{einrichtung.zip}} {{einrichtung.city}}</div>
   </div>
   <yaga-map class="t30-map" zoom="17" [(lat)]="mapLat" [(lng)]="mapLon">
     <yaga-tile-layer [(url)]="tileLayerUrl"></yaga-tile-layer>
@@ -21,32 +21,32 @@
   </yaga-map>
   <h2>Angrenzende Straßen mit Haupteingang oder An- und Abreiseverkehr zur Einrichtung</h2>
   <p>Hier kannst du für die einzelnen Straßenabschnitte jeweils eine Tempo-30-Forderungsmail an das zuständige Polizeikommissariat generieren, wenn diese im Bereich "Bearbeiten (Button)" mit dem Status "Hier fehlt Tempo 30" markiert wurden.</p>
-  <div *ngFor="let abschnitt of einrichtung.angrenzendeStrassen; let i = index;">
-    <h3>{{ abschnitt.name}} Hausnummer {{ abschnitt.von }} bis {{ abschnitt.bis}}</h3>
+  <div *ngFor="let sec of streetSections; let i = index;">
+    <h3>{{ sec.street}} Hausnummer {{ sec.house_no_from }} bis {{ sec.house_no_to}}</h3>
     <div class="tblock">
       <div class="line">
         <div class="key">Status:</div>
-        <div class="value">{{ STATUS[abschnitt.status] }}</div>
+        <div class="value">{{ STATUS[sec.status] }}</div>
       </div>
       <div class="line">
-        {{abschnitt.anmerkung}}
+        {{sec.user_note}}
       </div>
       <div class="line">
         <div class="key">KFZ Spuren pro Fahrtrichtung:</div>
-        <div class="value">{{ SPURIGKEIT[abschnitt.spurigkeit] }}</div>
+        <div class="value">{{ SPURIGKEIT[sec.multilane] }}</div>
       </div>
       <div class="line">
         <div class="key">Busverkehr:</div>
-        <div class="value">{{ BUSVERKEHR[abschnitt.busverkehr] }}</div>
+        <div class="value">{{ BUSVERKEHR[sec.much_bus_traffic] }}</div>
       </div>
-      <div class="line" *ngIf="abschnitt.buslinien">
+      <div class="line" *ngIf="sec.buslinien">
         <div class="key">Buslinien:</div>
-        <div class="value">{{ abschnitt.buslinien }}</div>
+        <div class="value">{{ sec.bus_lines}}</div>
       </div>
       <div class="line">
-        {{abschnitt.anmerkung_bus}}
+        {{sec.reason_slower_buses}}
       </div>
-      <button mat-raised-button matTooltip="Ich möchte hier Tempo 30 fordern." routerLink="/forderung/edit/{{abschnitt.id}}" type="submit">
+      <button *ngIf="(sec.status==3)" mat-raised-button matTooltip="Ich möchte hier Tempo 30 fordern." routerLink="/forderung/edit/{{sec.id}}" type="submit">
         Tempo 30 fordern:
         <mat-icon>mail</mat-icon>
         <mat-icon>arrow_forward</mat-icon>
@@ -54,11 +54,11 @@
       </button>
     </div>
   </div>
-  <div *ngIf="(!einrichtung.keineWeiterenStrassen)">
+  <div *ngIf="(!einrichtung.streetsection_complete)">
     <mat-icon color="warn">warning</mat-icon> Fehlen noch andere Straßenabschnitte? Bitte bearbeiten und vervollständigen oder als vollständig markieren!
   </div>
-  <div *ngIf="(einrichtung.keineWeiterenStrassen)">
-    <mat-icon>done</mat-icon>Weitere angrenzenden Straßenabschnitte sind mir nicht bekannt.
+  <div *ngIf="(einrichtung.streetsection_complete)">
+    <mat-icon>done</mat-icon>Weitere angrenzenden Straßenabschnitte für die Tempo 30 gilt oder gelten sollte sind uns nicht bekannt.
   </div>
 </div>
 <p>Angaben zur Einrichtung oder deren angrenzenden Straßenabschnitten ändern oder hinzufügen:</p>

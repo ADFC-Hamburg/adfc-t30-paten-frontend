@@ -47,11 +47,9 @@ const routes: Routes = [{
 }, {
   path: 'sozEinrKarte',
   component: SozialeEinrichtungsKarteComponent,
-  canActivate: [AuthGuard],
 }, {
   path: 'sozEinrListe',
   component: SozialeEinrichtungsListeComponent,
-  canActivate: [AuthGuard],
 }, {
   path: 'profile',
   component: ProfileComponent,
@@ -61,7 +59,7 @@ const routes: Routes = [{
   path: 'AbmeldenAsk',
   component: AbmeldenAskComponent,
   canActivate: [AuthGuard],
-},  {
+}, {
   path: 'login',
   component: LoginComponent,
 }, {
@@ -70,7 +68,7 @@ const routes: Routes = [{
 }, {
   // otherwise redirect to home
   path: '**',
-  redirectTo: 'main'
+  redirectTo: 'sozEinrKarte'
 }];
 
 @NgModule({

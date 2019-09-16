@@ -6,4 +6,5 @@ ng build --base-href=https://tools.adfc-hamburg.de/t30-paten/${ver}/ --prod --de
     git push origin $ver &&
     rsync -r --delete -v dist/t30-paten/ root@tools:/var/www/html/t30-paten/${ver} &&
     ./sendVersionMail.sh &&
-    yarn version --patch 
+    yarn version --patch &&
+    git push

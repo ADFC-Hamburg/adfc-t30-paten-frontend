@@ -19,9 +19,7 @@ export class UserService {
   getCurrentUser() {
     const currentUser = this.authenticationService.getCurrentUserId();
     return this.http.get(this.baseUrl +
-      'crud.php?entity=userdata&filter=[user,\'' +
-      currentUser +
-      '\']').pipe(map(userdata => {
+      'crud.php?entity=userdata&onlyOwn=true').pipe(map(userdata => {
         return userdata[0];
       }));
   }

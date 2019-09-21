@@ -25,6 +25,15 @@ export class T30SozialeEinrichtungService {
   constructor(
     private http: HttpClient
   ) { }
+  convertEntry(entry) {
+    entry.lat = entry.position[1];
+    entry.lon = entry.position[0];
+    return entry;
+  }
+  convertEntryBack(entry) {
+    entry.position = [entry.lon, entry.lat];
+    return entry;
+  }
   get(id): Observable<SozialeEinrichtung> {
     return this.http.get<any>(this.baseUrl + 'crud.php?entity=institution&filter=[id,\'' + id + '\']', httpOptions)
       .pipe(
@@ -33,7 +42,7 @@ export class T30SozialeEinrichtungService {
             throw new NotificationError(res.error);
           }
           res = res[0];
-          return res;
+          return this.convertEntry(res);
         }));
   }
   list() {
@@ -43,12 +52,13 @@ export class T30SozialeEinrichtungService {
           if (res.error) {
             throw new NotificationError(res.error);
           }
-          return res;
+          console.log(res);
+          return res.map(this.convertEntry);
         }));
   }
   create(einr: SozialeEinrichtung) {
     console.log('create', einr);
-    return this.http.post<any>(this.baseUrl + 'crud.php?entity=institution', einr, httpOptions)
+    return this.http.post<any>(this.baseUrl + 'crud.php?entity=institution', this.convertEntryBack(einr), httpOptions)
       .pipe(
         map(res => {
           if (res.error) {
@@ -58,7 +68,7 @@ export class T30SozialeEinrichtungService {
         }));
   }
   save(einr: SozialeEinrichtung) {
-    return this.http.put<any>(this.baseUrl + 'crud.php?entity=institution', einr, httpOptions)
+    return this.http.put<any>(this.baseUrl + 'crud.php?entity=institution', this.convertEntryBack(einr), httpOptions)
       .pipe(
         map(res => {
           if (res.error) {

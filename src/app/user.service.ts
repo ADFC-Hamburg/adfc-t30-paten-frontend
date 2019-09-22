@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { map } from 'rxjs/operators';
 import { User } from './user';
-import { AuthenticationService } from './authentication.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -13,11 +12,9 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private authenticationService: AuthenticationService,
   ) { }
 
   getCurrentUser() {
-    const currentUser = this.authenticationService.getCurrentUserId();
     return this.http.get(this.baseUrl +
       'crud.php?entity=userdata&onlyOwn=true').pipe(map(userdata => {
         return userdata[0];

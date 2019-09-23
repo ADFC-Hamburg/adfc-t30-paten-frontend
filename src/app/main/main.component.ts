@@ -19,7 +19,7 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     this.userService.getCurrentUser().pipe(take(1)).subscribe(user => {
       this.forderungService.list(user.id).subscribe(data => {
-        this.foderungList = data;
+        this.forderungList = data;
       });
     });
   }

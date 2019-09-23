@@ -31,6 +31,17 @@ export class DemandedStreetSectionService {
     });
     return entry;
   }
+  get(id) {
+    return this.http.get<any>(
+      this.baseUrl + 'crud.php?entity=demandedstreetsection&refs=(format,data)&nores=[]&filter=[id,' + id + ']', httpOptions).pipe(
+        map(res => {
+          if (res.error) {
+            throw new NotificationError(res.error);
+          }
+          return res.map(this.optionValueToString);
+        }));
+
+  }
   list(institutionId) {
     return this.http.get<any>(
       this.baseUrl + 'crud.php?entity=demandedstreetsection&nores=[]&filter=[institution,' +

@@ -30,7 +30,7 @@ export class UserService {
       'userData': {
         'firstName': user.firstName,
         'lastName': user.lastName,
-        'street': user.street,
+        'street_house_no': user.street_house_no,
         'city': user.city,
         'zip': user.zip,
         'phone': user.phone

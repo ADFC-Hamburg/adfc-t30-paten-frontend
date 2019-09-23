@@ -2,32 +2,37 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OSM_TILE_LAYER_URL } from '@yaga/leaflet-ng2';
 import { ForderungService } from '../forderung.service';
-import { T30SozialeEinrichtungService } from '../t30-soziale-einrichtung.service';
+import { DemandedStreetSectionService } from '../demanded-street-section.service';
+import { CanDeactivateFormControlComponent } from '../can-deactivate-form-control/can-deactivate-form-control.component';
+import { RelationInstitutionService } from '../relation-institution.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { User } from '../user';
 import { UserService } from '../user.service';
 import { Point } from 'leaflet';
 import { take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forderung-edit',
   templateUrl: './forderung-edit.component.html',
   styleUrls: ['./forderung-edit.component.css']
 })
-export class ForderungEditComponent implements OnInit {
+export class ForderungEditComponent extends CanDeactivateFormControlComponent implements OnInit {
   id = -1;
+  relationId = -1;
   polizeirevierMail = 'Polizei Hamburg <polizei@hamburg.de>';
   public einrichtung: any = {
     'name': '',
     'zusatz': '',
-    'art': 0,
-    'strasse': '',
-    'plz': '',
-    'ort': '',
+    'type': 0,
+    'street': '',
+    'zip': '',
+    'city': '',
     'id': -1,
     'tempo30': 1,
     'angrenzendeStrassen': [],
   };
+  public streetSection: any = {};
   public forderung: any = {
     'anmerkung': '',
     'anmerkung_bus': '',
@@ -44,12 +49,14 @@ export class ForderungEditComponent implements OnInit {
     id: [-1],
     geprueft: ['1'],
     bezugZurEinrichtung: ['', Validators.required],
-    standDerDinge: [''],
+    status_text: [''],
     mailSend: [false],
     sendMailNow: [false],
     password: ['', Validators.required],
-    subject: ['', Validators.required],
-    mailtext: ['', Validators.required]
+    mail_subject: ['', Validators.required],
+    mail_start: ['', Validators.required],
+    mail_body: ['', Validators.required],
+    mail_end: ['', Validators.required]
   });
 
   ART_STR = [
@@ -111,12 +118,13 @@ export class ForderungEditComponent implements OnInit {
     'Mehr als eine Spur je Fahrtrichtung'
   ];
   public currentUser: User = {
+    id: -1,
     firstName: '',
     lastName: '',
     user: '',
     city: '',
     zip: '',
-    street: '',
+    street_house_no: '',
     phone: '',
   };
   public tileLayerUrl: string = OSM_TILE_LAYER_URL;
@@ -130,30 +138,61 @@ export class ForderungEditComponent implements OnInit {
   };
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private forderungService: ForderungService,
-    private sozService: T30SozialeEinrichtungService,
     private fb: FormBuilder,
-    private userService: UserService
-  ) { }
-  genEMailText() {
+    private userService: UserService,
+    private demandedStreetSectionService: DemandedStreetSectionService,
+    private relationInstitutionService: RelationInstitutionService,
+  ) {
+    super();
+  }
+  getFormControl() {
+    return this.forderungFG;
+  }
+  genEMailStartText() {
     const user = this.currentUser;
     const einr = this.einrichtung;
-    const forderung = this.forderung;
 
     let newEMailText = 'Sehr geehrte Damen und Herren,\n' +
       `mein Name ist ${user.firstName} ${user.lastName}. ` +
-      `Ich bin ${this.forderungFG.get('bezugZurEinrichtung').value} ${this.BEZUG_ART[einr.art]} "${einr.name}", `;
-    if (einr.zusatz !== '') {
-      newEMailText = newEMailText + einr.zusatz + ', ';
+      `Ich bin ${this.forderungFG.get('bezugZurEinrichtung').value} ${this.BEZUG_ART[einr.type]} "${einr.name}", `;
+    if (einr.address_supplement !== '') {
+      newEMailText = newEMailText + einr.address_supplement + ', ';
     }
     newEMailText = newEMailText +
-      `${einr.strasse}, ${einr.plz} ${einr.ort}.\nIm Umfeld dieser Einrichtung fehlt leider noch Tempo 30.\n\n` +
-      `Ich ersuche Sie hiermit, an diesem an ${this.ANGR_ART[einr.art]} angrenzenden Straßenabschnitt ` +
+      `${einr.street_house_no}, ${einr.zip} ${einr.city}.`;
+    if ((!this.forderungFG.get('mail_start').dirty) && (newEMailText !== this.forderungFG.get('mail_start').value)) {
+      this.forderungFG.get('mail_start').setValue(newEMailText);
+    }
+
+  }
+  genEMailEndText() {
+    const user = this.currentUser;
+    const newEMailText = 'Vielen Dank und mit freundlichen Grüßen\n\n' +
+      `${user.firstName} ${user.lastName}\n\n` +
+      `${user.street_house_no}\n` +
+      `${user.zip} ${user.city}\n` +
+      `${user.phone}\n\n` +
+      '--\nDiese E-Mail wurde durch das Tempo 30-Tool des ADFC-Hamburg verschickt, mehr Infos dazu unter\n' +
+      'https://hamburg.adfc.de/hast-nicht-gesehen-FIXME';
+    if ((!this.forderungFG.get('mail_end').dirty) &&
+      (newEMailText !== this.forderungFG.get('mail_end').value)) {
+      this.forderungFG.get('mail_end').setValue(newEMailText);
+    }
+
+  }
+  genEMailText() {
+    const einr = this.einrichtung;
+    const forderung = this.forderung;
+
+    let newEMailText = `Im Umfeld dieser Einrichtung fehlt leider noch Tempo 30.\n\n` +
+      `Ich ersuche Sie hiermit, an diesem an ${this.ANGR_ART[einr.type]} angrenzenden Straßenabschnitt ` +
       `${forderung.name} von Hausnummer ${forderung.von} bis Hausnummer ${forderung.bis} Tempo 30 einzuführen.\n\n` +
       `Begründung:\n${this.HAUPTEINGANG[forderung.haupteingang]}\n\n` +
       forderung.anmerkung + '\n\n' +
       '(gerne durch Beschreibungen der Umstände vor Ort ergänzen)\n\n' +
-      `Aus meiner Sicht sind ${this.BESUCHER_ART[einr.art]} am Verkehr teilnehmen, nicht ausreichend vor dem schnellen ` +
+      `Aus meiner Sicht sind ${this.BESUCHER_ART[einr.type]} am Verkehr teilnehmen, nicht ausreichend vor dem schnellen ` +
       'KFZ-Verkehr geschützt.\nDie KFZ-Fahrer*innen müssen durch ein geringeres Tempo in die Lage versetzt werden, ' +
       'besondere Aufmerksamkeit walten zu lassen.\n';
 
@@ -168,40 +207,87 @@ export class ForderungEditComponent implements OnInit {
       'Laut §45 Absatz 9 Satz 4 Ziffer 6 der StVO in Verbindung mit der Verwaltungsvorschrift zu ' +
       '§45 StVO soll zum Schutz besonders schützenswerter Personen im Umfeld sozialer Einrichtungen,\n' +
       'also dort wo Haupteingänge sind oder Quell- und Zielverkehr zur Einrichtung herrscht, regulär Tempo 30 ' +
-      'gelten, ohne dass eine besondere Gefahrenlage erwiesen ist.\n\nVielen Dank und mit freundlichen Grüßen\n\n' +
-      `${user.firstName} ${user.lastName}\n\n` +
-      `${user.street}\n` +
-      `${user.zip} ${user.city}\n` +
-      `${user.phone}\n\n` +
-      '--\nDiese E-Mail wurde durch das Tempo 30-Tool des ADFC-Hamburg verschickt, mehr Infos dazu unter\n' +
-      'https://hamburg.adfc.de/hast-nicht-gesehen-FIXME';
+      'gelten, ohne dass eine besondere Gefahrenlage erwiesen ist.';
     console.log('gen-email');
-    if ((!this.forderungFG.get('mailtext').dirty) && (newEMailText !== this.forderungFG.get('mailtext').value)) {
-      this.forderungFG.get('mailtext').setValue(newEMailText);
+    if ((!this.forderungFG.get('mail_body').dirty) && (newEMailText !== this.forderungFG.get('mail_body').value)) {
+      this.forderungFG.get('mail_body').setValue(newEMailText);
     }
+  }
+  onSave() {
+    console.log(this.forderungFG.value);
+    let call;
+    const data = this.forderungFG.value;
+    data.person = this.currentUser.id;
+    data.demanded_street_section = this.streetSection.id;
+    if (this.forderungFG.get('id').value === -1) {
+      call = this.forderungService.create(data);
+    } else {
+      call = this.forderungService.update(data);
+    }
+    call.subscribe(rtnData => {
+      this.setSubmitted();
+      this.router.navigate(['/einrichtung/view', this.einrichtung.id]);
+    });
+    const relationData = {
+      relation_type: this.forderungFG.get('bezugZurEinrichtung').value,
+      person: this.currentUser.id,
+      institution: this.einrichtung.id,
+      id: this.relationId
+    };
+    if (this.relationId === -1) {
+      delete relationData.id;
+      this.relationInstitutionService.create(relationData).subscribe(rtn => {
+        console.log(rtn);
+      });
+    } else {
+      this.relationInstitutionService.update(relationData).subscribe(rtn => {
+        console.log(rtn);
+      });
+    }
+  }
+  mainMenu() {
+    this.router.navigate(['/einrichtung/view', this.einrichtung.id]);
   }
   ngOnInit() {
     this.forderungFG.get('bezugZurEinrichtung').valueChanges.subscribe(bezug => {
-      this.genEMailText();
+      this.genEMailStartText();
     });
     this.route.params.subscribe(param => {
       this.id = param.id;
       this.userService.getCurrentUser().pipe(take(1)).subscribe(user => {
         this.currentUser = user;
-        this.forderungService.get(param.id).pipe(take(1)).subscribe(forderung => {
-          this.forderung = forderung;
-          if (forderung.einrichtung) {
-            this.sozService.get(forderung.einrichtung).pipe(take(1)).subscribe(einr => {
-              this.einrichtung = einr;
-              const newSubject = `Tempo 30 für ${forderung.name} ${forderung.von}-${forderung.bis} an ` +
-                `${einr.name} ${einr.address_supplement}`;
-              if ((!this.forderungFG.get('subject').dirty) && (newSubject !== this.forderungFG.get('subject').value)) {
-                this.forderungFG.get('subject').setValue(newSubject);
+        if (this.currentUser.phone == null) {
+          this.currentUser.phone = '';
+        }
+        this.forderungService.get(param.id, user.id).subscribe(forderung => {
+          this.demandedStreetSectionService.get(param.id).pipe(take(1)).subscribe(streetSection => {
+            this.streetSection = streetSection[0];
+            console.log(streetSection);
+            console.log(this.einrichtung);
+            this.einrichtung = this.streetSection.institution;
+            console.log(this.einrichtung);
+            const einr = this.einrichtung;
+            this.relationInstitutionService.get(einr.id, this.currentUser.id).subscribe(relInsData => {
+              console.log(relInsData);
+              if (relInsData.length > 0) {
+                this.relationId = relInsData[0].id;
+                this.forderungFG.get('bezugZurEinrichtung').setValue(relInsData[0].relation_type);
               }
-              this.genEMailText();
-
             });
-          }
+            if (forderung.length === 1) {
+              this.forderung = forderung[0];
+              this.forderungFG.patchValue(this.forderung);
+              this.forderungFG.get('geprueft').setValue('2');
+              console.log(this.forderungFG.value);
+            } else {
+              const newSubject = 'Tempo 30 für ' + this.streetSection.street + ' ' + this.streetSection.house_no_from +
+                ' ' + this.streetSection.house_no_to + ' an ' + einr.name + ' ' + einr.address_supplement;
+              this.forderungFG.get('mail_subject').setValue(newSubject);
+              this.genEMailStartText();
+              this.genEMailText();
+              this.genEMailEndText();
+            }
+          });
         });
       });
     });

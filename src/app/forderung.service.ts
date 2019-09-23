@@ -20,14 +20,50 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ForderungService {
- baseUrl = environment.API_STUB_BASE_URL;
+  baseUrl = environment.API_BASE_URL;
 
   constructor(
     private http: HttpClient
   ) { }
-
-  get(id): Observable<any> {
-    return this.http.get<any>(this.baseUrl + 'forderung.php?id=' + id, httpOptions)
+  create(data) {
+    if ('id' in data) {
+      delete data.id;
+    }
+    return this.http.post<any>(this.baseUrl + 'crud.php?entity=email', data, httpOptions)
+      .pipe(
+        map(res => {
+          if (res.error) {
+            throw new NotificationError(res.error);
+          }
+          return res;
+        }));
+  }
+  update(data) {
+    console.log('update', data);
+    return this.http.put<any>(this.baseUrl + 'crud.php?entity=email', data, httpOptions)
+      .pipe(
+        map(res => {
+          if (res.error) {
+            throw new NotificationError(res.error);
+          }
+          return res;
+        }));
+  }
+  get(streetSectionsId, userId): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'crud.php?entity=email&nores=[]&filter=[demanded_street_section,\'' +
+      streetSectionsId + '\']and[person,\'' + userId + '\']', httpOptions)
+      .pipe(
+        map(res => {
+          console.log('res', res);
+          if (res.error) {
+            throw new NotificationError(res.error);
+          }
+          return res;
+        }));
+  }
+  list(userId) {
+    return this.http.get<any>(this.baseUrl + 'crud.php?refs=[(format,data),(depth,2)]&entity=email&nores=[]&filter=[person,\'' +
+      userId + '\']', httpOptions)
       .pipe(
         map(res => {
           console.log('res', res);

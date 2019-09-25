@@ -1,4 +1,4 @@
-<h2>{{ ART_STR[einrichtung.type] }} {{ einrichtung.name}} {{einrichtung.zusatz || '' }}</h2>
+<h2>{{ einrichtung.type |einrichtungsart }} {{ einrichtung.name}} {{einrichtung.zusatz || '' }}</h2>
 <p>Bitte prüfe die folgenden Angaben:</p>
 <div class="line">
   <div class="key">Name:</div>
@@ -6,7 +6,7 @@
 </div>
 <div class="line">
   <div class="key">Art:</div>
-  <div class="value">{{ ART_STR[einrichtung.type] }}</div>
+  <div class="value">{{ einrichtung.type |einrichtungsart }}</div>
 </div>
 <div class="line">
   <div class="key">Anschrift:</div>

@@ -58,13 +58,6 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     mail_end: ['', Validators.required]
   });
 
-  ART_STR = [
-    'Unklar',
-    'Kindergaten',
-    'Schule',
-    'Alten-, Pflege- und Tagespflegeheim',
-    'Krankenhaus',
-  ];
   BEZUG_ART = [
     'der/des <Art der Einrichtung im Genitiv>',
     'des Kindergatens',

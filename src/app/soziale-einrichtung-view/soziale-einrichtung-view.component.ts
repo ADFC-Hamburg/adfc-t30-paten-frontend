@@ -34,13 +34,6 @@ export class SozialeEinrichtungViewComponent implements OnInit {
   mapLon = HAMBURG_LON;
   newLat = HAMBURG_LAT;
   newLon = HAMBURG_LON;
-  ART_STR = [
-    'Unklar',
-    'Kindergaten',
-    'Schule',
-    'Alten- und Pflegeheim / Tagespflege',
-    'Krankenhaus',
-  ];
   STATUS = [
     'unklar',
     'hier wird Tempo 30 gefordert',

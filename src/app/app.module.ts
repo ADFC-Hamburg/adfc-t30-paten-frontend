@@ -45,6 +45,7 @@ import { SozialeEinrichtungViewComponent } from './soziale-einrichtung-view/sozi
 import { SozialeEinrichtungEditComponent } from './soziale-einrichtung-edit/soziale-einrichtung-edit.component';
 import { ForderungEditComponent } from './forderung-edit/forderung-edit.component';
 import { PasswordChangeTokenComponent } from './password-change-token/password-change-token.component';
+import { EinrichtungsartPipe } from './pipes/einrichtungsart.pipe';
 
 
 export function tokenGetter() {
@@ -72,6 +73,7 @@ export function tokenGetter() {
     SozialeEinrichtungEditComponent,
     ForderungEditComponent,
     PasswordChangeTokenComponent,
+    EinrichtungsartPipe,
   ],
   imports: [
     BrowserModule,

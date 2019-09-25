@@ -24,7 +24,6 @@ import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TokenEingebenComponent } from './token-eingeben/token-eingeben.component';
-import { TokenBestaetigungComponent } from './token-bestaetigung/token-bestaetigung.component';
 import { EmailVersandComponent } from './email-versand/email-versand.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandleService } from './error-handle.service';
@@ -55,7 +54,6 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     TokenEingebenComponent,
-    TokenBestaetigungComponent,
     EmailVersandComponent,
     LoginComponent,
     RegisterComponent,

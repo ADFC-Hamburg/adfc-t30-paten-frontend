@@ -33,14 +33,7 @@ export class T30PatenService {
         }));
   }
 
-  submitToken(token: String) {
-    return this.http.get<any>(this.baseUrl + 'portal.php?verify=' + token, httpOptions)
-      .pipe(
-        map(res => {
-          if (res.error) {
-            throw new NotificationError(res.error);
-          }
-          return res['ok'] === 1;
-        }));
+  submitToken(email: String, token: String) {
+    return this.http.get<any>(this.baseUrl + 'portal.php?user=' + email + '&verify=' + token, httpOptions);
   }
 }

@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AbmeldenAskComponent } from './abmelden-ask/abmelden-ask.component';
 import { TokenEingebenComponent } from './token-eingeben/token-eingeben.component';
-import { TokenBestaetigungComponent } from './token-bestaetigung/token-bestaetigung.component';
 import { EmailVersandComponent } from './email-versand/email-versand.component';
 import { MainComponent } from './main/main.component';
 import { LoginComponent } from './login/login.component';
@@ -35,11 +34,8 @@ const routes: Routes = [{
   path: 'einrichtung/view/:id',
   component: SozialeEinrichtungViewComponent,
 }, {
-  path: 'token/:fehler',
+  path: 'token/:email/:token',
   component: TokenEingebenComponent,
-}, {
-  path: 'submitToken/:token',
-  component: TokenBestaetigungComponent,
 }, {
   path: 'mailSend',
   component: EmailVersandComponent,

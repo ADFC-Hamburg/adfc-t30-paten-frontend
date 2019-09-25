@@ -12,10 +12,7 @@
   </mat-form-field>
   <mat-form-field class="t30-full-width">
     <mat-select placeholder="Art der Einrichtung" formControlName="type">
-      <mat-option value="1">Kindertagesstätte</mat-option>
-      <mat-option value="2">Schule</mat-option>
-      <mat-option value="3">Alten- und Pflegeheim / Tagespflege</mat-option>
-      <mat-option value="4">Krankenhaus</mat-option>
+      <mat-option *ngFor="let item of [1,2,3,4];" value="{{item}}">{{item |einrichtungsart}}</mat-option>
     </mat-select>
   </mat-form-field>
   <b>Adresse der Einrichtung bzw. Nebenstelle</b>

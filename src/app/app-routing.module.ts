@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { PasswordChangeTokenComponent } from './password-change-token/password-change-token.component';
 import { AbmeldenAskComponent } from './abmelden-ask/abmelden-ask.component';
 import { TokenEingebenComponent } from './token-eingeben/token-eingeben.component';
 import { EmailVersandComponent } from './email-versand/email-versand.component';
@@ -36,6 +37,9 @@ const routes: Routes = [{
 }, {
   path: 'token/:email/:token',
   component: TokenEingebenComponent,
+}, {
+  path: 'passwordChangeToken/:token',
+  component: PasswordChangeTokenComponent,
 }, {
   path: 'mailSend',
   component: EmailVersandComponent,

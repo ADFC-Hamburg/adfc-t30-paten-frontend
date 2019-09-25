@@ -94,14 +94,16 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     console.log('xx');
     if (this.loginForm.get('passwordResend').value) {
-      this.authenticationService.passwordReset(this.loginForm.get('email').value, this.loginForm.get('password1').value).pipe(first())
+      this.authenticationService.passwordReset(this.loginForm.get('email').value, this.loginForm.get('password1').value)
         .subscribe(
           data => {
+            console.log(data);
             this.errorHandleService.handleError('Sofern Ihre E-Mail korrekt war, ' +
               'haben Ihnen einen Link zum neu setzen des Passwortes geschickt');
             this.loading = false;
           },
           error => {
+            console.log(error);
             this.errorHandleService.handleError('Fehler ' + error);
             this.loading = false;
           }

@@ -32,7 +32,9 @@ export class T30PatenService {
           return res;
         }));
   }
-
+  submitPasswordChangeToken(token: string) {
+    return this.http.get<any>(this.baseUrl + 'portal.php?passwordChange=' + token, httpOptions);
+  }
   submitToken(email: String, token: String) {
     return this.http.get<any>(this.baseUrl + 'portal.php?user=' + email + '&verify=' + token, httpOptions);
   }

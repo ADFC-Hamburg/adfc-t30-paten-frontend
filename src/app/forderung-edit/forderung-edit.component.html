@@ -1,7 +1,8 @@
 <h2>{{ ART_STR[einrichtung.type] }} {{ einrichtung.name}} {{einrichtung.zusatz || '' }}</h2>
 <p>Bitte prüfe die folgenden Angaben:</p>
 <div class="line">
-  <div class="key">Name:</div><div class="value">{{ einrichtung.name}} {{einrichtung.address_supplement || '' }}</div>
+  <div class="key">Name:</div>
+  <div class="value">{{ einrichtung.name}} {{einrichtung.address_supplement || '' }}</div>
 </div>
 <div class="line">
   <div class="key">Art:</div>
@@ -51,14 +52,9 @@
       <mat-icon>undo</mat-icon> zurück
     </button>
     <hr>
+
   </div>
   <div *ngIf="(forderungFG.get('geprueft').value==='2')">
-    <p>Der ADFC hat mit der Hamburger Elternkammer vereinbart, dass zunächst nur zur jeweiligen Schule Gehörige die Tempo-30-Forderungen stellen sollen. Daher können die Tempo-30-Forderungen für Schulen bis zum FIXME nur nach Eingabe des richtigen Stichworts gestellt werden. Dies erhälst du bei der Elternkammer oder dem Elternrat der Schule.
-    </p>
-    <mat-form-field class="t30-full-width">
-      <input matInput placeholder="Stichwort" formControlName="password">
-
-    </mat-form-field>
     <mat-form-field class="t30-full-width">
       <input matInput placeholder="Dein Bezug zur Einrichtung" formControlName="bezugZurEinrichtung">
       <mat-hint>Schülerin, Nachbar, Leiterin, Angehörige, Mitarbeiter...</mat-hint>
@@ -76,7 +72,7 @@
       {{ currentUser.lastName  }}
       &lt;{{ currentUser.user }}&gt;
     </div>
-    <div><b>An:</b>{{ polizeirevierMail }}</div>
+    <div><b>An:</b> Polizei {{ polizeiData.name }} &lt;{{ polizeiData.email }}&gt;</div>
     <div><b>CC:</b> ADFC Hamburg &lt;tempo30sozial@hamburg.adfc.de&gt;</div>
     <div *ngIf="forderungFG.get('mailSend').value">
       <mat-icon>report</mat-icon><b>Die E-Mail wurde bereits verschickt und kann nicht mehr bearbeitet werden</b>
@@ -87,14 +83,26 @@
     <mat-form-field class="t30-full-width">
       <textarea class="t30-emailstart-area" matInput formControlName="mail_start" placeholder="Begrüßungsteil der E-Mail (wird an die Polizei geschickt, aber nicht veröffentlicht)">
    </textarea>
- </mat-form-field>
+    </mat-form-field>
     <mat-form-field class="t30-full-width">
       <textarea class="t30-email-area" matInput formControlName="mail_body" placeholder="Haupttext der E-Mail (wird veröffentlicht, bitte hier keine personenbezogenen Daten angeben)">
    </textarea>
- </mat-form-field>
-   <mat-form-field class="t30-full-width">
-     <textarea class="t30-emailend-area" matInput formControlName="mail_end" placeholder="Grußformel und Absender (wird an die Polizei geschickt, aber nicht veröffentlicht)">
+    </mat-form-field>
+    <mat-form-field class="t30-full-width">
+      <textarea class="t30-emailend-area" matInput formControlName="mail_end" placeholder="Grußformel und Absender (wird an die Polizei geschickt, aber nicht veröffentlicht)">
   </textarea>
+    </mat-form-field>
+    <p *ngIf="aktionsData.reached === false">
+      <mat-icon color="warn">warning</mat-icon>
+      Der ADFC hat mit der Hamburger Elternkammer vereinbart, dass zunächst nur
+      zur jeweiligen Schule Gehörige die Tempo-30-Forderungen stellen sollen.
+      Daher können die Tempo-30-Forderungen für Schulen bis zum {{ aktionsData.until |date:'dd.MM.yyyy' }}
+      nur nach Eingabe des richtigen Stichworts gestellt werden. Dies erhälst du
+      bei der Elternkammer oder dem Elternrat der Schule.
+      Du kannst die E-Mail auch ohne Stichwort speichern, aber noch nicht absenden!
+    </p>
+    <mat-form-field class="t30-full-width" *ngIf="aktionsData.reached === false">
+      <input matInput placeholder="Stichwort" formControlName="password">
     </mat-form-field>
     <mat-action-row>
       <button mat-button color="warn" (click)="mainMenu()">

@@ -20,7 +20,6 @@ import { Router } from '@angular/router';
 export class ForderungEditComponent extends CanDeactivateFormControlComponent implements OnInit {
   id = -1;
   relationId = -1;
-  polizeirevierMail = 'Polizei Hamburg <polizei@hamburg.de>';
   public einrichtung: any = {
     'name': '',
     'zusatz': '',
@@ -135,6 +134,14 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     popupAnchor: new Point(1, -34),
     tooltipAnchor: new Point(16, -28),
     shadowSize: new Point(41, 41)
+  };
+  public aktionsData = {
+    reached: true,
+    until: '2019-10-22',
+  };
+  public polizeiData = {
+    name: '',
+    email: ''
   };
   constructor(
     private route: ActivatedRoute,
@@ -273,6 +280,12 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
                 this.relationId = relInsData[0].id;
                 this.forderungFG.get('bezugZurEinrichtung').setValue(relInsData[0].relation_type);
               }
+            });
+            this.forderungService.getAktionsData().subscribe(aktionsData => {
+              this.aktionsData = aktionsData;
+            });
+            this.forderungService.getPK(einr.id).subscribe(polizeiData => {
+              this.polizeiData = polizeiData[0];
             });
             if (forderung.length === 1) {
               this.forderung = forderung[0];

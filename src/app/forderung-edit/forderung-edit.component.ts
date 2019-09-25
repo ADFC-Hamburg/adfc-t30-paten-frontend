@@ -40,7 +40,7 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     'haupteingang': '1',
     'id': -1,
     'name': '',
-    'spurigkeit': '',
+    'multilane': 0,
     'status': '3',
     'von': '10'
   };
@@ -104,10 +104,6 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     'An- und Abreiseverkehr',
     'Haupteingang',
     'Haupteingang und An- und Abreiseverkehr',
-  ];
-  SPURIGKEIT = [
-    'Je eine Spur je Fahrtrichtung',
-    'Mehr als eine Spur je Fahrtrichtung'
   ];
   public currentUser: User = {
     id: -1,

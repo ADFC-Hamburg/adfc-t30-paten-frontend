@@ -46,6 +46,7 @@ import { SozialeEinrichtungEditComponent } from './soziale-einrichtung-edit/sozi
 import { ForderungEditComponent } from './forderung-edit/forderung-edit.component';
 import { PasswordChangeTokenComponent } from './password-change-token/password-change-token.component';
 import { EinrichtungsartPipe } from './pipes/einrichtungsart.pipe';
+import { SpurigkeitPipe } from './pipes/spurigkeit.pipe';
 
 
 export function tokenGetter() {
@@ -74,6 +75,7 @@ export function tokenGetter() {
     ForderungEditComponent,
     PasswordChangeTokenComponent,
     EinrichtungsartPipe,
+    SpurigkeitPipe,
   ],
   imports: [
     BrowserModule,

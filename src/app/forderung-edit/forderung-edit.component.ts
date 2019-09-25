@@ -137,7 +137,7 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
   };
   public aktionsData = {
     reached: true,
-    until: '2019-10-22',
+    until: new Date(),
   };
   public polizeiData = {
     name: '',
@@ -282,7 +282,8 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
               }
             });
             this.forderungService.getAktionsData().subscribe(aktionsData => {
-              this.aktionsData = aktionsData;
+              this.aktionsData.reached = aktionsData.reached;
+              this.aktionsData.until = new Date(aktionsData.until + 'T00:00:00');
             });
             this.forderungService.getPK(einr.id).subscribe(polizeiData => {
               this.polizeiData = polizeiData[0];

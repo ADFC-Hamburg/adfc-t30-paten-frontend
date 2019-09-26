@@ -172,8 +172,8 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
       `${user.street_house_no}\n` +
       `${user.zip} ${user.city}\n` +
       `${user.phone}\n\n` +
-      '--\nDiese E-Mail wurde durch das Tempo 30-Tool des ADFC-Hamburg verschickt, mehr Infos dazu unter\n' +
-      'https://hamburg.adfc.de/hast-nicht-gesehen-FIXME';
+      '--\nDiese E-Mail wurde durch das Tempo 30-Tool des ADFC-Hamburg verschickt, mehr Infos dazu unter:\n' +
+      environment.CAMPAIN_URL;
     if ((!this.forderungFG.get('mail_end').dirty) &&
       (newEMailText !== this.forderungFG.get('mail_end').value)) {
       this.forderungFG.get('mail_end').setValue(newEMailText);
@@ -183,11 +183,13 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
   genEMailText() {
     const einr = this.einrichtung;
     const forderung = this.forderung;
-
+    const streetSection = this.streetSection;
+    console.log(streetSection);
     let newEMailText = `Im Umfeld dieser Einrichtung fehlt leider noch Tempo 30.\n\n` +
       `Ich ersuche Sie hiermit, an diesem an ${this.ANGR_ART[einr.type]} angrenzenden Straßenabschnitt ` +
-      `${forderung.name} von Hausnummer ${forderung.von} bis Hausnummer ${forderung.bis} Tempo 30 einzuführen.\n\n` +
-      `Begründung:\n${this.HAUPTEINGANG[forderung.haupteingang]}\n\n` +
+      `${forderung.name} von Hausnummer ${streetSection.house_no_from} bis Hausnummer ` +
+      `${streetSection.house_no_to} Tempo 30 einzuführen.\n\n` +
+      `Begründung:\n${this.HAUPTEINGANG[streetSection.haupteingang]}\n\n` +
       forderung.anmerkung + '\n\n' +
       '(gerne durch Beschreibungen der Umstände vor Ort ergänzen)\n\n' +
       `Aus meiner Sicht sind ${this.BESUCHER_ART[einr.type]} am Verkehr teilnehmen, nicht ausreichend vor dem schnellen ` +
@@ -211,12 +213,13 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
       this.forderungFG.get('mail_body').setValue(newEMailText);
     }
   }
-  onSave() {
+  onSave(sendMailNow) {
     console.log(this.forderungFG.value);
     let call;
     const data = this.forderungFG.value;
     data.person = this.currentUser.id;
     data.demanded_street_section = this.streetSection.id;
+    data.sendMailNow = sendMailNow;
     if (this.forderungFG.get('id').value === -1) {
       call = this.forderungService.create(data);
     } else {
@@ -286,7 +289,7 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
               console.log(this.forderungFG.value);
             } else {
               const newSubject = 'Tempo 30 für ' + this.streetSection.street + ' ' + this.streetSection.house_no_from +
-                ' ' + this.streetSection.house_no_to + ' an ' + einr.name + ' ' + einr.address_supplement;
+                ' bis ' + this.streetSection.house_no_to + ' an ' + einr.name + ' ' + einr.address_supplement;
               this.forderungFG.get('mail_subject').setValue(newSubject);
               this.genEMailStartText();
               this.genEMailText();

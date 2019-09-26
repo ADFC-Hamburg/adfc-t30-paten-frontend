@@ -108,10 +108,10 @@
       <button mat-button color="warn" (click)="mainMenu()">
         <mat-icon>cancel</mat-icon> Änderungen verwerfen
       </button>
-      <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="primary" (click)="onSave(2, false)">
+      <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="primary" (click)="onSave(false)">
         <mat-icon>save</mat-icon> Speichern und später weiter bearbeiten
       </button>
-      <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="accent" (click)="onSave(2, true)">
+      <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="accent" (click)="onSave(true)">
         <mat-icon>email</mat-icon> Speichern und E-Mail Absenden
       </button>
     </mat-action-row>

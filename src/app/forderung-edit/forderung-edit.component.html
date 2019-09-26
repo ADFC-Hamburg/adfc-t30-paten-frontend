@@ -73,7 +73,7 @@
       &lt;{{ currentUser.user }}&gt;
     </div>
     <div><b>An:</b> Polizei {{ polizeiData.name }} &lt;{{ polizeiData.email }}&gt;</div>
-    <div><b>CC:</b> ADFC Hamburg &lt;tempo30sozial@hamburg.adfc.de&gt;</div>
+    <div><b>CC:</b> ADFC Hamburg &lt;{{ CONTACT_MAIL }}&gt;</div>
     <div *ngIf="forderungFG.get('mailSend').value">
       <mat-icon>report</mat-icon><b>Die E-Mail wurde bereits verschickt und kann nicht mehr bearbeitet werden</b>
     </div>

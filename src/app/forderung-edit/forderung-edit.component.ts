@@ -11,6 +11,7 @@ import { UserService } from '../services/user.service';
 import { Point } from 'leaflet';
 import { take } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-forderung-edit',
@@ -20,6 +21,7 @@ import { Router } from '@angular/router';
 export class ForderungEditComponent extends CanDeactivateFormControlComponent implements OnInit {
   id = -1;
   relationId = -1;
+  CONTACT_MAIL = environment.CONTACT_MAIL;
   public einrichtung: any = {
     'name': '',
     'zusatz': '',

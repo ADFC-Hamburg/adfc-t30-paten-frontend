@@ -38,6 +38,10 @@ export class AppComponent implements OnInit, OnDestroy {
       path: '/login', label: 'Anmelden', icon: 'send', showPublic: true,
       showUser: false
     },
+    {
+      path: '/register', label: 'Registrieren', icon: 'person_add', showPublic: true,
+      showUser: false
+    }
   ];
   public version: string = environment.VERSION;
   public CAMPAIN_URL = environment.CAMPAIN_URL;

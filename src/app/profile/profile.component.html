@@ -10,7 +10,7 @@
           <mat-error class="error-message" *ngIf="checkValidateError('lastName', 'required')">Nachname erforderlich</mat-error>
         </mat-form-field>
         <mat-form-field class="t30-full-width">
-          <input matInput placeholder="E-Mail" type="email" formControlName="user" autocomplete="email" required>
+          <input matInput placeholder="E-Mail" type="email" formControlName="user" autocomplete="email" required readonly=true>
           <mat-error class="error-message" *ngIf="checkValidateError('user', 'required')">E-Mail erforderlich</mat-error>
           <mat-error class="error-message" *ngIf="checkValidateError('user', 'email')">ungültige E-Mail</mat-error>
         </mat-form-field>

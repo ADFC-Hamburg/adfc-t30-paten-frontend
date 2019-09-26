@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { ErrorNotifierService } from './services/error-notifier.service';
 import { AuthenticationService } from './services/authentication.service';
 import { Location } from '@angular/common';
@@ -41,6 +40,9 @@ export class AppComponent implements OnInit, OnDestroy {
     },
   ];
   public version: string = environment.VERSION;
+  public CAMPAIN_URL = environment.CAMPAIN_URL;
+  CONTACT_MAIL = environment.CONTACT_MAIL;
+  public API_VERSION = 'unklar';
   sub: any;
   myNavLinks = [];
   myRoute = null;
@@ -54,6 +56,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {
   }
   ngOnInit() {
+    this.API_VERSION = environment.API_BASE_URL.replace('.*version', '');
     this.sub = this.errorService.messages.subscribe(e => {
       console.log('Fehler empfangen:', e);
       this.snackBar.open(e, 'Okay');

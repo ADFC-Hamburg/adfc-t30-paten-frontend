@@ -8,7 +8,6 @@ import { User } from '../user';
 export class UserService {
 
   baseUrl = environment.API_BASE_URL;
-  baseStubUrl = environment.API_STUB_BASE_URL;
   mailinglisteUrl = 'https://ml-cgn06.ispgateway.de/mailman/subscribe/soziale-t30_lists.hamburg.adfc.de';
   constructor(
     private http: HttpClient,
@@ -60,7 +59,4 @@ export class UserService {
     return this.http.put(this.baseUrl + '/crud.php?entity=userdata', user);
   }
 
-  delete(id: number) {
-    return this.http.delete(this.baseStubUrl + '/delete_user.php?id=' + id);
-  }
 }

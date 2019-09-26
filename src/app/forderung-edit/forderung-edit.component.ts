@@ -88,14 +88,7 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     'die Senioren die im Umfeld des Heims',
     'die Patentent*innen und Besucher*innen die im Umfeld des Krankehaueses',
   ];
-  STATUS = [
-    'unklar',
-    'hier wird Tempo 30gefordert',
-    'hier ist Tempo 30',
-    'hier fehlt Tempo 30',
-    'die Behörde hat Tempo 30 abgelehnt',
-    'Tempo 30 wurde angeordnet, die Schilder stehen aber noch nicht',
-  ];
+
   HAUPTEINGANG = [
     'An- und Abreiseverkehr',
     'Haupteingang',

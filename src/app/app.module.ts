@@ -47,6 +47,7 @@ import { ForderungEditComponent } from './forderung-edit/forderung-edit.componen
 import { PasswordChangeTokenComponent } from './password-change-token/password-change-token.component';
 import { EinrichtungsartPipe } from './pipes/einrichtungsart.pipe';
 import { SpurigkeitPipe } from './pipes/spurigkeit.pipe';
+import { BusverkehrPipe } from './pipes/busverkehr.pipe';
 
 
 export function tokenGetter() {
@@ -76,6 +77,7 @@ export function tokenGetter() {
     PasswordChangeTokenComponent,
     EinrichtungsartPipe,
     SpurigkeitPipe,
+    BusverkehrPipe,
   ],
   imports: [
     BrowserModule,

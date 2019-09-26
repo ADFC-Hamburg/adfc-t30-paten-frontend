@@ -110,9 +110,7 @@
       </mat-form-field>
       <mat-form-field class="t30-half-width">
         <mat-select placeholder="Busverkehr" formControlName="much_bus_traffic">
-          <mat-option value="1">Kein Busverkehr</mat-option>
-          <mat-option value="2">weniger als 6 mal pro h</mat-option>
-          <mat-option value="3">mind. 6 mal pro h</mat-option>
+          <mat-option *ngFor="let item of [1,2,3];" value="{{item}}">{{item |busverkehr }}</mat-option>
         </mat-select>
         <mat-hint>
           in mindestens eine Richtung, Werktags zwischen 7 und 8 Uhr

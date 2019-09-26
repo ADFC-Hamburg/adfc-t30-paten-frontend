@@ -37,7 +37,7 @@
       </div>
       <div class="line">
         <div class="key">Busverkehr:</div>
-        <div class="value">{{ BUSVERKEHR[sec.much_bus_traffic] }}</div>
+        <div class="value">{{ sec.much_bus_traffic | busverkehr }}</div>
       </div>
       <div class="line" *ngIf="sec.buslinien">
         <div class="key">Buslinien:</div>

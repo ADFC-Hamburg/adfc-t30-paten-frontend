@@ -96,12 +96,6 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     'die Behörde hat Tempo 30 abgelehnt',
     'Tempo 30 wurde angeordnet, die Schilder stehen aber noch nicht',
   ];
-  BUSVERKEHR = [
-    'Unklar',
-    'Kein Busverkehr',
-    'weniger als 6 mal/h',
-    '6 mal/h oder mehr'
-  ];
   HAUPTEINGANG = [
     'An- und Abreiseverkehr',
     'Haupteingang',

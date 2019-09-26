@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { StrassenlisteService } from '../strassenliste.service';
+import { StrassenlisteService } from '../services/strassenliste.service';
 import { OnInit } from '@angular/core';
 import { CanDeactivateFormControlComponent } from '../can-deactivate-form-control/can-deactivate-form-control.component';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Point } from 'leaflet';
 import { OSM_TILE_LAYER_URL } from '@yaga/leaflet-ng2';
-import { T30SozialeEinrichtungService } from '../t30-soziale-einrichtung.service';
+import { T30SozialeEinrichtungService } from '../services/t30-soziale-einrichtung.service';
 import { SozialeEinrichtung } from '../sozialeEinrichtung';
 import { NotificationError } from '../notification-error';
-import { DemandedStreetSectionService } from '../demanded-street-section.service';
+import { DemandedStreetSectionService } from '../services/demanded-street-section.service';
 import { forkJoin } from 'rxjs';
 
 const HAMBURG_LAT = 53.551086;

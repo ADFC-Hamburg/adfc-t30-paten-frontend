@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-// import { ErrorHandleService } from '../error-handle.service';
-import { T30PatenService } from '../t30-paten.service';
+import { T30PatenService } from '../services/t30-paten.service';
 
 @Component({
   selector: 'app-password-change-token',

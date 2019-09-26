@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserService } from '../user.service';
-import { ForderungService } from '../forderung.service';
+import { UserService } from '../services/user.service';
+import { ForderungService } from '../services/forderung.service';
 import { take } from 'rxjs/operators';
 @Component({
   selector: 'app-main',

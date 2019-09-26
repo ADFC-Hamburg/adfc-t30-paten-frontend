@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { ErrorNotifierService } from './error-notifier.service';
-import { AuthenticationService } from './authentication.service';
+import { ErrorNotifierService } from './services/error-notifier.service';
+import { AuthenticationService } from './services/authentication.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 

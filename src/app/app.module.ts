@@ -26,7 +26,7 @@ import { AppComponent } from './app.component';
 import { TokenEingebenComponent } from './token-eingeben/token-eingeben.component';
 import { EmailVersandComponent } from './email-versand/email-versand.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ErrorHandleService } from './error-handle.service';
+import { ErrorHandleService } from './services/error-handle.service';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MainComponent } from './main/main.component';

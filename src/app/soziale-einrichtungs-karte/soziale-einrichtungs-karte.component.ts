@@ -1,7 +1,7 @@
 import { OSM_TILE_LAYER_URL } from '@yaga/leaflet-ng2';
 import { Component, OnInit } from '@angular/core';
 import { marker, Icon } from 'leaflet';
-import { T30SozialeEinrichtungService } from '../t30-soziale-einrichtung.service';
+import { T30SozialeEinrichtungService } from '../services/t30-soziale-einrichtung.service';
 
 
 const HAMBURG_LAT = 53.551086;

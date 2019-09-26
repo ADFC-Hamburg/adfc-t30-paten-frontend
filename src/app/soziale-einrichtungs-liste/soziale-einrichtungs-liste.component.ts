@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { T30SozialeEinrichtungService } from '../t30-soziale-einrichtung.service';
+import { T30SozialeEinrichtungService } from '../services/t30-soziale-einrichtung.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';

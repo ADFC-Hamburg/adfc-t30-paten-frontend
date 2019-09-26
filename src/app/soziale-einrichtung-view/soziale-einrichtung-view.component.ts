@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OSM_TILE_LAYER_URL } from '@yaga/leaflet-ng2';
-import { T30SozialeEinrichtungService } from '../t30-soziale-einrichtung.service';
-import { DemandedStreetSectionService } from '../demanded-street-section.service';
+import { T30SozialeEinrichtungService } from '../services/t30-soziale-einrichtung.service';
+import { DemandedStreetSectionService } from '../services/demanded-street-section.service';
 
 // import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 const HAMBURG_LAT = 53.551086;

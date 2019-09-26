@@ -3,8 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { ErrorHandleService } from '../error-handle.service';
-import { AuthenticationService } from '../authentication.service';
+import { ErrorHandleService } from '../services/error-handle.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   templateUrl: 'login.component.html',

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 @Component({
   selector: 'app-abmelden-ask',
   templateUrl: './abmelden-ask.component.html',
@@ -7,7 +7,7 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class AbmeldenAskComponent implements OnInit {
 
-  constructor(    private authenticationService: AuthenticationService,
+  constructor(private authenticationService: AuthenticationService,
   ) { }
 
   ngOnInit() {

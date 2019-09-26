@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { NotificationError } from './notification-error';
+import { NotificationError } from '../notification-error';
 import { map } from 'rxjs/operators';
 
 const httpOptions = {

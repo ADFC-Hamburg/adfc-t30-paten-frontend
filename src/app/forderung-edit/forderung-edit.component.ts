@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OSM_TILE_LAYER_URL } from '@yaga/leaflet-ng2';
-import { ForderungService } from '../forderung.service';
-import { DemandedStreetSectionService } from '../demanded-street-section.service';
+import { ForderungService } from '../services/forderung.service';
+import { DemandedStreetSectionService } from '../services/demanded-street-section.service';
 import { CanDeactivateFormControlComponent } from '../can-deactivate-form-control/can-deactivate-form-control.component';
-import { RelationInstitutionService } from '../relation-institution.service';
+import { RelationInstitutionService } from '../services/relation-institution.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { User } from '../user';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 import { Point } from 'leaflet';
 import { take } from 'rxjs/operators';
 import { Router } from '@angular/router';

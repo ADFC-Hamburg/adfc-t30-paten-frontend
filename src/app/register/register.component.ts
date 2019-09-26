@@ -37,7 +37,6 @@ export class RegisterComponent implements OnInit {
       phone: ['', [Validators.maxLength(20), Validators.minLength(4), Validators.pattern(/^[0-9\- \/]*$/)]],
       speichern: [true, Validators.required],
       mailingliste: [false, Validators.required],
-      newsletter: [false, Validators.required],
       password1: ['', [Validators.required, Validators.minLength(5)]],
       password2: ['', Validators.required],
     }, { validator: this.checkPasswords });
@@ -67,13 +66,23 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
-    console.log(this.router); // FIXME
     this.loading = true;
     this.userService.register(this.registerForm.value, this.registerForm.get('password1').value)
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigate(['/token/', this.registerForm.get('user').value, '-']);
+          if (this.registerForm.get('mailingliste').value) {
+            this.userService.aboniereMailinglise(this.registerForm.get('user').value).subscribe(bla => {
+              this.loading = false;
+              this.router.navigate(['/token/', this.registerForm.get('user').value, '-']);
+            }, error => {
+              this.loading = false;
+              this.router.navigate(['/token/', this.registerForm.get('user').value, '-']);
+            });
+          } else {
+            this.loading = false;
+            this.router.navigate(['/token/', this.registerForm.get('user').value, '-']);
+          }
         },
         error => {
           this.loading = false;

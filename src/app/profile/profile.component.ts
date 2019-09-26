@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { CanDeactivateFormControlComponent } from '../can-deactivate-form-control/can-deactivate-form-control.component';
 import { UserService } from '../services/user.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -75,6 +76,12 @@ export class ProfileComponent extends CanDeactivateFormControlComponent implemen
   checkValidateError(fieldname: string, errorType: string): boolean {
     const field = this.profileForm.get(fieldname);
     return field.hasError(errorType) && (field.dirty || field.touched || this.submitted);
+  }
+  openMailinglist() {
+    window.open('https://ml-cgn06.ispgateway.de/mailman/listinfo/soziale-t30_lists.hamburg.adfc.de/', '_blank');
+  }
+  deleteProfile() {
+    confirm('Bitte wende dich per E-Mail an' + environment.CONTACT_MAIL);
   }
 
   onSubmit() {

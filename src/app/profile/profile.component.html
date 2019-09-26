@@ -48,14 +48,11 @@
           <button mat-raised-button color="primary" type="submit" [disabled]="!(profileForm.get('save').value)">
             <mat-icon>save</mat-icon> Speichern
           </button>
-          <button mat-raised-button color="basic" type="submit" [disabled]="!(profileForm.get('save').value)">
-            <mat-icon>email</mat-icon> ADFC Newsletter verwalten
-          </button>
-          <button mat-raised-button color="basic" type="submit" [disabled]="!(profileForm.get('save').value)">
+          <button mat-raised-button color="basic" (click)="openMailinglist()">
             <mat-icon>email</mat-icon> Mailingliste verwalten
           </button>
 
-          <button mat-raised-button color="warn" type="submit" [disabled]="!(profileForm.get('save').value)">
+          <button mat-raised-button color="warn"  (click)="deleteProfile()">
             <mat-icon>delete_forever</mat-icon> Profil Löschen
             </button>
       </mat-action-row>

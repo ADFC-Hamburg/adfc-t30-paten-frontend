@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { User } from '../user';
@@ -9,7 +9,7 @@ export class UserService {
 
   baseUrl = environment.API_BASE_URL;
   baseStubUrl = environment.API_STUB_BASE_URL;
-
+  mailinglisteUrl = 'https://ml-cgn06.ispgateway.de/mailman/subscribe/soziale-t30_lists.hamburg.adfc.de';
   constructor(
     private http: HttpClient,
   ) { }
@@ -36,6 +36,24 @@ export class UserService {
         'phone': user.phone
       }
     });
+  }
+  aboniereMailinglise(email: string) {
+    const params = new HttpParams({
+      fromObject: {
+        'email': email,
+        'fullname': '',
+        'pw': '',
+        'pw-conf': '',
+        'email-button': 'Abonnieren',
+      },
+    });
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }),
+    };
+    return this.http.post<any>(this.mailinglisteUrl, params, httpOptions);
   }
 
   update(user: User) {

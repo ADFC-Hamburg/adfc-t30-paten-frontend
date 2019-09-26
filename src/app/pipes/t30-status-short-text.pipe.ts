@@ -21,5 +21,4 @@ export class T30StatusShortTextPipe implements PipeTransform {
     }
     return STATUS_TEXT[value];
   }
-
 }

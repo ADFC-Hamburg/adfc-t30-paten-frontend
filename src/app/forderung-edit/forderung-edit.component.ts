@@ -239,6 +239,7 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
       delete relationData.id;
       this.relationInstitutionService.create(relationData).subscribe(rtn => {
         console.log(rtn);
+        localStorage.setItem('recalc_main_link', '1');
       });
     } else {
       this.relationInstitutionService.update(relationData).subscribe(rtn => {

@@ -3,8 +3,11 @@ import { environment } from '../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorNotifierService } from './services/error-notifier.service';
 import { AuthenticationService } from './services/authentication.service';
+import { UserService } from './services/user.service';
+import { ForderungService } from './services/forderung.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -15,16 +18,16 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'ADFC Tempo 30 vor sozialen Einrichtungen';
   navLinks = [
     {
-      path: '/main', label: 'Meine T30 Eingaben', icon: 'visibility',
-      showPublic: false, showUser: true
+      path: '/sozEinrKarte', label: 'Karte der Einrichungen',
+      icon: 'map', showPublic: true, showUser: true
     },
     {
-      path: '/sozEinrListe', label: 'Liste der sozialen Einrichungen',
+      path: '/sozEinrListe', label: 'Liste der Einrichungen',
       icon: 'list', showPublic: true, showUser: true
     },
     {
-      path: '/sozEinrKarte', label: 'Karte der sozialen Einrichungen',
-      icon: 'map', showPublic: true, showUser: true
+      path: '/main', label: 'Meine Forderungsmails', icon: 'visibility',
+      showPublic: false, showUser: true
     },
     {
       path: '/profile', label: 'Mein Profil', icon: 'account_circle',
@@ -51,12 +54,15 @@ export class AppComponent implements OnInit, OnDestroy {
   myNavLinks = [];
   myRoute = null;
   showHint = true;
+  forderungList = [];
   constructor(
     private snackBar: MatSnackBar,
     private errorService: ErrorNotifierService,
     private authenticationService: AuthenticationService,
     private location: Location,
     private router: Router,
+    private userService: UserService,
+    private forderungService: ForderungService,
   ) {
   }
   ngOnInit() {
@@ -68,9 +74,24 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.events.subscribe(event => {
       this.calcNavLinks();
     });
+    this.calcForderungList();
+  }
+  calcForderungList() {
+    this.userService.getCurrentUser().pipe(take(1)).subscribe(user => {
+      this.forderungService.list(user.id).subscribe(data => {
+        this.forderungList = data;
+      });
+    });
   }
   showLink(link) {
     if (this.authenticationService.isLoggedIn()) {
+      if (link.path === '/main') {
+        if (localStorage.getItem('recalc_main_link')) {
+          localStorage.removeItem('recalc_main_link');
+          this.calcForderungList();
+        }
+        return (this.forderungList.length > 0);
+      }
       return link.showUser;
     } else {
       return link.showPublic;

@@ -1,9 +1,6 @@
 export class SozialeEinrichtung {
   id: number;
-  lat: number;
-  lon: number;
-  mapLat: number;
-  mapLon: number;
+  position: [number, number];
   name: string;
   address_supplement: string; // z.B. Filiale: Harburg
   street_house_no: string;

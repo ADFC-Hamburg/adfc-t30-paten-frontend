@@ -28,12 +28,8 @@ export class SozialeEinrichtungViewComponent implements OnInit {
     'status': 1,
   };
   public streetSections: [];
-  lat = HAMBURG_LAT;
-  lon = HAMBURG_LON;
-  mapLat = HAMBURG_LAT;
-  mapLon = HAMBURG_LON;
-  newLat = HAMBURG_LAT;
-  newLon = HAMBURG_LON;
+  position = [HAMBURG_LON, HAMBURG_LAT];
+  mapPos = [HAMBURG_LON, HAMBURG_LAT];
   STATUS = [
     'unklar',
     'hier wird Tempo 30 gefordert',
@@ -61,10 +57,8 @@ export class SozialeEinrichtungViewComponent implements OnInit {
       this.id = param.id;
       this.sozService.get(param.id).subscribe(data => {
         this.einrichtung = data;
-        this.newLon = data.lon;
-        this.newLat = data.lat;
-        this.mapLon = data.lon;
-        this.mapLat = data.lat;
+        this.mapPos = [data.position[0], data.position[1]];
+        this.position = [data.position[0], data.position[1]];
       });
       this.steetSectionService.list(param.id).subscribe(data => {
         this.streetSections = data;

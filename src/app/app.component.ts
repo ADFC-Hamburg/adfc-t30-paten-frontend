@@ -77,11 +77,13 @@ export class AppComponent implements OnInit, OnDestroy {
     this.calcForderungList();
   }
   calcForderungList() {
-    this.userService.getCurrentUser().pipe(take(1)).subscribe(user => {
-      this.forderungService.list(user.id).subscribe(data => {
-        this.forderungList = data;
+    if (this.authenticationService.isLoggedIn()) {
+      this.userService.getCurrentUser().pipe(take(1)).subscribe(user => {
+        this.forderungService.list(user.id).subscribe(data => {
+          this.forderungList = data;
+        });
       });
-    });
+    }
   }
   showLink(link) {
     if (this.authenticationService.isLoggedIn()) {

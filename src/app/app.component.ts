@@ -66,7 +66,8 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {
   }
   ngOnInit() {
-    this.API_VERSION = environment.API_BASE_URL.replace('.*version', '');
+    this.API_VERSION = environment.API_BASE_URL
+      .replace(/^.*ersion(.*)\/api.*$/, '$1');
     this.sub = this.errorService.messages.subscribe(e => {
       console.log('Fehler empfangen:', e);
       this.snackBar.open(e, 'Okay');

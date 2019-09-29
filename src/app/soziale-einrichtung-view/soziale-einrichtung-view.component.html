@@ -12,10 +12,10 @@
     <div class="key">Anschrift:</div>
     <div class="value">{{einrichtung.street_house_no}}, {{einrichtung.zip}} {{einrichtung.city}}</div>
   </div>
-  <yaga-map class="t30-map" zoom="17" [(lat)]="mapLat" [(lng)]="mapLon">
+  <yaga-map class="t30-map" zoom="17" [(lat)]="mapPos[1]" [(lng)]="mapPos[0]">
     <yaga-tile-layer [(url)]="tileLayerUrl"></yaga-tile-layer>
     <yaga-zoom-control></yaga-zoom-control>
-    <yaga-marker [(lat)]="newLat" [(lng)]="newLon">
+    <yaga-marker [(lat)]="position[1]" [(lng)]="position[0]">
       <yaga-icon iconUrl="assets/marker-icon.png" shadowUrl="assets/marker-shadow.png" [(iconSize)]="marker.iconSize" [(iconAnchor)]="marker.iconAnchor" [(popupAnchor)]="marker.popupAnchor" [(tooltipAnchor)]="marker.tooltipAnchor" [(shadowSize)]="marker.shadowSize"></yaga-icon>
     </yaga-marker>
   </yaga-map>

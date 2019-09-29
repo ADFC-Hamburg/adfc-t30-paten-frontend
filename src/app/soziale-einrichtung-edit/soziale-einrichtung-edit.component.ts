@@ -26,12 +26,9 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
   public loadedData: SozialeEinrichtung = SozialeEinrichtung.DEFAULT;
   public einrichtung: FormGroup = this.fb.group({
     id: [-1],
-    lat: [HAMBURG_LAT, Validators.required],
-    lon: [HAMBURG_LON, Validators.required],
-    mapLat: [HAMBURG_LAT],
-    mapLon: [HAMBURG_LON],
-    newLat: [HAMBURG_LAT],
-    newLon: [HAMBURG_LON],
+    position: [[HAMBURG_LON, HAMBURG_LAT]],
+    mapPos: [[HAMBURG_LON, HAMBURG_LAT]],
+    newPos: [[HAMBURG_LON, HAMBURG_LAT]],
     name: ['', Validators.required],
     address_supplement: [''],
     street_house_no: ['', Validators.required],
@@ -56,12 +53,9 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     tooltipAnchor: new Point(16, -28),
     shadowSize: new Point(41, 41)
   };
-  lat = HAMBURG_LAT;
-  lon = HAMBURG_LON;
-  mapLat = HAMBURG_LAT;
-  mapLon = HAMBURG_LON;
-  newLat = HAMBURG_LAT;
-  newLon = HAMBURG_LON;
+  position = [HAMBURG_LON, HAMBURG_LAT];
+  mapPos = [HAMBURG_LON, HAMBURG_LAT];
+  newPos = [HAMBURG_LON, HAMBURG_LAT];
   filteredStrassen = [
   ];
   createAngrStrassenFbGroup() {
@@ -128,46 +122,35 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
       this.getStrassenAbschnitte().removeAt(index);
     }
   }
-  changeLatFB(value) {
-    if (this.lat !== value) {
-      this.lat = value;
-      this.mapLat = value;
-      this.newLat = value;
-    }
-  }
-  changeLonFB(value) {
-    if (this.lon !== value) {
-      this.lon = value;
-      this.mapLon = value;
-      this.newLon = value;
+  changePosFB(value) {
+    if ((this.position[0] !== value[0]) ||
+      (this.position[1] !== value[1])) {
+      this.position = [value[0], value[1]];
+      this.mapPos = [value[0], value[1]];
+      this.newPos = [value[0], value[1]];
     }
   }
   isMarkerMoved() {
-    return ((this.lat !== this.newLat) || (this.lon !== this.newLon));
+    return ((this.position[0] !== this.newPos[0]) || (this.position[1] !== this.newPos[1]));
   }
   mapMoveEnd() {
     this.einrichtung.patchValue({
-      newLat: this.newLat,
-      newLon: this.newLon
+      newPos: this.newPos,
     });
   }
   posReset() {
-    this.newLat = this.lat;
-    this.newLon = this.lon;
+    this.newPos = this.position;
   }
   posAenderung() {
     this.einrichtung.patchValue({
-      lat: this.newLat,
-      lon: this.newLon
+      position: this.newPos,
     });
   }
   mapDblClick(event) {
     if (event.latlng) {
-      this.newLat = event.latlng.lat;
-      this.newLon = event.latlng.lng;
+      this.newPos = [event.latlng.lng, event.latlng.lat];
       this.einrichtung.patchValue({
-        newLat: this.newLat,
-        newLon: this.newLon
+        newPos: this.newPos,
       });
     }
   }
@@ -245,7 +228,10 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
       let newLen = data.angrenzendeStrassen.length;*/
       data.type = data.type.toString();
       this.einrichtung.patchValue(data);
-      this.einrichtung.patchValue({ mapLon: data.lon, mapLat: data.lat, newLon: data.lon, newLat: data.lat });
+      this.einrichtung.patchValue({
+        mapPos: [data.position[0], data.position[1]],
+        newPos: [data.position[0], data.position[1]]
+      });
       this.loadedData = data;
     });
     this.streetSectionService.list(id).subscribe(data => {
@@ -267,8 +253,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     });
   }
   ngOnInit() {
-    this.einrichtung.get('lat').valueChanges.subscribe(x => this.changeLatFB(x));
-    this.einrichtung.get('lon').valueChanges.subscribe(x => this.changeLonFB(x));
+    this.einrichtung.get('position').valueChanges.subscribe(x => this.changePosFB(x));
     this.route.params.subscribe(param => {
       console.log('x1', param);
       if (param.id !== '-1') {

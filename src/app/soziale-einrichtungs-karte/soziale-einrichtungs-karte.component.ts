@@ -75,7 +75,7 @@ export class SozialeEinrichtungsKarteComponent implements OnInit {
             'properties': item,
             'geometry': {
               'type': 'Point',
-              'coordinates': [item.lon, item.lat]
+              'coordinates': item.position
             }
           });
         }

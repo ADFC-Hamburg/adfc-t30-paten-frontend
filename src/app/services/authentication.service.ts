@@ -8,7 +8,6 @@ import { environment } from '../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
   baseUrl = environment.API_BASE_URL;
-  baseStubUrl = environment.API_STUB_BASE_URL;
   public currentUser: string = null;
 
   constructor(

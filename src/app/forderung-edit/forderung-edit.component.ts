@@ -24,28 +24,15 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
   CONTACT_MAIL = environment.CONTACT_MAIL;
   public einrichtung: any = {
     'name': '',
-    'zusatz': '',
+    'address_supplement': '',
     'type': 0,
-    'street': '',
-    'zip': '',
+    'street_house_no': '',
+    'streetsection_complete': false,
     'city': '',
-    'id': -1,
-    'tempo30': 1,
-    'angrenzendeStrassen': [],
+    'id': -1
   };
   public streetSection: any = {};
-  public forderung: any = {
-    'anmerkung': '',
-    'anmerkung_bus': '',
-    'bis': '',
-    'busverkehr': '',
-    'haupteingang': '1',
-    'id': -1,
-    'name': '',
-    'multilane': 0,
-    'status': '3',
-    'von': '10'
-  };
+
   forderungFG = this.fb.group({
     id: [-1],
     geprueft: ['1'],
@@ -104,6 +91,7 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     street_house_no: '',
     phone: '',
   };
+  public isPasswordOkay = 0;
   public tileLayerUrl: string = OSM_TILE_LAYER_URL;
   public marker = {
     draggable: true,
@@ -121,6 +109,7 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     name: '',
     email: ''
   };
+  public changeData = [];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -169,28 +158,27 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
   }
   genEMailText() {
     const einr = this.einrichtung;
-    const forderung = this.forderung;
     const streetSection = this.streetSection;
     console.log(streetSection);
     let newEMailText = `Im Umfeld dieser Einrichtung fehlt leider noch Tempo 30.\n\n` +
       `Ich ersuche Sie hiermit, an diesem an ${this.ANGR_ART[einr.type]} angrenzenden Straßenabschnitt ` +
-      `${forderung.name} von Hausnummer ${streetSection.house_no_from} bis Hausnummer ` +
+      `${streetSection.street} von Hausnummer ${streetSection.house_no_from} bis Hausnummer ` +
       `${streetSection.house_no_to} Tempo 30 einzuführen.\n\n` +
-      `Begründung:\n${this.HAUPTEINGANG[streetSection.haupteingang]}\n\n` +
-      forderung.anmerkung + '\n\n' +
+      `Begründung:\n${this.HAUPTEINGANG[streetSection.entrance]}\n\n` +
+      streetSection.user_note + '\n\n' +
       '(gerne durch Beschreibungen der Umstände vor Ort ergänzen)\n\n' +
       `Aus meiner Sicht sind ${this.BESUCHER_ART[einr.type]} am Verkehr teilnehmen, nicht ausreichend vor dem schnellen ` +
       'KFZ-Verkehr geschützt.\nDie KFZ-Fahrer*innen müssen durch ein geringeres Tempo in die Lage versetzt werden, ' +
       'besondere Aufmerksamkeit walten zu lassen.\n';
 
-    if (forderung.busverkehr > 1) {
+    if (streetSection.much_bus_traffic > 1) {
       newEMailText = newEMailText + 'Die Änderung für den KFZ- und Busverkehr';
     } else {
       newEMailText = newEMailText + 'Die Änderung für den KFZ-Verkehr';
     }
     newEMailText = newEMailText + 'halte ich angesichts des Sicherheitsgewinns für angemessen. ' +
       'Der Sicherheit muss Vorrang vor Geschwindigkeit gewährt werden.\n\n' +
-      forderung.anmerkung_bus + '\n\n' +
+      streetSection.reason_slower_buses + '\n\n' +
       'Laut §45 Absatz 9 Satz 4 Ziffer 6 der StVO in Verbindung mit der Verwaltungsvorschrift zu ' +
       '§45 StVO soll zum Schutz besonders schützenswerter Personen im Umfeld sozialer Einrichtungen,\n' +
       'also dort wo Haupteingänge sind oder Quell- und Zielverkehr zur Einrichtung herrscht, regulär Tempo 30 ' +
@@ -237,6 +225,12 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
   mainMenu() {
     this.router.navigate(['/einrichtung/view', this.einrichtung.id]);
   }
+  onPasswordChange(password: string) {
+    this.forderungService.validateAktionsPassword(this.einrichtung.type, password).subscribe(rtn => {
+      this.isPasswordOkay = rtn;
+      console.log(rtn);
+    });
+  }
   ngOnInit() {
     this.forderungFG.get('bezugZurEinrichtung').valueChanges.subscribe(bezug => {
       this.genEMailStartText();
@@ -247,6 +241,9 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
         this.currentUser = user;
         if (this.currentUser.phone == null) {
           this.currentUser.phone = '';
+          this.forderungService.getChangeInfo(user.user, param.id).subscribe(changeData => {
+            this.changeData = changeData;
+          });
         }
         this.forderungService.get(param.id, user.id).subscribe(forderung => {
           this.demandedStreetSectionService.get(param.id).pipe(take(1)).subscribe(streetSection => {
@@ -263,18 +260,19 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
                 this.forderungFG.get('bezugZurEinrichtung').setValue(relInsData[0].relation_type);
               }
             });
-            this.forderungService.getAktionsData().subscribe(aktionsData => {
+            this.forderungService.getAktionsData(this.einrichtung.type).subscribe(aktionsData => {
               this.aktionsData.reached = aktionsData.reached;
+              if (this.aktionsData.reached) {
+                this.isPasswordOkay = 1;
+              }
               this.aktionsData.until = new Date(aktionsData.until + 'T00:00:00');
             });
             this.forderungService.getPK(einr.id).subscribe(polizeiData => {
               this.polizeiData = polizeiData[0];
             });
             if (forderung.length === 1) {
-              this.forderung = forderung[0];
-              this.forderungFG.patchValue(this.forderung);
+              this.forderungFG.patchValue(forderung[0]);
               this.forderungFG.get('geprueft').setValue('2');
-              console.log(this.forderungFG.value);
             } else {
               const newSubject = 'Tempo 30 für ' + this.streetSection.street + ' ' + this.streetSection.house_no_from +
                 ' bis ' + this.streetSection.house_no_to + ' an ' + einr.name + ' ' + einr.address_supplement;

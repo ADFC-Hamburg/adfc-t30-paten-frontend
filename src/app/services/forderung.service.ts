@@ -52,14 +52,21 @@ export class ForderungService {
   getPK(institut_id: number) {
     return this.http.get<any>(this.baseUrl + 'get_pk_from_institution.php?id=' + institut_id, httpOptions);
   }
-  getAktionsData() {
-    return this.http.get<any>(this.baseUrl + 'aktion.php', httpOptions);
+  getAktionsData(art: number) {
+    return this.http.get<any>(this.baseUrl + 'aktion.php?type=' + art, httpOptions);
   }
-  validateAktionsPassword(password: string) {
-    return this.http.get<any>(this.baseUrl + 'aktion.php?password=' + password, httpOptions).pipe(
-      map(data => {
-        return data['pw_check'];
-      }));
+  validateAktionsPassword(art: number, password: string) {
+    return this.http.get<any>(this.baseUrl + 'aktion.php?type=' + art +
+      '&password=' + password, httpOptions).pipe(
+        map(data => {
+          return data['pw_check'];
+        }));
+  }
+  getChangeInfo(email: string, streetSectionId: number) {
+    return this.http.get<any>(this.baseUrl +
+      'isDemandedStreetSectionChanged.php?id=' +
+      streetSectionId +
+      '&email=' + encodeURIComponent(email), httpOptions);
   }
   get(streetSectionsId, userId): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'crud.php?entity=email&nores=[]&filter=[demanded_street_section,\'' +

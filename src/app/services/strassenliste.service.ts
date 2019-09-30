@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 class StreetEntry {
@@ -22,7 +23,7 @@ export class StrassenlisteService {
   convertEntry(street_entry) {
     return street_entry.street_name;
   }
-  getAll() {
+  getAll(): Observable<String[]> {
     return this.http.get<StreetEntry[]>(this.baseUrl + 'crud.php?entity=street', httpOptions)
       .pipe(
         map(res => {

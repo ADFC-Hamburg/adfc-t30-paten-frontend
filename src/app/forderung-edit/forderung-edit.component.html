@@ -102,7 +102,7 @@
       Du kannst die E-Mail auch ohne Stichwort speichern, aber noch nicht absenden!
     </p>
     <mat-form-field class="t30-full-width" *ngIf="aktionsData.reached === false">
-      <input matInput placeholder="Stichwort" formControlName="password">
+      <input matInput placeholder="Stichwort" formControlName="password" (input)="onPasswordChange($event.target.value)">
     </mat-form-field>
     <mat-action-row>
       <button mat-button color="warn" (click)="mainMenu()">
@@ -111,7 +111,7 @@
       <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="primary" (click)="onSave(false)">
         <mat-icon>save</mat-icon> Speichern und später weiter bearbeiten
       </button>
-      <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="accent" (click)="onSave(true)">
+      <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="accent" (click)="onSave(true)" [disabled]="(this.isPasswordOkay==0)">
         <mat-icon>email</mat-icon> Speichern und E-Mail Absenden
       </button>
     </mat-action-row>

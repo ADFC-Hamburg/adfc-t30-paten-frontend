@@ -48,6 +48,7 @@ import { PasswordChangeTokenComponent } from './password-change-token/password-c
 import { EinrichtungsartPipe } from './pipes/einrichtungsart.pipe';
 import { SpurigkeitPipe } from './pipes/spurigkeit.pipe';
 import { BusverkehrPipe } from './pipes/busverkehr.pipe';
+import { StreetSectionEditComponent } from './street-section-edit/street-section-edit.component';
 
 
 export function tokenGetter() {
@@ -78,6 +79,7 @@ export function tokenGetter() {
     EinrichtungsartPipe,
     SpurigkeitPipe,
     BusverkehrPipe,
+    StreetSectionEditComponent,
   ],
   imports: [
     BrowserModule,

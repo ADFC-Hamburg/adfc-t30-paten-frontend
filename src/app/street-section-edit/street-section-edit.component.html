@@ -1,0 +1,78 @@
+<li [formGroup]="fg">
+    <mat-form-field class="t30-half-width">
+  <input matInput placeholder="Straße" [matAutocomplete]="auto" autocomplete="false" (ngModelChange)="changeStrassenname($event)" formControlName="street">
+</mat-form-field>
+<mat-autocomplete #auto="matAutocomplete">
+  <mat-option *ngIf="isLoading" class="is-loading">
+    <mat-spinner diameter="50"></mat-spinner>
+  </mat-option>
+  <ng-container *ngIf="!isLoading">
+    <mat-option *ngFor="let einr of filteredStrassen" [value]="einr">
+      <span>{{ einr}}</span>
+    </mat-option>
+  </ng-container>
+</mat-autocomplete>
+
+<!--     <mat-form-field class="t30-half-width">
+ <input matInput placeholder="Straße" formControlName="street">
+</mat-form-field>-->
+<mat-form-field class="t30-hausnummer-width">
+  <input matInput placeholder="von Hausnummer" formControlName="house_no_from">
+</mat-form-field>
+<mat-form-field class="t30-hausnummer-width">
+  <input matInput placeholder="bis Hausnummer" formControlName="house_no_to">
+</mat-form-field>
+<mat-form-field class="t30-half-width">
+  <mat-select placeholder="Forderungsgrund" formControlName="entrance">
+    <mat-option value="2">Haupteingang und An- und Abreiseverkehr</mat-option>
+    <mat-option value="1">Haupteingang</mat-option>
+    <mat-option value="0">An- und Abreiseverkehr</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field class="t30-half-width">
+  <mat-select placeholder="Anzahl der KFZ-Spuren pro Fahrtrichtung" formControlName="multilane">
+    <mat-option *ngFor="let item of [0,1];" value="{{item}}">{{item |spurigkeit }}</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field class="t30-full-width">
+  <mat-select placeholder="Tempo-30-Status" formControlName="status">
+    <mat-option value="0">Keine Angabe</mat-option>
+    <mat-option value="2">Hier ist Tempo 30</mat-option>
+    <mat-option value="3">Hier fehlt Tempo 30</mat-option>
+    <mat-option value="5">Tempo 30 wurde angeordnet, die Schilder stehen aber noch nicht</mat-option>
+    <mat-option value="4">Die Behörde hat abgelehnt, Tempo 30 einzuführen</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field class="t30-full-width">
+  <textarea  matInput formControlName="user_note" placeholder="Warum sollte gerade hier Tempo 30 gelten?"></textarea>
+  <mat-hint>
+   Uneinsichtige Stelle? Beobachtete Unfälle? Parkende Autos? Viel Radverkehr?...
+  </mat-hint>
+</mat-form-field>
+<mat-form-field class="t30-half-width">
+  <mat-select placeholder="Busverkehr" formControlName="much_bus_traffic">
+    <mat-option *ngFor="let item of [1,2,3];" value="{{item}}">{{item |busverkehr }}</mat-option>
+  </mat-select>
+  <mat-hint>
+    in mindestens eine Richtung, Werktags zwischen 7 und 8 Uhr
+  </mat-hint>
+</mat-form-field>
+<mat-form-field class="t30-half-width">
+  <input matInput placeholder="Buslinien" formControlName="bus_lines">
+  <mat-hint>
+  Welche Buslininien fahren hier? Bitte mit Komma trennen
+  </mat-hint>
+</mat-form-field>
+<mat-form-field class="t30-full-width">
+  <textarea  matInput formControlName="reason_slower_buses" placeholder="Anmerkung zum Busverkehr"></textarea>
+  <mat-hint>
+   Kann ein Bus hier wirklich schneller als 30 km/h fahren? Oder ist hier sowieso eine Ampel/Bushaltestelle etc. Bitte unterscheide Hauptverkehrszeit / Nebenzeiten.
+   z.B. "Die Busse verlangsamen an der Stelle ohnehin wegen einer Bushaltestelle/der abbiegenden Buslinie ihre Fahrt."
+  </mat-hint>
+</mat-form-field>
+<div class="t30-full-width">
+  <button mat-raised-button matTooltip="Diesen Straßenabschnitt löschen" (click)="onDeleteStrassenAbschnitt()" type="submit">
+    Diesen Straßenabschnitt löschen <mat-icon>delete</mat-icon>
+  </button>
+</div>
+  </li>

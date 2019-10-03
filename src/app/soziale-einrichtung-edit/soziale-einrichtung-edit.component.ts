@@ -72,6 +72,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
       much_bus_traffic: ['0', Validators.required],
       user_note: [''],
       multilane: ['0', Validators.required],
+      progress_report: [''],
     });
   }
   constructor(

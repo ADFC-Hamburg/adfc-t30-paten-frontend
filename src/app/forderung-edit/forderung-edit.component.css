@@ -14,10 +14,14 @@
 .line {
   width: 100%;
 }
+.headline {
+  font-weight: bold;
+}
 .key {
   display: inline-block;
-    width: 10em;
-  }
+  font-weight: bold;
+  width: 10em;
+}
 .value {
     display: inline-block;
   }

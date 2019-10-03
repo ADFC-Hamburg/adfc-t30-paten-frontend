@@ -2,7 +2,6 @@ export class SozialeEinrichtung {
   id: number;
   position: [number, number];
   name: string;
-  address_supplement: string; // z.B. Filiale: Harburg
   street_house_no: string;
   zip: string;
   city: string;

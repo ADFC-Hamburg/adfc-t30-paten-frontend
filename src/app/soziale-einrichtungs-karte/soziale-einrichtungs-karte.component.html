@@ -10,7 +10,6 @@
     <yaga-geojson [data]="geoData" [pointToLayer]="pointToLayerFunc">
       <yaga-popup (open)="popupOpen($event)" minWidth="350" maxWidth="500">
         <b>{{ popupProperties.name }}</b>
-        {{ popupProperties.address_supplement }} <br>
         {{ popupProperties.street_house_no}}, {{ popupProperties.zip }} {{popupProperties.city}} <br>
         <div [matTooltip]="popupProperties.status |t30StatusLongText"><img class="starImg" [src]="popupProperties.status |t30StatusStarSvgUrl">{{ popupProperties.status |t30StatusShortText}}
           <mat-icon>help</mat-icon>

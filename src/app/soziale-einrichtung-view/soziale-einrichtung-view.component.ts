@@ -19,7 +19,6 @@ export class SozialeEinrichtungViewComponent implements OnInit {
   id = -1;
   public einrichtung: any = {
     'name': '',
-    'address_supplement': '',
     'type': 0,
     'street_house_no': '',
     'zip': '',

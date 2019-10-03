@@ -4,13 +4,6 @@
     <input matInput placeholder="Name der Einrichtung" formControlName="name">
   </mat-form-field>
   <mat-form-field class="t30-full-width">
-    <input matInput placeholder="ggf. anderer Standort/ Zweigstelle/ Nebengebäude (bei Namensgleicheit zu eine andreren Einrichtung/Standort ausfüllen)" formControlName="address_supplement">
-    <mat-hint>
-      z.B. wenn es drei Standorte gibt und bei zweien Tempo 30 Sinn macht,
-      dann bitte für jeden von diesen einen eigenen Antrag ausfüllen und hier jeweils die Bezeichnung des Standortes angeben
-    </mat-hint>
-  </mat-form-field>
-  <mat-form-field class="t30-full-width">
     <mat-select placeholder="Art der Einrichtung" formControlName="type">
       <mat-option *ngFor="let item of [1,2,3,4];" value="{{item}}">{{item |einrichtungsart }}</mat-option>
     </mat-select>

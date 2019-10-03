@@ -1,4 +1,14 @@
-<li [formGroup]="fg">
+<mat-expansion-panel [formGroup]="fg" [expanded]="true">
+  <mat-expansion-panel-header >
+    <mat-panel-title>
+      {{ this.fg.get('street').value }}
+      {{ this.fg.get('house_no_from').value }}  -  {{ this.fg.get('house_no_to').value }}
+    </mat-panel-title>
+    <mat-panel-description>
+    Status: {{ this.fg.get('status').value | t30StatusShortText}}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+<div>
     <mat-form-field class="t30-half-width">
   <input matInput placeholder="Straße" [matAutocomplete]="auto" autocomplete="false" (ngModelChange)="changeStrassenname($event)" formControlName="street">
 </mat-form-field>
@@ -75,4 +85,5 @@
     Diesen Straßenabschnitt löschen <mat-icon>delete</mat-icon>
   </button>
 </div>
-  </li>
+</div>
+</mat-expansion-panel>

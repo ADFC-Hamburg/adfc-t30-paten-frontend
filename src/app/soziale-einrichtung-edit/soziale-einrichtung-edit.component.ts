@@ -67,8 +67,6 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
   getSozService() {
     return this.sozService;
   }
-
-
   getFormControl() {
     return this.einrichtung;
   }

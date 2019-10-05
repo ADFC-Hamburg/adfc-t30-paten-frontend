@@ -1,3 +1,10 @@
 a.adfc-t30-tab-extra {
   color: darkGray;
 }
+.alert {
+    background-color: #e45555;
+    padding: 20px;
+    color: white;
+    margin-bottom: 15px;
+    text-align: center;
+}

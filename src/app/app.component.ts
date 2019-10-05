@@ -7,6 +7,7 @@ import { UserService } from './services/user.service';
 import { ForderungService } from './services/forderung.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { interval, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -55,6 +56,9 @@ export class AppComponent implements OnInit, OnDestroy {
   myRoute = null;
   showHint = true;
   forderungList = [];
+  logoutInSeconds = -1;
+  logoutWarnTime = 600;
+  logoutHintSub: Subscription = null;
   constructor(
     private snackBar: MatSnackBar,
     private errorService: ErrorNotifierService,
@@ -76,6 +80,16 @@ export class AppComponent implements OnInit, OnDestroy {
       this.calcNavLinks();
     });
     this.calcForderungList();
+    this.logoutHintSub = interval(1000).subscribe(val => this.calcLogoutHint());
+    this.calcLogoutHint();
+  }
+  calcLogoutHint() {
+    this.logoutInSeconds = this.authenticationService.calcLogInTime();
+  }
+  extendLoginTime() {
+    this.authenticationService.extendLoginTime().subscribe(val => {
+      console.log(val);
+    });
   }
   calcForderungList() {
     if (this.authenticationService.isLoggedIn()) {
@@ -139,5 +153,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.logoutHintSub.unsubscribe();
   }
 }

@@ -48,14 +48,14 @@
   <div *ngIf=" getStrassenAbschnitte().length === 0">
     <mat-icon color="warn">warning</mat-icon> Hier fehlen die Straßen mit Qull- und Zielverkehr. Wir suchen freiwillige mit Ortskenntnissen!
   </div>
-  <div class="t30-full-width">
-  <button mat-raised-button matTooltip="Neuen Straßenabschnitt hinzufügen" type="submit" (click)="addStrassenAbschnitt()">
-    Straßenabschnitt hinzufügen <mat-icon>add</mat-icon>
-  </button>
-  </div>
   <div class="t30-full-width" formArrayName="streetSections" *ngFor="let item of getStrassenAbschnitte().controls; let i = index;">
     <app-street-section-edit [fg]="item" [fgIndex]="i" [strassenliste]="strassenliste" (deleteStrassenAbschnitt)="deleteStrassenAbschnitt($event)">
     </app-street-section-edit>
+  </div>
+  <div class="t30-full-width t30-streetsection-button">
+  <button mat-raised-button matTooltip="Neuen Straßenabschnitt hinzufügen" type="submit" (click)="addStrassenAbschnitt()">
+    Straßenabschnitt hinzufügen <mat-icon>add</mat-icon>
+  </button>
   </div>
   <div class="t30-checkbox">
   <mat-checkbox formControlName="streetsection_complete">Alle mir bekannten an die Einrichtung angrenzenden Straßenabschnitte sind aufgeführt.</mat-checkbox>

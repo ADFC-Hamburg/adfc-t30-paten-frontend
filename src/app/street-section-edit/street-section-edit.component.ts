@@ -1,6 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { AbstractControl, ValidatorFn, FormBuilder, Validators, FormGroup } from '@angular/forms';
 
+export function requiredOptionValues(values: string[]): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const allowed = values.includes(control.value);
+    return allowed ? null : { 'requiredOptionValues': { value: control.value } };
+  };
+}
 @Component({
   selector: 'app-street-section-edit',
   templateUrl: './street-section-edit.component.html',
@@ -17,20 +23,41 @@ export class StreetSectionEditComponent implements OnInit {
   @Output() deleteStrassenAbschnitt = new EventEmitter();
 
   public static createAngrStrassenFbGroup(fob: FormBuilder) {
-    return fob.group({
+    const fg = fob.group({
       id: [''],
       street: ['', Validators.required],
-      house_no_from: [''],
-      house_no_to: [''],
-      entrance: ['0', Validators.required],
+      house_no_from: ['', Validators.required],
+      house_no_to: ['', Validators.required],
+      entrance: ['0', requiredOptionValues(['0', '1', '2'])],
       time_restriction: [''],
-      status: ['1', Validators.required],
+      status: ['0', requiredOptionValues(['1', '2', '3', '4', '5', '6'])],
       reason_slower_buses: [''],
       bus_lines: [''],
-      much_bus_traffic: ['0', Validators.required],
+      much_bus_traffic: ['0', requiredOptionValues(['1', '2', '3'])],
       user_note: [''],
-      multilane: ['0', Validators.required],
+      multilane: ['0', requiredOptionValues(['0', '1'])],
     });
+    fg.get('much_bus_traffic').valueChanges.subscribe(
+      much_bus_traffic => {
+        if (['2', '3'].includes(much_bus_traffic)) {
+          fg.get('bus_lines').enable();
+          fg.get('reason_slower_buses').enable();
+        } else {
+          fg.get('bus_lines').disable();
+          fg.get('reason_slower_buses').disable();
+        }
+      }
+    );
+    fg.get('status').valueChanges.subscribe(
+      status => {
+        if (['2', '5'].includes(status)) {
+          fg.get('time_restriction').enable();
+        } else {
+          fg.get('time_restriction').disable();
+        }
+      }
+    );
+    return fg;
   }
 
   constructor(

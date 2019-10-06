@@ -36,6 +36,8 @@
   <div class="key">Anmerkungen zum Busverkeher:</div>
   <div class="value">{{ streetSection.reason_slower_buses }}</div>
 </div>
+<div class="headline">Verlauf der Tempo 30 Forderung:</div>
+<p>{{ streetSection.progress_report}}</p>
 <div [formGroup]="forderungFG">
   <mat-radio-group class="tp-radio-group" formControlName="geprueft" aria-label="Bitte prüfe die obigen Angaben">
     <mat-radio-button class="tp-radio-button" value="1">Ich möchte etwas korrigieren.</mat-radio-button>
@@ -52,7 +54,6 @@
       <mat-icon>undo</mat-icon> zurück
     </button>
     <hr>
-
   </div>
   <div *ngIf="(forderungFG.get('geprueft').value==='2')">
     <mat-form-field class="t30-full-width">
@@ -60,10 +61,6 @@
       <mat-hint>Schülerin, Nachbar, Leiterin, Angehörige, Mitarbeiter...</mat-hint>
     </mat-form-field>
     <p>Bitte informiere die Einrichtung, dass du Tempo 30 für ihre angrenzenden Straßen beantragen möchtest/ beantragt hast und besprich das Anliegen bestenfalls vorher mit Vertreter*innen. Danke!</p>
-    <mat-form-field class="t30-full-width">
-      <textarea matInput placeholder="Verlauf der Tempo-30-Forderung" formControlName="status_text"></textarea>
-      <mat-hint> Bist du schon in Kontakt mit der Einrichtung, mit der Polizei, hat ein Politiker dafür/dagegen etwas gesagt?</mat-hint>
-    </mat-form-field>
     <hr>
     <h2>Forderungsmail an zuständiges Polizeikommissariat</h2>
     <div>Das zuständige Polizeikommissariat wird automatisch anhand der Adresse der sozialen Einrichtung ermittelt.</div>

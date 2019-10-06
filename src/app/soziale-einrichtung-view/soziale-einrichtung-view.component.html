@@ -46,6 +46,9 @@
       <div class="line">
         {{sec.reason_slower_buses}}
       </div>
+      <div class="line">
+        {{sec.progress_report}}
+      </div>
       <button *ngIf="(sec.status==3)" mat-raised-button matTooltip="Ich möchte hier Tempo 30 fordern." routerLink="/forderung/edit/{{sec.id}}" type="submit">
         Tempo 30 fordern:
         <mat-icon>mail</mat-icon>

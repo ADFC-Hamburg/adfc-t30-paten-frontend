@@ -20,7 +20,7 @@
   </mat-card-actions>
 </mat-card>
 <button *ngIf="isLoggedIn() && showHint===false" mat-raised-button (click)="showHint=true;"><mat-icon>help</mat-icon> Tipps zur Anwendung</button>
-<div *ngIf="isLoggedIn() && (logoutInSeconds < logoutWarnTime)"class="alert">
+<div *ngIf="isLoggedIn() && (logoutInSeconds !== -1) && (logoutInSeconds < logoutWarnTime)"class="alert">
   <mat-icon>warning</mat-icon> Achtung: Automatischer Logout in {{ logoutInSeconds}} Sekunden
   <button mat-raised-button color="primary" (click)="extendLoginTime();"><mat-icon>send</mat-icon>Angemeldet bleiben</button></div>
 <nav mat-tab-nav-bar>

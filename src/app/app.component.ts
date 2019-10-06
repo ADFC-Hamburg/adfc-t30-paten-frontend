@@ -59,6 +59,7 @@ export class AppComponent implements OnInit, OnDestroy {
   logoutInSeconds = -1;
   logoutWarnTime = 600;
   logoutHintSub: Subscription = null;
+  snackBarRef = null;
   constructor(
     private snackBar: MatSnackBar,
     private errorService: ErrorNotifierService,
@@ -73,8 +74,13 @@ export class AppComponent implements OnInit, OnDestroy {
     this.API_VERSION = environment.API_BASE_URL
       .replace(/^.*ersion(.*)\/api.*$/, '$1');
     this.sub = this.errorService.messages.subscribe(e => {
-      console.log('Fehler empfangen:', e);
-      this.snackBar.open(e, 'Okay');
+      if (e === ErrorNotifierService.CLEAR_MSG) {
+        if (this.snackBarRef != null) {
+          this.snackBarRef.dismiss();
+        }
+      } else {
+        this.snackBarRef = this.snackBar.open(e, 'Okay');
+      }
     });
     this.router.events.subscribe(event => {
       this.calcNavLinks();

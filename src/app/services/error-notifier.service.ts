@@ -7,9 +7,13 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ErrorNotifierService {
+  public static get CLEAR_MSG(): string { return 'CLEAR'; }
   public messages = new Subject<string>();
   public addError(error: string) {
     this.messages.next(error);
+  }
+  public clearAllErrrors() {
+    this.addError(ErrorNotifierService.CLEAR_MSG);
   }
   constructor() { }
 }

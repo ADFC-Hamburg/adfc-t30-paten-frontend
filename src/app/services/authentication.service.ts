@@ -3,7 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+
 import { environment } from '../../environments/environment';
+import { ErrorNotifierService } from './error-notifier.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -14,6 +16,7 @@ export class AuthenticationService {
     private http: HttpClient,
     private router: Router,
     private jwtHelper: JwtHelperService,
+    private errorNotifierService: ErrorNotifierService,
   ) {
     const o = localStorage.getItem('access_token');
     if (o != null) {
@@ -23,6 +26,19 @@ export class AuthenticationService {
       }
     }
   }
+  private loginSuccess(user) {
+    if (user && user.token) {
+      // store user details and jwt token in local storage to keep user logged in between page refreshes
+      const decodedToken = this.jwtHelper.decodeToken(user.token);
+      const validTime = Date.now() + (decodedToken.exp - decodedToken.iat) * 1000;
+      localStorage.setItem('jwtValid', validTime.toString());
+      console.log('setJWTValid', validTime.toString());
+      localStorage.setItem('access_token', user.token);
+      this.currentUser = decodedToken.data.username;
+      this.errorNotifierService.clearAllErrrors();
+    }
+    return user;
+  }
   login(username: string, password: string) {
     return this.http.post<any>(this.baseUrl + 'portal.php', {
       'concern': 'login',
@@ -30,15 +46,7 @@ export class AuthenticationService {
       'password': password,
     }).pipe(map(user => {
       console.log('x-login', user);
-      // login successful if there's a jwt token in the response
-      if (user && user.token) {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('access_token', user.token);
-        const decodedToken = this.jwtHelper.decodeToken(user.token);
-        console.log(decodedToken);
-        this.currentUser = decodedToken.data.username;
-      }
-      return user;
+      return this.loginSuccess(user);
     }));
   }
 
@@ -48,6 +56,24 @@ export class AuthenticationService {
       'email': username,
       'newPassword': newPassword,
     });
+  }
+  extendLoginTime() {
+    return this.http.post<any>(this.baseUrl + 'portal.php', {
+      'concern': 'extendLogin',
+    }).pipe(map(user => {
+      console.log('x-login', user);
+      // login successful if there's a jwt token in the response
+      if (user && user.token) {
+        const oldToken = localStorage.getItem('access_token');
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        if (oldToken !== user.token) {
+          this.loginSuccess(user);
+
+        }
+      }
+      return user;
+    }));
+    console.log('click');
   }
   changePassword(newPassword: string) {
     return this.http.post<any>(this.baseUrl + 'portal.php', {
@@ -63,10 +89,22 @@ export class AuthenticationService {
   authError() {
     this.currentUser = null;
     localStorage.removeItem('access_token');
+    localStorage.removeItem('jwtValid');
   }
 
   isLoggedIn(): boolean {
     return (this.currentUser !== null);
+  }
+  calcLogInTime() {
+    const jwtValid = localStorage.getItem('jwtValid');
+    if (jwtValid != null) {
+      const num = Number(jwtValid) - Date.now();
+      if (num < 0) {
+        this.authError();
+      }
+      return Math.floor(num / 1000);
+    } // else
+    return -1;
   }
   logout() {
     if (this.currentUser) {
@@ -75,12 +113,12 @@ export class AuthenticationService {
         'concern': 'logout',
       }).subscribe(results => {
         console.log(results);
-        localStorage.removeItem('access_token');
+        this.authError();
         this.router.navigate(['/sozEinrKarte']);
       });
     } else {
-      this.currentUser = null;
-      localStorage.removeItem('access_token');
+      this.authError();
+
     }
   }
 }

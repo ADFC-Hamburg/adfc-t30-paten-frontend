@@ -36,7 +36,6 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     id: [-1],
     geprueft: ['1'],
     bezugZurEinrichtung: ['', Validators.required],
-    status_text: [''],
     mailSend: [false],
     sendMailNow: [false],
     password: ['', Validators.required],

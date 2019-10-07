@@ -67,7 +67,7 @@ export class AuthenticationService {
         const oldToken = localStorage.getItem('access_token');
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         if (oldToken !== user.token) {
-          this.loginSucess(user);
+          this.loginSuccess(user);
 
         }
       }

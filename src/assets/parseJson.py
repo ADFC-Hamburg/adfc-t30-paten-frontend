@@ -26,8 +26,8 @@ for key, dateiname in dateien.items():
         del(neu['Nr.'])
         neu['id'] = id
         id = id +1
-        neu['lat'] = ele['geometry']['coordinates'][1];
-        neu['lon'] = ele['geometry']['coordinates'][0];
+        neu['lat'] = ele['geometry']['coordinates'][1]
+        neu['lon'] = ele['geometry']['coordinates'][0]
         neu['tempo30'] = int(key)
         data.append(neu)
 

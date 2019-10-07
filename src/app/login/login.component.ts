@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { ErrorHandleService } from '../services/error-handle.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { T30Validators } from '../t30validators';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
       password1: [{ value: '', disabled: true }, [Validators.required, Validators.minLength(5)]],
       password2: [{ value: '', disabled: true }, [Validators.required]],
       passwordResend: [false]
-    }, { validator: this.checkPasswords });
+    }, { validator: T30Validators.checkPasswords });
     this.loginForm.get('password1').disable();
     this.loginForm.get('password2').disable();
     this.loginForm.get('passwordResend').valueChanges.subscribe(val => {
@@ -52,20 +53,6 @@ export class LoginComponent implements OnInit {
     });
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-  }
-
-  checkPasswords(fg: FormGroup) { // here we have the 'passwords' group
-    const pw1 = fg.get('password1').value;
-    const pw2 = fg.get('password2').value;
-    const samePw = (pw1 === pw2);
-    if (samePw) {
-      fg.get('password2').setErrors(null);
-    } else {
-      fg.get('password2').setErrors({
-        notMatched: true
-      });
-    }
-    return samePw;
   }
 
   checkValidateError(fieldname: string, errorType: string): boolean {

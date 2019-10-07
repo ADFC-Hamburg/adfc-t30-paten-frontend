@@ -7,7 +7,7 @@ dateien= {
     3:'tempo_30_neu.json',
 }
 data = []
-id=0
+newid = 0
 for key, dateiname in dateien.items():
     print(key)
     f=open(dateiname,"rt")
@@ -24,8 +24,8 @@ for key, dateiname in dateien.items():
         except KeyError:
             pass
         del(neu['Nr.'])
-        neu['id'] = id
-        id = id +1
+        neu['id'] = newid
+        newid = newid +1
         neu['lat'] = ele['geometry']['coordinates'][1]
         neu['lon'] = ele['geometry']['coordinates'][0]
         neu['tempo30'] = int(key)

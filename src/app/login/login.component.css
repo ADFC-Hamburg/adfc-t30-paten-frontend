@@ -21,6 +21,8 @@ input {
 	font-size: 18px;
 	padding: 10px 10px 10px 5px;
 	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
 	display: block;
 	width: 100%;
 }
@@ -33,4 +35,3 @@ p.enterData {
 	max-width: 400px;
 	margin: 1em auto;
 }
-input:focus { outline: none; }

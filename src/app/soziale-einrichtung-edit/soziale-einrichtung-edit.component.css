@@ -18,3 +18,17 @@
     width: 100%;
     display: flex;
 }
+.t30-map {
+    width: 90%;
+    height: 300px;
+}
+.t30-map-div {
+    float: left;
+    width: 50%;
+    block: inline;
+}
+.t30-daneben-div {
+    float: left;
+    width: 50%;
+    block: inline;
+}

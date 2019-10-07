@@ -7,12 +7,11 @@ div.line {
 }
 div.key {
   font-weight: bold;
-  width: 30%;
-  display: inline;
+  width: 8em;
+  display: inline-block;
 }
 div.value {
-  width: 70%;
-  display: inline;
+  display: inline-block;
 }
 div.block {
   width: 100%;

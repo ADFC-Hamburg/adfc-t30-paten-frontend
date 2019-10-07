@@ -15,14 +15,6 @@
 .mat-expansion-panel-body {
   margin-left: 30px;
 }
-.t30-form {
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
-}
-.t30-checkbox {
-  width: 100%;
-}
 .t30-full-width {
   width: 100%;
 }
@@ -35,31 +27,7 @@
 .t30-hausnummer-width {
   width: 15%;
 }
-.t30-stand-width {
-  width: 15%;
-}
-.t30-button-width {
-  width: 10%;
-  display: inline;
-  padding-left: 40px;
-}
-.t30-t50-area {
-    height: 70px;
-}
-.t30-map {
-    width: 90%;
-    height: 300px;
-}
-.t30-map-div {
-    float: left;
-    width: 50%;
-    block: inline;
-}
-.t30-daneben-div {
-    float: left;
-    width: 50%;
-    block: inline;
-}
+
 .t30-full-width-flex {
     width: 100%;
     display: flex;

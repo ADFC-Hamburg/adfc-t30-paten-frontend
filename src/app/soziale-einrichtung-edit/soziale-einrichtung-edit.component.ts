@@ -11,6 +11,7 @@ import { SozialeEinrichtung } from '../sozialeEinrichtung';
 import { NotificationError } from '../notification-error';
 import { DemandedStreetSectionService } from '../services/demanded-street-section.service';
 import { forkJoin } from 'rxjs';
+import { StreetSectionEditComponent } from '../street-section-edit/street-section-edit.component';
 
 const HAMBURG_LAT = 53.551086;
 const HAMBURG_LON = 9.993682;
@@ -35,15 +36,13 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     city: ['Hamburg', Validators.required],
     type: ['1', Validators.required],
     streetSections: this.fb.array([
-      this.createAngrStrassenFbGroup()
+      StreetSectionEditComponent.createAngrStrassenFbGroup(this.fb)
     ]),
     streetsection_complete: [false],
   });
   filteredUsers = [];
-  strassenliste = [];
-
+  strassenliste: string[] = [];
   public tileLayerUrl: string = OSM_TILE_LAYER_URL;
-  public isLoading = false;
   public marker = {
     draggable: true,
     iconSize: new Point(25, 41),
@@ -55,25 +54,6 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
   position = [HAMBURG_LON, HAMBURG_LAT];
   mapPos = [HAMBURG_LON, HAMBURG_LAT];
   newPos = [HAMBURG_LON, HAMBURG_LAT];
-  filteredStrassen = [
-  ];
-  createAngrStrassenFbGroup() {
-    return this.fb.group({
-      id: [''],
-      street: ['', Validators.required],
-      house_no_from: [''],
-      house_no_to: [''],
-      entrance: ['0', Validators.required],
-      time_restriction: [''],
-      status: ['1', Validators.required],
-      reason_slower_buses: [''],
-      bus_lines: [''],
-      much_bus_traffic: ['0', Validators.required],
-      user_note: [''],
-      multilane: ['0', Validators.required],
-      progress_report: [''],
-    });
-  }
   constructor(
     protected fb: FormBuilder,
     private router: Router,
@@ -87,27 +67,6 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
   getSozService() {
     return this.sozService;
   }
-
-  changeStrassenname(search) {
-    this.isLoading = true;
-    const newEntries = [];
-    if (search.length > 3) {
-      const lowerSearch = search.toLowerCase();
-      //
-      for (const entry of this.strassenliste) {
-        const idx = entry.toLowerCase().indexOf(lowerSearch);
-        if (idx !== -1) {
-          newEntries.push(entry);
-          if (newEntries.length > 40) {
-            break;
-          }
-        }
-      }
-    }
-    this.filteredStrassen = newEntries;
-    this.isLoading = false;
-
-  }
   getFormControl() {
     return this.einrichtung;
   }
@@ -115,7 +74,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     return this.einrichtung.get('streetSections') as FormArray;
   }
   addStrassenAbschnitt() {
-    this.getStrassenAbschnitte().push(this.createAngrStrassenFbGroup());
+    this.getStrassenAbschnitte().push(StreetSectionEditComponent.createAngrStrassenFbGroup(this.fb));
   }
   deleteStrassenAbschnitt(index: number) {
     if (confirm('Soll der Straßenabschnitt wirklich gelöscht werden?')) {

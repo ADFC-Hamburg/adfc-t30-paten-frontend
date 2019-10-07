@@ -1,3 +1,20 @@
+.mat-expansion-panel.odd {
+  background-color: #f4f4f4;
+}
+.mat-expansion-panel.even {
+  background-color: #ffffed;
+}
+.mat-expansion-panel-header-title {
+  display: block;
+  width: 40%
+}
+.mat-expansion-panel-header-description {
+  display: block;
+  width: 59%
+}
+.mat-expansion-panel-body {
+  margin-left: 30px;
+}
 .t30-form {
   min-width: 150px;
   max-width: 500px;
@@ -14,10 +31,6 @@
 }
 .t30-3-width {
   width: 32%;
-}
-.t30-streetsection-button {
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 .t30-hausnummer-width {
   width: 15%;

@@ -23,7 +23,7 @@ export class StrassenlisteService {
   convertEntry(street_entry) {
     return street_entry.street_name;
   }
-  getAll(): Observable<String[]> {
+  getAll(): Observable<string[]> {
     return this.http.get<StreetEntry[]>(this.baseUrl + 'crud.php?entity=street', httpOptions)
       .pipe(
         map(res => {

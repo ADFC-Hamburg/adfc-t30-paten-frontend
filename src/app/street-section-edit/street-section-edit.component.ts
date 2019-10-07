@@ -36,6 +36,7 @@ export class StreetSectionEditComponent implements OnInit {
       much_bus_traffic: ['0', requiredOptionValues(['1', '2', '3'])],
       user_note: [''],
       multilane: ['0', requiredOptionValues(['0', '1'])],
+      progress_report: [''],
     });
     fg.get('much_bus_traffic').valueChanges.subscribe(
       much_bus_traffic => {

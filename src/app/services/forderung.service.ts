@@ -68,6 +68,10 @@ export class ForderungService {
       streetSectionId +
       '&email=' + encodeURIComponent(email), httpOptions);
   }
+  sendMail(id: number) {
+    return this.http.get<any>(this.baseUrl +
+      'demand.php?emailId=' + id, httpOptions);
+  }
   get(streetSectionsId, userId): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'crud.php?entity=email&nores=[]&filter=[demanded_street_section,\'' +
       streetSectionsId + '\']and[person,\'' + userId + '\']', httpOptions)

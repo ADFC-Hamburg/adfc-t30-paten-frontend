@@ -24,7 +24,6 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
   CONTACT_MAIL = environment.CONTACT_MAIL;
   public einrichtung: any = {
     'name': '',
-    'address_supplement': '',
     'type': 0,
     'street_house_no': '',
     'streetsection_complete': false,
@@ -130,9 +129,6 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     let newEMailText = 'Sehr geehrte Damen und Herren,\n' +
       `mein Name ist ${user.firstName} ${user.lastName}. ` +
       `Ich bin ${this.forderungFG.get('bezugZurEinrichtung').value} ${this.BEZUG_ART[einr.type]} "${einr.name}", `;
-    if (einr.address_supplement !== '') {
-      newEMailText = newEMailText + einr.address_supplement + ', ';
-    }
     newEMailText = newEMailText +
       `${einr.street_house_no}, ${einr.zip} ${einr.city}.`;
     if ((!this.forderungFG.get('mail_start').dirty) && (newEMailText !== this.forderungFG.get('mail_start').value)) {
@@ -274,7 +270,7 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
               this.forderungFG.get('geprueft').setValue('2');
             } else {
               const newSubject = 'Tempo 30 für ' + this.streetSection.street + ' ' + this.streetSection.house_no_from +
-                ' bis ' + this.streetSection.house_no_to + ' an ' + einr.name + ' ' + einr.address_supplement;
+                ' bis ' + this.streetSection.house_no_to + ' an ' + einr.name;
               this.forderungFG.get('mail_subject').setValue(newSubject);
               this.genEMailStartText();
               this.genEMailText();

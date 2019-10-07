@@ -30,7 +30,6 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     mapPos: [[HAMBURG_LON, HAMBURG_LAT]],
     newPos: [[HAMBURG_LON, HAMBURG_LAT]],
     name: ['', Validators.required],
-    address_supplement: [''],
     street_house_no: ['', Validators.required],
     zip: ['', Validators.required],
     city: ['Hamburg', Validators.required],

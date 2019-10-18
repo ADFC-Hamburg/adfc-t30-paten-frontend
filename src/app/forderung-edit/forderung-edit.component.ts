@@ -188,16 +188,27 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     let call;
     const data = this.forderungFG.value;
     data.person = this.currentUser.id;
-    data.demanded_street_section = this.streetSection.id;
+    data.demanded_street_section = this.id;
     data.sendMailNow = sendMailNow;
-    if (this.forderungFG.get('id').value === -1) {
+    let emailId = this.forderungFG.get('id').value;
+    if (emailId === -1) {
       call = this.forderungService.create(data);
     } else {
       call = this.forderungService.update(data);
     }
     call.subscribe(rtnData => {
       this.setSubmitted();
-      this.router.navigate(['/einrichtung/view', this.einrichtung.id]);
+      if (sendMailNow) {
+        if (emailId === -1) {
+          console.log(rtnData);
+          emailId = rtnData.id;
+        }
+        this.forderungService.sendMail(emailId).subscribe(rtnMailSend => {
+          this.router.navigate(['/einrichtung/view', this.einrichtung.id]);
+        });
+      } else {
+        this.router.navigate(['/einrichtung/view', this.einrichtung.id]);
+      }
     });
     const relationData = {
       relation_type: this.forderungFG.get('bezugZurEinrichtung').value,

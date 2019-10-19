@@ -16,7 +16,7 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'ADFC Tempo 30 vor sozialen Einrichtungen';
+  title = 'Tempo 30 vor sozialen Einrichtungen';
   navLinks = [
     {
       path: '/sozEinrKarte', label: 'Karte der Einrichungen',

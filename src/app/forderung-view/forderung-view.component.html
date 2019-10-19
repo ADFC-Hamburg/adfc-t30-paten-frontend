@@ -1,0 +1,22 @@
+Folgende E-Mail wurde verschickt:
+
+<p><b>Datum:</b>{{ forderung.sent_on}}</p>
+<p><b>Betreff:</b>{{ forderung.mail_subject}}</p>
+
+<p>
+  Sehr geehrte Damen und Herren, <br/>
+
+  mein Name ist .. ich bin ..
+</p>
+<pre>{{ forderung.mail_body}}</pre>
+  <p>
+  Mit freundlichen Grüßen
+  ...
+</p>
+
+<button mat-raised-button routerLink="/einrichtung/view/{{forderung.demanded_street_section.institution.id}}" type="submit">
+   Einrichtung ansehen<mat-icon>visibility</mat-icon>
+</button>
+<button mat-raised-button routerLink="/einrichtung/edit/{{forderung.demanded_street_section.institution.id}}" type="submit">
+   Einrichtung bearbeiten<mat-icon>edit</mat-icon>
+</button>

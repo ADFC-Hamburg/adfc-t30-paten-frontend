@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { OSM_TILE_LAYER_URL } from '@yaga/leaflet-ng2';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ForderungService } from '../services/forderung.service';
 import { DemandedStreetSectionService } from '../services/demanded-street-section.service';
 import { CanDeactivateFormControlComponent } from '../can-deactivate-form-control/can-deactivate-form-control.component';
@@ -8,9 +7,7 @@ import { RelationInstitutionService } from '../services/relation-institution.ser
 import { FormBuilder, Validators } from '@angular/forms';
 import { User } from '../user';
 import { UserService } from '../services/user.service';
-import { Point } from 'leaflet';
 import { take } from 'rxjs/operators';
-import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 
 @Component({
@@ -90,15 +87,6 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     phone: '',
   };
   public isPasswordOkay = 0;
-  public tileLayerUrl: string = OSM_TILE_LAYER_URL;
-  public marker = {
-    draggable: true,
-    iconSize: new Point(25, 41),
-    iconAnchor: new Point(12, 41),
-    popupAnchor: new Point(1, -34),
-    tooltipAnchor: new Point(16, -28),
-    shadowSize: new Point(41, 41)
-  };
   public aktionsData = {
     reached: true,
     until: new Date(),

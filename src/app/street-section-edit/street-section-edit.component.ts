@@ -35,6 +35,7 @@ export class StreetSectionEditComponent implements OnInit {
       bus_lines: [''],
       much_bus_traffic: ['0', requiredOptionValues(['1', '2', '3'])],
       user_note: [''],
+      mail_sent: [false],
       multilane: ['0', requiredOptionValues(['0', '1'])],
       progress_report: [''],
     });
@@ -55,6 +56,23 @@ export class StreetSectionEditComponent implements OnInit {
           fg.get('time_restriction').enable();
         } else {
           fg.get('time_restriction').disable();
+        }
+      }
+    );
+    fg.get('mail_sent').valueChanges.subscribe(
+      mail_sent => {
+        if (mail_sent) {
+          fg.get('street').disable();
+          fg.get('house_no_from').disable();
+          fg.get('house_no_to').disable();
+          fg.get('entrance').disable();
+          fg.get('multilane').disable();
+        } else {
+          fg.get('street').enable();
+          fg.get('house_no_from').enable();
+          fg.get('house_no_to').enable();
+          fg.get('entrance').enable();
+          fg.get('multilane').enable();
         }
       }
     );

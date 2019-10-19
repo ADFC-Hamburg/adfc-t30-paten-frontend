@@ -55,6 +55,10 @@
         <mat-icon>arrow_forward</mat-icon>
         <mat-icon>sentiment_satisfied_alt</mat-icon>
       </button>
+      <button *ngIf="(sec.mail_sent)" mat-raised-button matTooltip="Mail ansehen" routerLink="/forderung/view/{{sec.id}}" type="submit">
+        Hier wurde Tempo 30 gefordert
+        <mat-icon>mail</mat-icon>
+      </button>
     </div>
   </div>
   <div *ngIf="(!einrichtung.streetsection_complete)">

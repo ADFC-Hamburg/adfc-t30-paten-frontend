@@ -50,6 +50,7 @@ import { SpurigkeitPipe } from './pipes/spurigkeit.pipe';
 import { BusverkehrPipe } from './pipes/busverkehr.pipe';
 import { StreetSectionEditComponent } from './street-section-edit/street-section-edit.component';
 import { ForderungViewComponent } from './forderung-view/forderung-view.component';
+import { StarLegendeComponent } from './star-legende/star-legende.component';
 
 
 export function tokenGetter() {
@@ -82,6 +83,7 @@ export function tokenGetter() {
     BusverkehrPipe,
     StreetSectionEditComponent,
     ForderungViewComponent,
+    StarLegendeComponent,
   ],
   imports: [
     BrowserModule,

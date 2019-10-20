@@ -35,7 +35,7 @@ export class ProfileComponent extends CanDeactivateFormControlComponent implemen
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       user: ['', [Validators.required, Validators.email]],
-      street: ['', Validators.minLength(3)],
+      street_house_no: ['', Validators.minLength(3)],
       zip: ['', Validators.pattern(/^\d\d\d\d\d$/)],
       city: ['', Validators.minLength(3)],
       phone: ['', [Validators.maxLength(20), Validators.minLength(4), Validators.pattern(/^[0-9\- \/]*$/)]],

@@ -12,6 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class SozialeEinrichtungsListeComponent implements OnInit {
 
+  public showLegende = false;
   public sozEinrList = new MatTableDataSource();
   public displayedSozEinrColumns: string[] = ['status', 'Name', 'Strasse', 'PLZ', 'Bezirk', 'aktion'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

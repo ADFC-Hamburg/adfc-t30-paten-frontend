@@ -1,0 +1,17 @@
+<mat-card *ngIf="showLegende">
+  <mat-card-title>Legende:</mat-card-title>
+  <mat-card-content>
+    Ein Stern markiert eine soziale Einrichtung.
+    <div *ngFor="let item of [0,1,2,3,4,5];">
+    <div [matTooltip]="item |t30StatusLongText">
+      <img class="starImg" [src]="item|t30StatusStarSvgUrl">
+      {{item}} {{LEGENDE_TEXT[item]}}
+    </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="showLegende=false;">
+      <mat-icon>close</mat-icon> Legende schließen
+    </button>
+  </mat-card-actions>
+</mat-card>

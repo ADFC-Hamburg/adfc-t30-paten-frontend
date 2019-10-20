@@ -48,4 +48,8 @@
   <button mat-raised-button color="primary" routerLink="/einrichtung/edit/-1" type="submit">
     <mat-icon>add_box</mat-icon> Fehlende soziale Einrichtung hinzufügen
   </button>
+  <button *ngIf="showLegende===false" mat-raised-button (click)="showLegende=true;">
+    <mat-icon>help</mat-icon> Legende
+  </button>
 </mat-action-row>
+<app-star-legende [(showLegende)]="showLegende"></app-star-legende>

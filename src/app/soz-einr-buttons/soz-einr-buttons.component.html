@@ -1,16 +1,16 @@
 <button
    mat-raised-button
-   *ngIf="(show_view==1)"
-   matTooltip="Details ansehen"
-   routerLink="/einrichtung/view/{{id}}"
+   matTooltip="Angaben zur Einrichtung oder den Straßenabschnitten in deren Umfeld eingeben oder ändern."
+   routerLink="/einrichtung/edit/{{id}}"
    type="submit">
-  <mat-icon>visibility</mat-icon> Details
+   <mat-icon>edit</mat-icon> Bearbeiten
 </button>
 
 <button
    mat-raised-button
-   matTooltip="Einrichtung bearbeiten oder Fehler korrigieren"
-   routerLink="/einrichtung/edit/{{id}}"
+   *ngIf="(show_view==1)"
+   matTooltip="Details ansehen, von hier Tempo-30-Mail generieren"
+   routerLink="/einrichtung/view/{{id}}"
    type="submit">
-   <mat-icon>edit</mat-icon> Bearbeiten
+  <mat-icon>visibility</mat-icon> Details
 </button>

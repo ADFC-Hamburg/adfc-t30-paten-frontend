@@ -72,17 +72,15 @@ export class ForderungService {
     return this.http.get<any>(this.baseUrl +
       'demand.php?emailId=' + id, httpOptions);
   }
-  get(streetSectionsId, userId): Observable<any> {
+  get(streetSectionId, userId): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'crud.php?entity=email&nores=[]&filter=[demanded_street_section,\'' +
-      streetSectionsId + '\']and[person,\'' + userId + '\']', httpOptions)
-      .pipe(
-        map(res => {
-          console.log('res', res);
-          if (res.error) {
-            throw new NotificationError(res.error);
-          }
-          return res;
-        }));
+      streetSectionId + '\']and[person,\'' + userId + '\']', httpOptions);
+
+  }
+  getSendMail(streetSectionId): Observable<any> {
+    return this.http.get<any>(this.baseUrl +
+      'crud.php?refs=[(format,data),(depth,2)]&entity=email&nores=[]&filter=[demanded_street_section,\'' +
+      streetSectionId + '\']and[mail_send,\'1\']', httpOptions);
   }
   list(userId) {
     return this.http.get<any>(this.baseUrl + 'crud.php?refs=[(format,data),(depth,2)]&entity=email&nores=[]&filter=[person,\'' +

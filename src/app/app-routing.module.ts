@@ -16,6 +16,7 @@ import { SozialeEinrichtungViewComponent } from './soziale-einrichtung-view/sozi
 import { SozialeEinrichtungEditComponent } from './soziale-einrichtung-edit/soziale-einrichtung-edit.component';
 import { CanDeactivateGuard } from './can-deactivate.guard';
 import { ForderungEditComponent } from './forderung-edit/forderung-edit.component';
+import { ForderungViewComponent } from './forderung-view/forderung-view.component';
 
 const routes: Routes = [{
   path: 'main',
@@ -31,6 +32,9 @@ const routes: Routes = [{
   component: ForderungEditComponent,
   canActivate: [AuthGuard],
   canDeactivate: [CanDeactivateGuard],
+}, {
+  path: 'forderung/view/:id',
+  component: ForderungViewComponent,
 }, {
   path: 'einrichtung/view/:id',
   component: SozialeEinrichtungViewComponent,

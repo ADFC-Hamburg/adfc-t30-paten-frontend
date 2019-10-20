@@ -1,44 +1,57 @@
-<h1>{{ title }}</h1>
+<div class="header">
+  <a href="https://hamburg.adfc.de/" target="_blank" rel="noopener">
+    <img src="assets/ADFC-HH.jpg" class="adfc-logo" width="250" height="94" alt="ADFC Hamburg">
+  </a>
+  <h1>{{ title }}</h1>
+  <a href="{{CAMPAIN_URL}}" target="_blank" rel="noopener">
+    <img src="assets/T30_Herz.png" class="t30-herz" height="94" width="133" alt="Tempo 30 vor sozialen Einrichtung">
+  </a>
+</div>
+<hr>
 <mat-card *ngIf="isLoggedIn() && showHint">
   <mat-card-title>Tipps zur Anwendung:</mat-card-title>
-<mat-card-content>
-  <ol>
-   <li>Check der sozialen Einrichtung: Bitte wähle die Einrichtung über die Suchfunktion,
-    die Liste oder die Karte aus und klicke "Bearbeiten". Gibt dort alle angrenzenden
-    Straßen mit Haupteingang oder
-    An- und Abreiseverkehr zur Einrichtung mit dem jeweiligen Tempo-30-Status ein.</li>
-  <li>Tempo 30 für eine Einrichtung fordern bei Klick auf "Details".</li>
-  <li>Soziale Einrichtungen, die hier noch nicht aufgeführt sind, können über den
-    entsprechenden Button bei der Liste oder der Karte der sozialen Einrichtungen
-    hinzugefügt werden.</li>
-  <li>Jede Nebenstelle einer Einrichtung (z. B. Turnhalle, Mensa, Zweigstelle)
-    mit einer eigenen Adresse muss als eigene soziale Einrichtung angelegt werden.</li>
-</ol>
-</mat-card-content>
+  <mat-card-content>
+    <ol>
+      <li>Check der sozialen Einrichtung: Bitte wähle die Einrichtung über die Suchfunktion,
+        die Liste oder die Karte aus und klicke "Bearbeiten". Gibt dort alle angrenzenden
+        Straßen mit Haupteingang oder
+        An- und Abreiseverkehr zur Einrichtung mit dem jeweiligen Tempo-30-Status ein.</li>
+      <li>Tempo 30 für eine Einrichtung fordern bei Klick auf "Details".</li>
+      <li>Soziale Einrichtungen, die hier noch nicht aufgeführt sind, können über den
+        entsprechenden Button bei der Liste oder der Karte der sozialen Einrichtungen
+        hinzugefügt werden.</li>
+      <li>Jede Nebenstelle einer Einrichtung (z. B. Turnhalle, Mensa, Zweigstelle)
+        mit einer eigenen Adresse muss als eigene soziale Einrichtung angelegt werden.</li>
+    </ol>
+  </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button (click)="showHint=false;"><mat-icon>close</mat-icon> Diesen Hinweis nicht mehr anzeigen</button>
+    <button mat-raised-button (click)="showHint=false;">
+      <mat-icon>close</mat-icon> Diesen Hinweis nicht mehr anzeigen
+    </button>
   </mat-card-actions>
 </mat-card>
-<button *ngIf="isLoggedIn() && showHint===false" mat-raised-button (click)="showHint=true;"><mat-icon>help</mat-icon> Tipps zur Anwendung</button>
-<div *ngIf="isLoggedIn() && (logoutInSeconds !== -1) && (logoutInSeconds < logoutWarnTime)"class="alert">
+<button *ngIf="isLoggedIn() && showHint===false" mat-raised-button (click)="showHint=true;">
+  <mat-icon>help</mat-icon> Tipps zur Anwendung
+</button>
+<div *ngIf="isLoggedIn() && (logoutInSeconds !== -1) && (logoutInSeconds < logoutWarnTime)" class="alert">
   <mat-icon>warning</mat-icon> Achtung: Automatischer Logout in {{ logoutInSeconds}} Sekunden
-  <button mat-raised-button color="primary" (click)="extendLoginTime();"><mat-icon>send</mat-icon>Angemeldet bleiben</button></div>
+  <button mat-raised-button color="primary" (click)="extendLoginTime();">
+    <mat-icon>send</mat-icon>Angemeldet bleiben
+  </button>
+</div>
 <nav mat-tab-nav-bar>
   <div *ngFor="let link of myNavLinks">
-   <a mat-tab-link
-
-     *ngIf="showLink(link)"
-     [routerLink]="link.path"
-     routerLinkActive #rla="routerLinkActive"
-     [active]="rla.isActive"
-     [ngClass]="{'adfc-t30-tab-extra': link.extra }">
+    <a mat-tab-link *ngIf="showLink(link)" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [ngClass]="{'adfc-t30-tab-extra': link.extra }">
 
       {{ link.label }} &nbsp; <mat-icon *ngIf="link.icon!==undefined">{{ link.icon }}</mat-icon>
-  </a>
+    </a>
   </div>
 </nav>
-
 <router-outlet></router-outlet>
+<hr>
+<a href="https://hamburg.adfc.de/datenschutzhinweise/" target="_blank" rel="noopener" class="footer-link">Datenschutzhinweise</a>
+<a href="https://hamburg.adfc.de/impressum/" target="_blank" rel="noopener" class="footer-link">Impressum</a>
+<a href="https://hamburg.adfc.de/verein/spende/" target="_blank" rel="noopener" class="footer-link">Spende</a>
 <hr>
 Dieses Webtool hilft dir, Forderungsmails für Tempo 30 an Straßenabschnitten, die an Hamburger
 sozialen Einrichtungen liegen, an das zuständige Polizeikommissariat zu verfassen. Das Webtool

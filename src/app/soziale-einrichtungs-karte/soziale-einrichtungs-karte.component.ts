@@ -59,7 +59,7 @@ export class SozialeEinrichtungsKarteComponent implements OnInit {
   };
   public tileLayerUrl: string = OSM_TILE_LAYER_URL;
   public popupProperties: any = {};
-
+  public showLegende = false;
   constructor(
     private sozEinrService: T30SozialeEinrichtungService,
   ) { }

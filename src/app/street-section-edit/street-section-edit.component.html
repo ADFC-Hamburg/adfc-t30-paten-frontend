@@ -54,7 +54,7 @@
   </mat-select>
 </mat-form-field>
 <mat-form-field class="t30-half-width">
-  <mat-select placeholder="Tempo-30-Status" formControlName="status">
+  <mat-select placeholder="Wie ist der Tempo-30-Status aktuell?" formControlName="status">
     <mat-option value="0" *ngIf="!(this.fg.get('mail_sent').value)">Keine Angabe</mat-option>
     <mat-option value="2" *ngIf="!(this.fg.get('mail_sent').value)">Hier ist Tempo 30</mat-option>
     <mat-option value="1" *ngIf="this.fg.get('mail_sent').value">Hier wurde Tempo 30 gefordert</mat-option>

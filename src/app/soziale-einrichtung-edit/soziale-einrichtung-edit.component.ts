@@ -149,6 +149,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
       action.subscribe(result => {
         const forkArray = [];
         const sss = this.streetSectionService;
+        let showConfirmDialog = false;
         console.log('res', result);
         if ('id' in result) {
           institutionId = result.id;
@@ -161,6 +162,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
             if (streetSectionValue.id === '') {
               delete streetSectionValue.id;
               forkArray.push(sss.create(streetSectionValue));
+              showConfirmDialog = true;
             } else {
               forkArray.push(sss.save(streetSectionValue));
             }
@@ -168,6 +170,13 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
           forkJoin(forkArray).subscribe(results => {
             // FIXME: checkResults
             this.setSubmitted();
+            if (showConfirmDialog) {
+              confirm('Danke für die Angaben zu angrenzenden Straßenabschnitten. ' +
+                'Auf der folgenden Seite kannst du bei den Straßenabschnitten, ' +
+                'die mit "Hier fehlt Tempo 30" gekennzeichnet wurden, jeweils ' +
+                'auf "Tempo 30 fordern" klicken, um eine E-Mail an das ' +
+                'Polizeikommissariat zu generieren.');
+            }
             this.router.navigate(['einrichtung', 'view', institutionId]);
           });
         }

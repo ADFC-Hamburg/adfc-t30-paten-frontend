@@ -68,7 +68,7 @@ export const SPURIGKEIT_STR = [
 
 export const EINRICHTUNGSART = [
   'Unklar',
-  'Kindertagesstätte / Kindergaten',
+  'Kindertagesstätte / Kindergarten',
   'Schule',
   'Alten-, Pflege- und Tagespflegeheim',
   'Krankenhaus',

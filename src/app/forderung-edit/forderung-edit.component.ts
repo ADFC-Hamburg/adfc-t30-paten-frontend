@@ -44,14 +44,14 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
 
   BEZUG_ART = [
     'der/des <Art der Einrichtung im Genitiv>',
-    'des Kindergatens',
+    'des Kindergartens',
     'der Schule',
     'des Alten-, Pflege- und Tagespflegeheims',
     'des Krankehaueses'
   ];
   ANGR_ART = [
     'die/das <Art der Einrichtung>',
-    'den Kindergaten',
+    'den Kindergarten',
     'die Schule',
     'das Alten-, Pflege- und Tagespflegeheim',
     'das Krankenhaus'
@@ -65,7 +65,7 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
   ];
   BESUCHER_ART = [
     'die Kinder/ Schülerinnen/ Bewohnerinnen/ Patientinnen/ Besucherinnen, die im Umfeld der/des <Art der Einrichtung im Genitiv>',
-    'die Kinder die im Umfeld des Kindergatens',
+    'die Kinder die im Umfeld des Kindergartens',
     'die Kinder die im Umfeld der Schule',
     'die Senioren die im Umfeld des Heims',
     'die Patentent*innen und Besucher*innen die im Umfeld des Krankehaueses',

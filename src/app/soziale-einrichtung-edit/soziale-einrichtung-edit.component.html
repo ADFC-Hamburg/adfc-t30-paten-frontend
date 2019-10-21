@@ -46,7 +46,7 @@
   </div>
   <h2 class="mat-h2">Hier kannst du alle Straßenabschnitte mit Haupteingängen und/oder An- und Abreiseverkehr im näheren Umfeld der Einrichtung einzeln eingeben.</h2>
   <div *ngIf=" getStrassenAbschnitte().length === 0">
-    <mat-icon color="warn">warning</mat-icon> Hier fehlen die Straßen mit Qull- und Zielverkehr. Wir suchen freiwillige mit Ortskenntnissen!
+    <mat-icon color="warn">warning</mat-icon> Hier fehlen noch Straßenabschnitte. Wir suchen Freiwillige mit Ortskenntnissen!
   </div>
   <div class="t30-full-width" formArrayName="streetSections" *ngFor="let item of getStrassenAbschnitte().controls; let i = index;">
     <app-street-section-edit [fg]="item" [fgIndex]="i" [strassenliste]="strassenliste" (deleteStrassenAbschnitt)="deleteStrassenAbschnitt($event)">

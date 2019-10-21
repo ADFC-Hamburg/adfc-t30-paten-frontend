@@ -21,7 +21,7 @@
   </yaga-map>
   <h2 class="mat-h2">Diese Angaben liegen zur Meldeadresse der Einrichtung vor. Sie stammen, wenn nicht anders angegeben. vom Hamburger Senat.</h2>
   <pre>{{einrichtung.by_the_records}}</pre>
-  <h2 class="mat-h2">Angrenzende Straßen mit Haupteingang oder An- und Abreiseverkehr zur Einrichtung</h2>
+  <h2 class="mat-h2">Straßenabschnitte mit Haupteingang oder An- und Abreiseverkehr im näheren Umfeld der Einrichtung</h2>
   <p>Hier kannst du für die einzelnen Straßenabschnitte jeweils eine Tempo-30-Forderungsmail an das zuständige Polizeikommissariat generieren, wenn diese im Bereich "Bearbeiten (Button)" mit dem Status "Hier fehlt Tempo 30" markiert wurden.</p>
   <div *ngFor="let sec of streetSections; let i = index;">
     <h3 class="mat-h3">{{ sec.street}} Hausnummer {{ sec.house_no_from }} bis {{ sec.house_no_to}}</h3>
@@ -67,7 +67,7 @@
    Fehlen noch andere Straßenabschnitte? Bitte bearbeiten und vervollständigen oder als vollständig markieren!
   </div>
 </div>
-<p>Angaben zur Einrichtung oder deren angrenzenden Straßenabschnitten ändern oder hinzufügen:</p>
+<p>Angaben zur Einrichtung oder Straßenabschnitten in deren Umfeld ändern oder hinzufügen:</p>
 <button mat-raised-button matTooltip="Einrichtung bearbeiten oder Fehler korrigieren" routerLink="/einrichtung/edit/{{id}}" type="submit">
   Bearbeiten <mat-icon>edit</mat-icon>
 </button>

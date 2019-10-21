@@ -49,7 +49,7 @@
   </mat-select>
 </mat-form-field>
 <mat-form-field class="t30-half-width">
-  <mat-select placeholder="Anzahl der KFZ-Spuren pro Fahrtrichtung" formControlName="multilane">
+  <mat-select placeholder="Wieviele KFZ-Spuren gibt es pro Fahrtrichtung?" formControlName="multilane">
     <mat-option *ngFor="let item of [0,1];" value="{{item}}">{{item |spurigkeit }}</mat-option>
   </mat-select>
 </mat-form-field>

@@ -102,9 +102,6 @@
       <input matInput placeholder="Stichwort" formControlName="password" (input)="onPasswordChange($event.target.value)">
     </mat-form-field>
     <mat-action-row>
-      <button mat-button color="warn" (click)="mainMenu()">
-        <mat-icon>cancel</mat-icon> Änderungen verwerfen
-      </button>
       <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="primary" (click)="onSave(false)">
         <mat-icon>save</mat-icon> Speichern und später weiter bearbeiten
       </button>

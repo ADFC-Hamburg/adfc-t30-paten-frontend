@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OSM_TILE_LAYER_URL } from '@yaga/leaflet-ng2';
+import { Point } from 'leaflet';
+
 import { T30SozialeEinrichtungService } from '../services/t30-soziale-einrichtung.service';
 import { DemandedStreetSectionService } from '../services/demanded-street-section.service';
-
-// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-const HAMBURG_LAT = 53.551086;
-const HAMBURG_LON = 9.993682;
-import { Point } from 'leaflet';
+import { HAMBURG_LAT, HAMBURG_LON, STATUS } from '../const';
 
 @Component({
   selector: 'app-soziale-einrichtung-view',
@@ -29,14 +27,7 @@ export class SozialeEinrichtungViewComponent implements OnInit {
   public streetSections: [];
   position = [HAMBURG_LON, HAMBURG_LAT];
   mapPos = [HAMBURG_LON, HAMBURG_LAT];
-  STATUS = [
-    'unklar',
-    'hier wird Tempo 30 gefordert',
-    'hier ist Tempo 30',
-    'hier fehlt Tempo 30',
-    'die Behörde hat Tempo 30 abgelehnt',
-    'Tempo 30 wurde angeordnet, die Schilder stehen aber noch nicht',
-  ];
+  STATUS = STATUS;
   public tileLayerUrl: string = OSM_TILE_LAYER_URL;
   public marker = {
     draggable: true,

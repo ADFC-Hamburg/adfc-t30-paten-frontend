@@ -1,17 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-const STATUS_TEXT = [
-  'Bitte checken.',
-  'Tempo 30 gefordert.',
-  'OK.',
-  'Handlungsbedarf.',
-  'Abgelehnt!',
-  'Umsetzung Beobachten.',
-];
+import { STATUS_TEXT } from '../const';
 
 @Pipe({
   name: 't30StatusShortText'
 })
+
 export class T30StatusShortTextPipe implements PipeTransform {
 
   transform(value: number): string {

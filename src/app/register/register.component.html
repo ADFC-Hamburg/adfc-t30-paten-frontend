@@ -27,8 +27,8 @@
         <mat-error class="error-message"  *ngIf="checkValidateError('password2', 'notMatched')"><mat-icon>warning</mat-icon>Passwörter sind nicht identisch.</mat-error>
       </mat-form-field>
       <mat-form-field class="t30-full-width">
-        <input matInput placeholder="Straße und Hausnummer" formControlName="street" autocomplete="street-address">
-        <mat-error class="error-message" *ngIf="checkValidateError('street', 'minlength')">zu kurz</mat-error>
+        <input matInput placeholder="Straße und Hausnummer" formControlName="street_house_no" autocomplete="street-address">
+        <mat-error class="error-message" *ngIf="checkValidateError('street_house_no', 'minlength')">zu kurz</mat-error>
       </mat-form-field>
       <mat-form-field class="t30-half-width">
         <input matInput placeholder="PLZ" formControlName="zip" autocomplete="postal-code">

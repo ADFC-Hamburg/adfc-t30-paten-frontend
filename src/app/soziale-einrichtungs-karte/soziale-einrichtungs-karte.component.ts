@@ -1,12 +1,10 @@
 import { OSM_TILE_LAYER_URL } from '@yaga/leaflet-ng2';
 import { Component, OnInit } from '@angular/core';
 import { marker, Icon } from 'leaflet';
+
 import { T30SozialeEinrichtungService } from '../services/t30-soziale-einrichtung.service';
+import { FARBCODE, HAMBURG_LAT, HAMBURG_LON, START_ZOOM } from '../const';
 
-
-const HAMBURG_LAT = 53.551086;
-const HAMBURG_LON = 9.993682;
-const START_ZOOM = 12;
 const CustomIcon = Icon.extend({
   options: {
     iconSize: [25, 25],
@@ -17,9 +15,6 @@ const CustomIcon = Icon.extend({
   }
 });
 
-const FARBCODE = ['#0554fa', '#ef140d', '#f7ab05', '#e7ff08', '#44f917', '#000000'];
-
-
 function createSvgUrl(idx) {
   const farbe = FARBCODE[idx];
   const starSvg = '<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" class="star rating" data-rating="1">' +
@@ -29,10 +24,10 @@ function createSvgUrl(idx) {
   const myUrl = 'data:image/svg+xml;base64,' + window.btoa(starSvg);
   return myUrl;
 }
+
 function createSvgIcon(idx) {
   return new (CustomIcon as any)({ iconUrl: createSvgUrl(idx) });
 }
-
 
 @Component({
   selector: 'app-soziale-einrichtungs-karte',

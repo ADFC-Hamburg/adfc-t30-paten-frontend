@@ -1,16 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-const LONG_TEXT = [
-  'Bitte prüfen und Angaben machen.', /*0*/
-  'Tempo 30 fehlt, Forderung gestellt.', /*1*/
-  'OK.', /*2*/
-  'Tempo 30 fehlt, Forderung wurde noch nicht gestellt', /*3*/
-  'Tempo 30 abgelehnt.', /*4*/
-  'Tempo 30 angeordnet, Schilder fehlen noch.', /* 5*/
-];
+import { STATUS_LONG_TEXT } from '../const';
+
 @Pipe({
   name: 't30StatusLongText'
 })
+
 export class T30StatusLongTextPipe implements PipeTransform {
 
   transform(value: number): string {
@@ -18,6 +13,6 @@ export class T30StatusLongTextPipe implements PipeTransform {
       return '?';
       console.error('Unknown Status', value);
     }
-    return LONG_TEXT[value];
+    return STATUS_LONG_TEXT[value];
   }
 }

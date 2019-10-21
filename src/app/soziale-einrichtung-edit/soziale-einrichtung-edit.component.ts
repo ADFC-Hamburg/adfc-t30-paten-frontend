@@ -12,9 +12,7 @@ import { NotificationError } from '../notification-error';
 import { DemandedStreetSectionService } from '../services/demanded-street-section.service';
 import { forkJoin } from 'rxjs';
 import { StreetSectionEditComponent } from '../street-section-edit/street-section-edit.component';
-
-const HAMBURG_LAT = 53.551086;
-const HAMBURG_LON = 9.993682;
+import { HAMBURG_LAT, HAMBURG_LON } from '../const';
 
 @Component({
   selector: 'app-soziale-einrichtung-edit',

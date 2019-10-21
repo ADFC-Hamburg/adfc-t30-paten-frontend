@@ -81,24 +81,18 @@
   </mat-hint>
 </mat-form-field>
 <mat-form-field class="t30-half-width">
-  <mat-select placeholder="Busverkehr" formControlName="much_bus_traffic">
+  <mat-select placeholder="Wie viele Busse fahren hier werktags zwischen 7 und 8 Uhr in eine Richtung?" formControlName="much_bus_traffic">
     <mat-option *ngFor="let item of [1,2,3];" value="{{item}}">{{item |busverkehr }}</mat-option>
   </mat-select>
-  <mat-hint>
-    in mindestens eine Richtung, Werktags zwischen 7 und 8 Uhr
-  </mat-hint>
 </mat-form-field>
 <mat-form-field class="t30-half-width">
-  <input matInput placeholder="Buslinien" formControlName="bus_lines">
-  <mat-hint>
-  Welche Buslininien fahren hier? Bitte mit Komma trennen
-  </mat-hint>
+  <input matInput placeholder="Welche Buslininien fahren hier? Bitte mit Komma trennen." formControlName="bus_lines">
 </mat-form-field>
 <mat-form-field class="t30-full-width">
   <textarea  matInput formControlName="reason_slower_buses" placeholder="Anmerkung zum Busverkehr"></textarea>
   <mat-hint>
-   Kann ein Bus hier wirklich schneller als 30 km/h fahren? Oder ist hier sowieso eine Ampel/Bushaltestelle etc. Bitte unterscheide Hauptverkehrszeit / Nebenzeiten.
-   z.B. "Die Busse verlangsamen an der Stelle ohnehin wegen einer Bushaltestelle/der abbiegenden Buslinie ihre Fahrt."
+   Kann ein Bus hier wirklich schneller als 30 km/h fahren? Oder ist hier sowieso eine Ampel/Bushaltestelle etc. Bitte unterscheide Hauptverkehrszeit / Nebenzeit.
+   Z.B. "Die Busse verlangsamen ihre Fahrt an der Stelle ohnehin wegen einer Bushaltestelle/der abbiegenden Buslinie."
   </mat-hint>
 </mat-form-field>
 <div class="t30-full-width">

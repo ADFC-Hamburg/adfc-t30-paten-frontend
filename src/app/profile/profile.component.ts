@@ -32,6 +32,7 @@ export class ProfileComponent extends CanDeactivateFormControlComponent implemen
   }
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
+      id: [-1],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       user: ['', [Validators.required, Validators.email]],

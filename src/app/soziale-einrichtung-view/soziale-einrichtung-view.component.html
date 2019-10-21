@@ -19,6 +19,8 @@
       <yaga-icon iconUrl="assets/marker-icon.png" shadowUrl="assets/marker-shadow.png" [(iconSize)]="marker.iconSize" [(iconAnchor)]="marker.iconAnchor" [(popupAnchor)]="marker.popupAnchor" [(tooltipAnchor)]="marker.tooltipAnchor" [(shadowSize)]="marker.shadowSize"></yaga-icon>
     </yaga-marker>
   </yaga-map>
+  <h2>Diese Angaben macht der Senat zu Tempo 30 an der Meldeadresse der Einrichtung</h2>
+  <pre>{{einrichtung.by_the_records}}</pre>
   <h2>Angrenzende Straßen mit Haupteingang oder An- und Abreiseverkehr zur Einrichtung</h2>
   <p>Hier kannst du für die einzelnen Straßenabschnitte jeweils eine Tempo-30-Forderungsmail an das zuständige Polizeikommissariat generieren, wenn diese im Bereich "Bearbeiten (Button)" mit dem Status "Hier fehlt Tempo 30" markiert wurden.</p>
   <div *ngFor="let sec of streetSections; let i = index;">

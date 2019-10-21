@@ -1,4 +1,4 @@
-    <h2>Meine Tempo 30 Eingaben</h2>
+    <h2 class="mat-h2">Meine Tempo 30 Eingaben</h2>
     <table mat-table [dataSource]="forderungList" matSort class="mat-elevation-z8">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name </th>
@@ -44,7 +44,7 @@
        <tr mat-header-row *matHeaderRowDef="displayedPatenColumns"></tr>
        <tr mat-row *matRowDef="let row; columns: displayedPatenColumns;"></tr>
     </table>
-  <!-- <h2>Meine Korrekturen</h2>
+  <!-- <h2 class="mat-h2">Meine Korrekturen</h2>
   <button mat-raised-button color="primary" type="submit">
     <mat-icon>send</mat-icon> Neuen Antrag vorbereiten
     </button> -->

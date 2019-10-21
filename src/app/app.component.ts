@@ -19,11 +19,11 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'Tempo 30 an sozialen Einrichtungen';
   navLinks = [
     {
-      path: '/sozEinrKarte', label: 'Karte der Einrichungen',
+      path: '/sozEinrKarte', label: 'Karte der Einrichtungen',
       icon: 'map', showPublic: true, showUser: true
     },
     {
-      path: '/sozEinrListe', label: 'Liste der Einrichungen',
+      path: '/sozEinrListe', label: 'Liste der Einrichtungen',
       icon: 'list', showPublic: true, showUser: true
     },
     {

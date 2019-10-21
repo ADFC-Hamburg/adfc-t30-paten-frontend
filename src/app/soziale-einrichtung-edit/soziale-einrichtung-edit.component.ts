@@ -34,7 +34,6 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     city: ['Hamburg', Validators.required],
     type: ['1', Validators.required],
     streetSections: this.fb.array([
-      StreetSectionEditComponent.createAngrStrassenFbGroup(this.fb)
     ]),
     streetsection_complete: [false],
   });
@@ -201,10 +200,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
       this.loadedData = data;
     });
     this.streetSectionService.list(id).subscribe(data => {
-      let newLen = data.length;
-      if (newLen < 1) {
-        newLen = 1;
-      }
+      const newLen = data.length;
       while (this.getStrassenAbschnitte().length > newLen) {
         this.deleteStrassenAbschnitt(this.getStrassenAbschnitte().length);
       }

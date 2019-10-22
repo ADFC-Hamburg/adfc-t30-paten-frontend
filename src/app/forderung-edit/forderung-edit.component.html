@@ -1,6 +1,19 @@
 <h1 class="mat-h1">Forderungsmail verfassen für einen Straßenabschnitt im Umfeld dieser Einrichtung:</h1>
 <h2 class="mat-h2">{{ einrichtung.type |einrichtungsart }} {{ einrichtung.name}}</h2>
-<p>Bitte prüfe die folgenden Angaben:</p>
+<p *ngIf="aktionsData.reached === false">
+      <mat-icon color="warn">warning</mat-icon>
+      Der ADFC hat mit der Hamburger Elternkammer (Schulen) und dem Landeselternausschuss (Kitas) vereinbart, dass zunächst nur
+      zur jeweiligen Schule/ Kita Gehörige die Tempo-30-Forderungen stellen sollen.
+      Daher können die Tempo-30-Forderungen für Schulen und Kitas bis zum {{ aktionsData.until |date:'dd.MM.yyyy' }}
+      nur nach Eingabe des richtigen Stichworts gestellt werden. Dies erhälst du
+      bei dem Elternrat der Schule oder der Elternvertretung bzw. Leitung der Kita.<br>
+      Du kannst die E-Mail auch ohne Stichwort speichern, aber noch nicht absenden.
+    </p>
+    <mat-form-field class="t30-full-width" *ngIf="aktionsData.reached === false">
+      <input matInput placeholder="Stichwort" formControlName="password" (input)="onPasswordChange($event.target.value)">
+    </mat-form-field>
+<p>Wir empfehlen, vor dem Versand der E-Mail, die Einrichtung über dein Vorhaben zu informieren und mit ihr Rücksprache zu halten. Danke.</p>
+<p>Bitte prüfe zunächst die folgenden Angaben:</p>
 <div class="line">
   <div class="key">Name:</div>
   <div class="value">{{ einrichtung.name}}</div>
@@ -18,31 +31,31 @@
   <div class="value">{{ streetSection.street}} Hausnummern: {{streetSection.house_no_from}} bis {{streetSection.house_no_to}}</div>
 </div>
 <div class="line">
-  <div class="key">Anzahl Spuren:</div>
-  <div class="value">{{ streetSection.multilane | spurigkeit }}</div>
-</div>
-<div class="line">
   <div class="key">Forderungsgrund:</div>
   <div class="value">{{ HAUPTEINGANG[streetSection.entrance] }}</div>
+</div>
+<div class="line">
+  <div class="key">Anzahl Spuren:</div>
+  <div class="value">{{ streetSection.multilane | spurigkeit }}</div>
 </div>
 <div class="line">
   <div class="key">Busverkehr:</div>
   <div class="value">{{ streetSection.much_bus_traffic |busverkehr }}</div>
 </div>
 <div class="line">
-  <div class="key">Buslininen:</div>
+  <div class="key">Buslinien:</div>
   <div class="value">{{streetSection.bus_lines}}</div>
 </div>
 <div class="line">
   <div class="key">Anmerkungen zum Busverkehr:</div>
   <div class="value">{{ streetSection.reason_slower_buses }}</div>
 </div>
-<div class="headline">Verlauf der Tempo 30 Forderung:</div>
-<p>{{ streetSection.progress_report}}</p>
+  <div class="headline">Vorgeschichte:</div>
+  <div class="value">{{ streetSection.progress_report}}</div>
 <div [formGroup]="forderungFG">
   <mat-radio-group class="tp-radio-group" formControlName="geprueft" aria-label="Bitte prüfe die obigen Angaben">
+    <mat-radio-button class="tp-radio-button" value="2">Ja, alles ist korrekt.</mat-radio-button>    
     <mat-radio-button class="tp-radio-button" value="1">Ich möchte etwas korrigieren.</mat-radio-button>
-    <mat-radio-button class="tp-radio-button" value="2">Ja, alles ist korrekt.</mat-radio-button>
   </mat-radio-group>
   <div *ngIf="(forderungFG.get('geprueft').value==='1')">
     <mat-icon color="warn">warning</mat-icon> Bitte korrigiere zunächst die Angaben:
@@ -58,10 +71,8 @@
   </div>
   <div *ngIf="(forderungFG.get('geprueft').value==='2')">
     <mat-form-field class="t30-full-width">
-      <input matInput placeholder="Dein Bezug zur Einrichtung" formControlName="bezugZurEinrichtung">
-      <mat-hint>Schülerin, Nachbar, Leiterin, Angehörige, Mitarbeiter...</mat-hint>
+      <input matInput placeholder="Welchen Bezug hast du zur Einrichtung? (Schülerin, Nachbar, Leiterin, Angehörige, Mitarbeiter...)" formControlName="bezugZurEinrichtung">
     </mat-form-field>
-    <p>Bitte informiere die Einrichtung, dass du Tempo 30 für ihre angrenzenden Straßen beantragen möchtest/ beantragt hast und besprich das Anliegen bestenfalls vorher mit Vertreter*innen. Danke!</p>
     <hr>
     <h2 class="mat-h2">Forderungsmail an zuständiges Polizeikommissariat</h2>
     <div>Das zuständige Polizeikommissariat wird automatisch anhand der Adresse der sozialen Einrichtung ermittelt.</div>
@@ -89,18 +100,6 @@
     <mat-form-field class="t30-full-width">
       <textarea class="t30-emailend-area" matInput formControlName="mail_end" placeholder="Grußformel und Absender (wird an die Polizei geschickt, aber nicht veröffentlicht)">
   </textarea>
-    </mat-form-field>
-    <p *ngIf="aktionsData.reached === false">
-      <mat-icon color="warn">warning</mat-icon>
-      Der ADFC hat mit der Hamburger Elternkammer vereinbart, dass zunächst nur
-      zur jeweiligen Schule Gehörige die Tempo-30-Forderungen stellen sollen.
-      Daher können die Tempo-30-Forderungen für Schulen bis zum {{ aktionsData.until |date:'dd.MM.yyyy' }}
-      nur nach Eingabe des richtigen Stichworts gestellt werden. Dies erhälst du
-      bei der Elternkammer oder dem Elternrat der Schule.<br>
-      Du kannst die E-Mail auch ohne Stichwort speichern, aber noch nicht absenden!
-    </p>
-    <mat-form-field class="t30-full-width" *ngIf="aktionsData.reached === false">
-      <input matInput placeholder="Stichwort" formControlName="password" (input)="onPasswordChange($event.target.value)">
     </mat-form-field>
     <mat-action-row>
       <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="primary" (click)="onSave(false)">

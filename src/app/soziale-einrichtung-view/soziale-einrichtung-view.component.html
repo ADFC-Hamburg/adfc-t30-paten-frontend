@@ -31,7 +31,8 @@
         <div class="value">{{ STATUS[sec.status] }}</div>
       </div>
       <div class="line">
-        <div class="value">{{sec.user_note}}</div class="value">
+        <div class="key"></div>
+        <div class="value">{{sec.user_note}}</div>
       </div>
       <div class="line">
         <div class="key">KFZ Spuren pro Fahrtrichtung:</div>
@@ -46,11 +47,11 @@
         <div class="value">{{ sec.bus_lines}}</div>
       </div>
       <div class="line">
-        <div class="value">{{sec.reason_slower_buses}}</div class="value">
+        <div class="value">{{sec.reason_slower_buses}}</div>
       </div>
       <div class="line">
-        <div class="key">Vorgeschichte</div>
-        <div class="value">{{sec.progress_report}}</div class="value">
+        <div class="key">Vorgeschichte:</div>
+        <div class="value">{{sec.progress_report}}</div>
       </div>
       <button *ngIf="(sec.status==3)" mat-raised-button matTooltip="Ich möchte hier Tempo 30 fordern." routerLink="/forderung/edit/{{sec.id}}" type="submit">
         Tempo 30 fordern:

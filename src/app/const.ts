@@ -1,11 +1,11 @@
 // --------------------- STATUS --------------------------------------------
 export const FARBCODE = [
-  '#0554fa', // 0
-  '#ef140d', // 1
-  '#44f917', // 2
-  '#f7ab05', // 3
-  '#000000', // 4
-  '#e7ff08', // 5
+  '#0554fa', // 0 blau
+  '#f7ab05', // 1 orange
+  '#44f917', // 2 gruen
+  '#ef140d', // 3 rot
+  '#000000', // 4 schwarz
+  '#e7ff08', // 5 gelb
 ];
 export const LEGENDE_TEXT = [
   'Bitte prüfen, d. h. ggf. vor Ort relevante Straßenabschnitte im Umfeld der ' +

@@ -10,7 +10,7 @@ export class CanDeactivateGuard implements CanDeactivate<CanDeactivateComponent>
   canDeactivate(component: CanDeactivateComponent): boolean {
     if (typeof component.canDeactivate === 'function') {
       if (!component.canDeactivate()) {
-        return confirm('Ungesicherte Änderungen werden nicht gespeichert');
+        return confirm('Willst du die Seite wirklich verlassen, ohne die letzten Änderungen zu speichern?');
       }
     }
     return true;

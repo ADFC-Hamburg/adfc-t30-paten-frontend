@@ -190,7 +190,7 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
           console.log(rtnData);
           emailId = rtnData.id;
         }
-        this.forderungService.sendMail(emailId).subscribe(rtnMailSend => {
+        this.forderungService.sendMail(emailId, data.password).subscribe(rtnMailSend => {
           this.router.navigate(['/einrichtung/view', this.einrichtung.id]);
         });
       } else {

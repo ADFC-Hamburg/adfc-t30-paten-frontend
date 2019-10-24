@@ -144,7 +144,7 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     console.log(streetSection);
     let newEMailText = `Im Umfeld dieser Einrichtung fehlt leider noch Tempo 30.\n\n` +
       `Ich ersuche Sie hiermit, an diesem an ${this.ANGR_ART[einr.type]} angrenzenden Straßenabschnitt ` +
-      `${streetSection.street} von Hausnummer ${streetSection.house_no_from} bis Hausnummer ` +
+      `${streetSection.street} von Hausnummer/Kreuzung ${streetSection.house_no_from} bis Hausnummer/Kreuzung ` +
       `${streetSection.house_no_to} Tempo 30 einzuführen.\n\n` +
       `Begründung:\n${this.HAUPTEINGANG[streetSection.entrance]}\n\n` +
       streetSection.user_note + '\n\n' +

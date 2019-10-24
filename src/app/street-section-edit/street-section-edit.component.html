@@ -18,7 +18,7 @@
     </mat-panel-description>
   </mat-expansion-panel-header>
 <div>
-    <mat-form-field class="t30-half-width">
+    <mat-form-field class="t30-3-width">
   <input matInput placeholder="Straße" [matAutocomplete]="auto" autocomplete="false" (ngModelChange)="changeStrassenname($event)" formControlName="street">
 </mat-form-field>
 <mat-autocomplete #auto="matAutocomplete">
@@ -31,15 +31,11 @@
     </mat-option>
   </ng-container>
 </mat-autocomplete>
-
-<!--     <mat-form-field class="t30-half-width">
- <input matInput placeholder="Straße" formControlName="street">
-</mat-form-field>-->
-<mat-form-field class="t30-hausnummer-width">
-  <input matInput placeholder="von Hausnummer" formControlName="house_no_from">
+<mat-form-field class="t30-3-width">
+  <input matInput placeholder="von Hausnummer/Kreuzung" formControlName="house_no_from">
 </mat-form-field>
-<mat-form-field class="t30-hausnummer-width">
-  <input matInput placeholder="bis Hausnummer" formControlName="house_no_to">
+<mat-form-field class="t30-3-width">
+  <input matInput placeholder="bis Hausnummer/Kreuzung" formControlName="house_no_to">
 </mat-form-field>
 <mat-form-field class="t30-half-width">
   <mat-select placeholder="Ist hier ein Haupteingang und/oder An- und Abreiseverkehr?" formControlName="entrance">

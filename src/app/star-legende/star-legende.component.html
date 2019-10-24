@@ -3,10 +3,10 @@
   <mat-card-content>
     Ein Stern markiert eine soziale Einrichtung.
     <div *ngFor="let item of [0,3,1,5,2,4];">
-    <div [matTooltip]="item |t30StatusLongText">
-      <img class="starImg" [src]="item|t30StatusStarSvgUrl">
+      <span [matTooltip]="item |t30StatusLongText">
+        <img class="starImg" [src]="item|t30StatusStarSvgUrl">
+      </span>
       {{LEGENDE_TEXT[item]}}
-    </div>
     </div>
   </mat-card-content>
   <mat-card-actions>

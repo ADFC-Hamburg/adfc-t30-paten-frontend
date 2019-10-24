@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
       zip: ['', Validators.pattern(/^\d\d\d\d\d$/)],
       city: ['', Validators.minLength(3)],
       phone: ['', [Validators.maxLength(20), Validators.minLength(4), Validators.pattern(/^[0-9\- \/]*$/)]],
-      speichern: [true, Validators.required],
+      speichern: [false, Validators.required],
       mailingliste: [false, Validators.required],
       password1: ['', [Validators.required, Validators.minLength(5)]],
       password2: ['', Validators.required],

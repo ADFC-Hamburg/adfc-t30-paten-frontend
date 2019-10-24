@@ -48,6 +48,7 @@
   <div *ngIf=" getStrassenAbschnitte().length === 0">
     <mat-icon color="warn">warning</mat-icon> Hier fehlen noch Straßenabschnitte. Wir suchen Freiwillige mit Ortskenntnissen.
   </div>
+  <p>Einige der Angaben werden später automatisch in die E-Mail an das Polizeikommissariat übernommen (Name und Adresse der Einrichtung, Straßenabschnitt mit Hausnummer/Kreuzung, Begründung für Tempo 30 und Anmerkungen zum Busverkehr). Du kannst sie auch später noch direkt in der E-Mail anpassen. </p>
   <div class="t30-full-width" formArrayName="streetSections" *ngFor="let item of getStrassenAbschnitte().controls; let i = index;">
     <app-street-section-edit [fg]="item" [fgIndex]="i" [strassenliste]="strassenliste" (deleteStrassenAbschnitt)="deleteStrassenAbschnitt($event)">
     </app-street-section-edit>
@@ -57,6 +58,7 @@
     Straßenabschnitt hinzufügen <mat-icon>add</mat-icon>
   </button>
   </div>
+  <p>Wichtiger Hinweis für die Kampagne:</p>
   <div class="t30-checkbox">
   <mat-checkbox formControlName="streetsection_complete">Alle mir bekannten Straßenabschnitte mit Haupteingang und/oder An- und Abreiseverkehr im näheren Umfeld der Einrichtung sind aufgeführt.</mat-checkbox>
   </div>

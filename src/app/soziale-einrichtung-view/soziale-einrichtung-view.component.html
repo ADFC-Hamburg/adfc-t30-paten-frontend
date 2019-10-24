@@ -19,10 +19,10 @@
       <yaga-icon iconUrl="assets/marker-icon.png" shadowUrl="assets/marker-shadow.png" [(iconSize)]="marker.iconSize" [(iconAnchor)]="marker.iconAnchor" [(popupAnchor)]="marker.popupAnchor" [(tooltipAnchor)]="marker.tooltipAnchor" [(shadowSize)]="marker.shadowSize"></yaga-icon>
     </yaga-marker>
   </yaga-map>
-  <h2 class="mat-h2">Diese Angaben liegen zur Meldeadresse der Einrichtung vor. Sie stammen, wenn nicht anders angegeben. vom Hamburger Senat.</h2>
+  <h2 class="mat-h2">Diese Angaben liegen zur Meldeadresse der Einrichtung vor. Sie stammen, wenn nicht anders angegeben, vom Hamburger Senat.</h2>
   <pre>{{einrichtung.by_the_records}}</pre>
   <h2 class="mat-h2">Straßenabschnitte mit Haupteingang oder An- und Abreiseverkehr im näheren Umfeld der Einrichtung</h2>
-  <p>Hier kannst du für die einzelnen Straßenabschnitte jeweils eine Tempo-30-Forderungsmail an das zuständige Polizeikommissariat generieren, wenn diese im Bereich "Bearbeiten (Button)" mit dem Status "Hier fehlt Tempo 30" markiert wurden.</p>
+  <p>Von hier aus kannst du für die einzelnen Straßenabschnitte jeweils eine Tempo-30-Forderungsmail an das zuständige Polizeikommissariat generieren, wenn diese im Bereich "Bearbeiten" mit dem Status "Hier fehlt Tempo 30" markiert wurden.</p>
   <div *ngFor="let sec of streetSections; let i = index;">
     <h3 class="mat-h3">{{ sec.street}} Hausnummer {{ sec.house_no_from }} bis {{ sec.house_no_to}}</h3>
     <div class="tblock">
@@ -31,7 +31,8 @@
         <div class="value">{{ STATUS[sec.status] }}</div>
       </div>
       <div class="line">
-        {{sec.user_note}}
+        <div class="key"></div>
+        <div class="value">{{sec.user_note}}</div>
       </div>
       <div class="line">
         <div class="key">KFZ Spuren pro Fahrtrichtung:</div>
@@ -46,10 +47,11 @@
         <div class="value">{{ sec.bus_lines}}</div>
       </div>
       <div class="line">
-        {{sec.reason_slower_buses}}
+        <div class="value">{{sec.reason_slower_buses}}</div>
       </div>
       <div class="line">
-        {{sec.progress_report}}
+        <div class="key">Vorgeschichte:</div>
+        <div class="value">{{sec.progress_report}}</div>
       </div>
       <button *ngIf="(sec.status==3)" mat-raised-button matTooltip="Ich möchte hier Tempo 30 fordern." routerLink="/forderung/edit/{{sec.id}}" type="submit">
         Tempo 30 fordern:
@@ -64,7 +66,7 @@
     </div>
   </div>
   <div *ngIf="(!einrichtung.streetsection_complete)">
-   Fehlen noch andere Straßenabschnitte? Bitte bearbeiten und vervollständigen oder als vollständig markieren!
+   Hier fehlen noch Straßenabschnitte. Wir suchen Freiwillige mit Ortskenntnissen.
   </div>
 </div>
 <p>Angaben zur Einrichtung oder Straßenabschnitten in deren Umfeld ändern oder hinzufügen:</p>

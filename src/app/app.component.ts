@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ErrorNotifierService } from './services/error-notifier.service';
+import { NotifierService } from './services/notifier.service';
 import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
 import { ForderungService } from './services/forderung.service';
@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { AppSnackBarComponent } from './app-snack-bar/app-snack-bar.component';
 
 @Component({
   selector: 'app-root',
@@ -62,7 +63,7 @@ export class AppComponent implements OnInit, OnDestroy {
   snackBarRef = null;
   constructor(
     private snackBar: MatSnackBar,
-    private errorService: ErrorNotifierService,
+    private notifierService: NotifierService,
     private authenticationService: AuthenticationService,
     private location: Location,
     private router: Router,
@@ -73,13 +74,17 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.API_VERSION = environment.API_BASE_URL
       .replace(/^.*ersion(.*)\/api.*$/, '$1');
-    this.sub = this.errorService.messages.subscribe(e => {
-      if (e === ErrorNotifierService.CLEAR_MSG) {
+    this.sub = this.notifierService.messages.subscribe(e => {
+      if (e.isClear()) {
         if (this.snackBarRef != null) {
           this.snackBarRef.dismiss();
         }
       } else {
-        this.snackBarRef = this.snackBar.open(e, 'Okay');
+        const config = {
+          data: e,
+          duration: e.duration,
+        };
+        this.snackBarRef = this.snackBar.openFromComponent(AppSnackBarComponent, config);
       }
     });
     this.router.events.subscribe(event => {

@@ -27,3 +27,6 @@ div.half {
   display: inline-block;
   vertical-align: top;
 }
+table {
+  width: 100%
+}

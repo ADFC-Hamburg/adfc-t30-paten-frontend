@@ -23,48 +23,48 @@
   <pre>{{einrichtung.by_the_records}}</pre>
   <h2 class="mat-h2">Straßenabschnitte mit Haupteingang oder An- und Abreiseverkehr im näheren Umfeld der Einrichtung</h2>
   <p>Von hier aus kannst du für die einzelnen Straßenabschnitte jeweils eine Tempo-30-Forderungsmail an das zuständige Polizeikommissariat generieren, wenn diese im Bereich "Bearbeiten" mit dem Status "Hier fehlt Tempo 30" markiert wurden.</p>
-  <div *ngFor="let sec of streetSections; let i = index;">
-    <h3 class="mat-h3">{{ sec.street}} Hausnummer {{ sec.house_no_from }} bis {{ sec.house_no_to}}</h3>
-    <div class="tblock">
-      <div class="line">
-        <div class="key">Status:</div>
-        <div class="value">{{ STATUS[sec.status] }}</div>
-      </div>
-      <div class="line">
-        <div class="key"></div>
-        <div class="value">{{sec.user_note}}</div>
-      </div>
-      <div class="line">
-        <div class="key">KFZ Spuren pro Fahrtrichtung:</div>
-        <div class="value">{{ sec.multilane |spurigkeit }}</div>
-      </div>
-      <div class="line">
-        <div class="key">Busverkehr:</div>
-        <div class="value">{{ sec.much_bus_traffic | busverkehr }}</div>
-      </div>
-      <div class="line" *ngIf="sec.buslinien">
-        <div class="key">Buslinien:</div>
-        <div class="value">{{ sec.bus_lines}}</div>
-      </div>
-      <div class="line">
-        <div class="value">{{sec.reason_slower_buses}}</div>
-      </div>
-      <div class="line">
-        <div class="key">Vorgeschichte:</div>
-        <div class="value">{{sec.progress_report}}</div>
-      </div>
-      <button *ngIf="(sec.status==3)" mat-raised-button matTooltip="Ich möchte hier Tempo 30 fordern." routerLink="/forderung/edit/{{sec.id}}" type="submit">
-        Tempo 30 fordern:
-        <mat-icon>mail</mat-icon>
-        <mat-icon>arrow_forward</mat-icon>
-        <mat-icon>sentiment_satisfied_alt</mat-icon>
-      </button>
-      <button *ngIf="(sec.mail_sent)" mat-raised-button matTooltip="Mail ansehen" routerLink="/forderung/view/{{sec.id}}" type="submit">
-        Hier wurde Tempo 30 gefordert
-        <mat-icon>mail</mat-icon>
-      </button>
-    </div>
-  </div>
+  <table mat-table [dataSource]="streetSectionList" class="mat-elevation-z8">
+    <ng-container matColumnDef="abschnitt">
+      <th mat-header-cell *matHeaderCellDef>Abschnitt</th>
+      <td mat-cell *matCellDef="let sec">{{ sec.street}} Hausnummer {{ sec.house_no_from }} bis {{ sec.house_no_to}}</td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell  *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let sec">{{ STATUS[sec.status] }}{{ sec.user_note }}</td>
+    </ng-container>
+    <ng-container matColumnDef="spuren">
+      <th mat-header-cell  *matHeaderCellDef>Spuren</th>
+      <td mat-cell *matCellDef="let sec">{{  sec.multilane |spurigkeit }}</td>
+    </ng-container>
+    <ng-container matColumnDef="bus">
+      <th mat-header-cell  *matHeaderCellDef>Bus</th>
+      <td mat-cell *matCellDef="let sec">{{ sec.much_bus_traffic | busverkehr }}<br>
+        <span *ngIf="sec.bus_lines !=''">Linien: {{ sec.bus_lines}}</span>
+        {{ sec.reason_slower_buses }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="history">
+      <th mat-header-cell  *matHeaderCellDef>Vorgeschichte</th>
+      <td mat-cell *matCellDef="let sec">{{ sec.progress_report }}</td>
+    </ng-container>
+    <ng-container matColumnDef="button">
+      <th mat-header-cell  *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let sec">
+        <button *ngIf="(sec.status==3)" mat-raised-button matTooltip="Ich möchte hier Tempo 30 fordern." routerLink="/forderung/edit/{{sec.id}}" type="submit">
+          Tempo 30 fordern
+          <mat-icon>mail</mat-icon>
+          <mat-icon>arrow_forward</mat-icon>
+          <mat-icon>sentiment_satisfied_alt</mat-icon>
+        </button>
+        <button *ngIf="(sec.mail_sent)" mat-raised-button matTooltip="Mail ansehen" routerLink="/forderung/view/{{sec.id}}" type="submit">
+          Hier wurde Tempo 30 gefordert
+          <mat-icon>mail</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
   <div *ngIf="(!einrichtung.streetsection_complete)">
    Hier fehlen noch Straßenabschnitte. Wir suchen Freiwillige mit Ortskenntnissen.
   </div>

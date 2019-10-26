@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ErrorNotifierService } from './error-notifier.service';
+import { NotifierService } from './notifier.service';
 
-describe('ErrorNotifierService', () => {
+describe('NotifierService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ErrorNotifierService = TestBed.get(ErrorNotifierService);
+    const service: NotifierService = TestBed.get(ErrorNotifierService);
     expect(service).toBeTruthy();
   });
 });

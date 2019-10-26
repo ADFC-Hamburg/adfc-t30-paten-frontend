@@ -1,4 +1,10 @@
 <h2 class="mat-h2">Liste der sozialen Einrichtungen</h2>
+<mat-action-row>
+  <button *ngIf="showLegende===false" mat-raised-button (click)="showLegende=true;">
+    <mat-icon>help</mat-icon> Legende
+  </button>
+</mat-action-row>
+<app-star-legende [(showLegende)]="showLegende"></app-star-legende>
 <mat-form-field class="filter">
   <i matPrefix class="material-icons">search</i>
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Suche nach Name, Straße, PLZ">
@@ -43,8 +49,4 @@
   <button mat-raised-button color="primary" routerLink="/einrichtung/edit/-1" type="submit">
     <mat-icon>add_box</mat-icon> Fehlende soziale Einrichtung hinzufügen
   </button>
-  <button *ngIf="showLegende===false" mat-raised-button (click)="showLegende=true;">
-    <mat-icon>help</mat-icon> Legende
-  </button>
 </mat-action-row>
-<app-star-legende [(showLegende)]="showLegende"></app-star-legende>

@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OSM_TILE_LAYER_URL } from '@yaga/leaflet-ng2';
 import { Point } from 'leaflet';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { T30SozialeEinrichtungService } from '../services/t30-soziale-einrichtung.service';
 import { DemandedStreetSectionService } from '../services/demanded-street-section.service';
@@ -25,6 +28,13 @@ export class SozialeEinrichtungViewComponent implements OnInit {
     'status': 1,
   };
   public streetSections: [];
+  public streetSectionList = new MatTableDataSource();
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  public displayedColumns = [
+    'abschnitt', 'status', 'spuren', 'bus',
+    'history', 'button'
+  ];
   position = [HAMBURG_LON, HAMBURG_LAT];
   mapPos = [HAMBURG_LON, HAMBURG_LAT];
   STATUS = STATUS;
@@ -40,7 +50,7 @@ export class SozialeEinrichtungViewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private sozService: T30SozialeEinrichtungService,
-    private steetSectionService: DemandedStreetSectionService,
+    private streetSectionService: DemandedStreetSectionService,
   ) { }
   ngOnInit() {
     this.route.params.subscribe(param => {
@@ -50,7 +60,10 @@ export class SozialeEinrichtungViewComponent implements OnInit {
         this.mapPos = [data.position[0], data.position[1]];
         this.position = [data.position[0], data.position[1]];
       });
-      this.steetSectionService.list(param.id).subscribe(data => {
+      this.streetSectionService.list(param.id).subscribe(data => {
+        this.streetSectionList = new MatTableDataSource(data);
+        this.streetSectionList.paginator = this.paginator;
+        this.streetSectionList.sort = this.sort;
         this.streetSections = data;
       });
     });

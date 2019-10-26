@@ -75,8 +75,11 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
   }
   deleteStrassenAbschnitt(index: number) {
     if (confirm('Soll der Straßenabschnitt wirklich gelöscht werden?')) {
-      this.getStrassenAbschnitte().removeAt(index);
+      this.deleteStrassenAbschnittNoAsk(index);
     }
+  }
+  deleteStrassenAbschnittNoAsk(index: number) {
+    this.getStrassenAbschnitte().removeAt(index);
   }
   changePosFB(value) {
     if ((this.position[0] !== value[0]) ||
@@ -202,7 +205,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     this.streetSectionService.list(id).subscribe(data => {
       const newLen = data.length;
       while (this.getStrassenAbschnitte().length > newLen) {
-        this.deleteStrassenAbschnitt(this.getStrassenAbschnitte().length);
+        this.deleteStrassenAbschnittNoAsk(this.getStrassenAbschnitte().length);
       }
       while (this.getStrassenAbschnitte().length < newLen) {
         this.addStrassenAbschnitt();
@@ -225,5 +228,19 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     this.strassenlisteService.getAll().subscribe(liste => {
       this.strassenliste = liste;
     });
+    this.einrichtung.get('streetsection_complete').disable();
+    this.einrichtung.get('streetSections').valueChanges.subscribe(
+      streetSections => {
+        const newDisable = (streetSections.length === 0);
+        const oldDisable = this.einrichtung.get('streetsection_complete').disabled;
+        if (oldDisable !== newDisable) {
+          if (newDisable) {
+            this.einrichtung.get('streetsection_complete').setValue(false);
+            this.einrichtung.get('streetsection_complete').disable();
+          } else {
+            this.einrichtung.get('streetsection_complete').enable();
+          }
+        }
+      });
   }
 }

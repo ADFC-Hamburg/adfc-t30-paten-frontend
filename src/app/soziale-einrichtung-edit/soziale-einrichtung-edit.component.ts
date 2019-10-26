@@ -73,12 +73,12 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
   addStrassenAbschnitt() {
     this.getStrassenAbschnitte().push(StreetSectionEditComponent.createAngrStrassenFbGroup(this.fb));
   }
-  deleteStrassenAbschnitt(index: number) {
+  deleteStrassenAbschnitt(index: number): void {
     if (confirm('Soll der Straßenabschnitt wirklich gelöscht werden?')) {
       this.deleteStrassenAbschnittNoAsk(index);
     }
   }
-  deleteStrassenAbschnittNoAsk(index: number) {
+  deleteStrassenAbschnittNoAsk(index: number): void {
     this.getStrassenAbschnitte().removeAt(index);
   }
   changePosFB(value) {

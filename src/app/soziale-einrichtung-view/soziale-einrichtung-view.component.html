@@ -32,7 +32,11 @@
   <pre>{{einrichtung.by_the_records}}</pre>
   <h2 class="mat-h2">Straßenabschnitte mit Haupteingang oder An- und Abreiseverkehr im näheren Umfeld der Einrichtung</h2>
   <p>Von hier aus kannst du für die einzelnen Straßenabschnitte jeweils eine Tempo-30-Forderungsmail an das zuständige Polizeikommissariat generieren, wenn diese im Bereich "Bearbeiten" mit dem Status "Hier fehlt Tempo 30" markiert wurden.</p>
-  <table mat-table [dataSource]="streetSectionList" class="mat-elevation-z8">
+  <div *ngIf="streetSectionList.filteredData.length===0">
+    <b>Es wurden bisher keine Straßenabschnitte zur Einrichtung gespeichert.
+    Bitte ergänze Straßenabschnitte unter "Bearbeiten".</b>
+  </div>
+  <table *ngIf="streetSectionList.filteredData.length>0" mat-table [dataSource]="streetSectionList" class="mat-elevation-z8">
     <ng-container matColumnDef="abschnitt">
       <th mat-header-cell *matHeaderCellDef>Abschnitt</th>
       <td mat-cell *matCellDef="let sec">{{ sec.street}} Hausnummer {{ sec.house_no_from }} bis {{ sec.house_no_to}}</td>

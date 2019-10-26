@@ -8,7 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { T30SozialeEinrichtungService } from '../services/t30-soziale-einrichtung.service';
 import { DemandedStreetSectionService } from '../services/demanded-street-section.service';
-import { HAMBURG_LAT, HAMBURG_LON, STATUS } from '../const';
+import { HAMBURG_LAT, HAMBURG_LON, STATUS, LEGENDE_TEXT } from '../const';
 
 @Component({
   selector: 'app-soziale-einrichtung-view',
@@ -16,7 +16,7 @@ import { HAMBURG_LAT, HAMBURG_LON, STATUS } from '../const';
   styleUrls: ['./soziale-einrichtung-view.component.css']
 })
 export class SozialeEinrichtungViewComponent implements OnInit {
-
+  LEGENDE_TEXT = LEGENDE_TEXT;
   id = -1;
   public einrichtung: any = {
     'name': '',

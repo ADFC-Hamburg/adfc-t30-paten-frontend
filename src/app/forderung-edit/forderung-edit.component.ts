@@ -5,10 +5,12 @@ import { DemandedStreetSectionService } from '../services/demanded-street-sectio
 import { CanDeactivateFormControlComponent } from '../can-deactivate-form-control/can-deactivate-form-control.component';
 import { RelationInstitutionService } from '../services/relation-institution.service';
 import { FormBuilder, Validators } from '@angular/forms';
+
 import { User } from '../user';
 import { UserService } from '../services/user.service';
 import { take } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { NotifierService } from '../services/notifier.service';
 
 @Component({
   selector: 'app-forderung-edit',
@@ -104,6 +106,7 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     private userService: UserService,
     private demandedStreetSectionService: DemandedStreetSectionService,
     private relationInstitutionService: RelationInstitutionService,
+    private notifierService: NotifierService,
   ) {
     super();
   }
@@ -192,9 +195,15 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
         }
         this.forderungService.sendMail(emailId, data.password).subscribe(rtnMailSend => {
           this.router.navigate(['/einrichtung/view', this.einrichtung.id]);
+          this.notifierService.addSuccess('Die E-Mail wurde versandt. Du findest sie unter "Meine Forderungsmails" wieder.');
         });
       } else {
         this.router.navigate(['/einrichtung/view', this.einrichtung.id]);
+        this.notifierService.addSuccess(
+          'Dein E-Mailentwurf wurde gespeichert. Du findest ihn unter "Meine ' +
+          'Forderungsmails" wieder. Bitte lass uns am Fortgang deiner Forderung ' +
+          'teilhaben, indem du bei "Einrichtung bearbeiten" den Tempo 30 Status ' +
+          'und die Geschichte zum Straßenabschnitt änderst, wenn sich etwas tut.');
       }
     });
     const relationData = {

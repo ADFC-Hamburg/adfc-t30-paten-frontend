@@ -1,5 +1,6 @@
 export class SozialeEinrichtung {
   id: number;
+  company: string;
   position: [number, number];
   name: string;
   street_house_no: string;

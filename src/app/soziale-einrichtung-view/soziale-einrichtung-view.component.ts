@@ -8,7 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { T30SozialeEinrichtungService } from '../services/t30-soziale-einrichtung.service';
 import { DemandedStreetSectionService } from '../services/demanded-street-section.service';
-import { HAMBURG_LAT, HAMBURG_LON, STATUS, LEGENDE_TEXT } from '../const';
+import { HAMBURG_LAT, HAMBURG_LON, STATUS, LEGENDE_TEXT, KITA_TRAEGER, KITA_TRAEGER_POST } from '../const';
 
 @Component({
   selector: 'app-soziale-einrichtung-view',
@@ -68,5 +68,26 @@ export class SozialeEinrichtungViewComponent implements OnInit {
       });
     });
   }
-
+  getKitaTaeger(id: any): string {
+    if (typeof id === 'string') {
+      id = Number(id);
+    }
+    if (typeof id !== 'number') {
+      throw new Error(`Expected string or number, got '${id}'.`);
+    }
+    if (id === 0) {
+      return 'Unbekannt';
+    }
+    for (const key in KITA_TRAEGER) {
+      if (id === KITA_TRAEGER[key]) {
+        return key;
+      }
+    }
+    for (const key in KITA_TRAEGER_POST) {
+      if (id === KITA_TRAEGER_POST[key]) {
+        return key;
+      }
+    }
+    return 'Unbekannt';
+  }
 }

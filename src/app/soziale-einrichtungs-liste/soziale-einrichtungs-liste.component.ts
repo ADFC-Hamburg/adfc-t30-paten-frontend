@@ -22,7 +22,7 @@ export class SozialeEinrichtungsListeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.sozEinrService.list().subscribe(
+    this.sozEinrService.listFast().subscribe(
       data => {
         this.sozEinrList = new MatTableDataSource(data);
         this.sozEinrList.paginator = this.paginator;

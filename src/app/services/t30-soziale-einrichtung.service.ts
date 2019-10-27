@@ -23,4 +23,7 @@ export class T30SozialeEinrichtungService extends AbstractCrudService<SozialeEin
   getNear(lat: number, lon: number): Observable<any> {
     return this.http.get<any>(environment.API_BASE_URL + 'findNear.php?lat=' + lat + '&lon=' + lon);
   }
+  listFast(): Observable<SozialeEinrichtung[]> {
+    return this.http.get<SozialeEinrichtung[]>(environment.API_BASE_URL + 'institutionList.php');
+  }
 }

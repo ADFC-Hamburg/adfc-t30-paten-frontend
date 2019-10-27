@@ -10,7 +10,6 @@ export class ErrorHandleService implements ErrorHandler {
   constructor(private readonly clientNotifierService: NotifierService,
     private authenticationService: AuthenticationService
   ) {
-    console.log('CREATE');
   }
 
   handleError(error: any) {

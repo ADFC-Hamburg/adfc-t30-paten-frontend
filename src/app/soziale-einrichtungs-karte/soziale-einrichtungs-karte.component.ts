@@ -62,7 +62,6 @@ export class SozialeEinrichtungsKarteComponent implements OnInit {
   ngOnInit() {
     this.sozEinrService.list().subscribe(
       data => {
-        // console.log(data);
         const items = [];
         for (const item of data) {
           items.push({

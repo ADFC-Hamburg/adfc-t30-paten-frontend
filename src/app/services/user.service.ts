@@ -21,7 +21,6 @@ export class UserService {
   }
 
   register(user: User, password: string) {
-    console.log(user);
     return this.http.post<any>(this.baseUrl + 'portal.php', {
       'concern': 'register',
       'username': user.user,

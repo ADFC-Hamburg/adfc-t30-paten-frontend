@@ -131,7 +131,6 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     }
   }
   validateAllFormFields(control: AbstractControl) {
-    console.log('validate', control.valid, control);
     if (control instanceof FormControl) {
       control.markAsTouched({ onlySelf: true });
     } else if (control instanceof FormGroup) {
@@ -149,7 +148,6 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     }
   }
   public onSave() {
-    console.log('save');
     this.einrichtung.get('id').setValue(this.id);
     this.validateAllFormFields(this.einrichtung);
     if (this.einrichtung.valid) {
@@ -167,7 +165,6 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
         const forkArray = [];
         const sss = this.streetSectionService;
         let showConfirmDialog = false;
-        console.log('res', result);
         if ('id' in result) {
           institutionId = result.id;
           this.id = result.id;
@@ -205,18 +202,12 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
         }
       });
     } else {
-      console.log('INVALID', this.einrichtung);
       throw new NotificationError('Bitte Fehler korrigieren.');
     }
   }
   load(id) {
     this.id = id;
     this.sozService.get(id).subscribe(data => {
-      console.log(data);
-      /* FIXME      while (data.angrenzendeStrassen.length > (this.einrichtung.get('angrenzendeStrassen') as FormArray).length) {
-              this.addStrassenAbschnitt();
-            }
-      let newLen = data.angrenzendeStrassen.length;*/
       data.type = data.type.toString();
       data.company = data.company.toString();
       this.einrichtung.patchValue(data);
@@ -256,7 +247,6 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     const valid = this.einrichtung.get('street_house_no').valid &&
       this.einrichtung.get('city').valid &&
       this.einrichtung.get('zip').valid;
-    console.log(valid);
     if (!valid) {
       throw new NotificationError('Bitte Fehler korrigieren.');
     }
@@ -275,7 +265,6 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
   ngOnInit() {
     this.einrichtung.get('position').valueChanges.subscribe(x => this.changePosFB(x));
     this.route.params.subscribe(param => {
-      console.log('x1', param);
       if (param.id !== '-1') {
         this.step = 3;
         this.load(param.id);

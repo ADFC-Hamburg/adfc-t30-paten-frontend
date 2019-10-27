@@ -39,7 +39,6 @@ export class RelationInstitutionService {
         }));
   }
   update(data) {
-    console.log('update', data);
     return this.http.put<any>(this.baseUrl + 'crud.php?entity=relationtoinstitution', data, httpOptions)
       .pipe(
         map(res => {
@@ -54,7 +53,6 @@ export class RelationInstitutionService {
       institutionId + '\']and[person,\'' + userId + '\']', httpOptions)
       .pipe(
         map(res => {
-          console.log('res', res);
           if (res.error) {
             throw new NotificationError(res.error);
           }

@@ -51,6 +51,7 @@ import { BusverkehrPipe } from './pipes/busverkehr.pipe';
 import { StreetSectionEditComponent } from './street-section-edit/street-section-edit.component';
 import { ForderungViewComponent } from './forderung-view/forderung-view.component';
 import { StarLegendeComponent } from './star-legende/star-legende.component';
+import { AppSnackBarComponent } from './app-snack-bar/app-snack-bar.component';
 
 
 export function tokenGetter() {
@@ -84,6 +85,7 @@ export function tokenGetter() {
     StreetSectionEditComponent,
     ForderungViewComponent,
     StarLegendeComponent,
+    AppSnackBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -123,6 +125,9 @@ export function tokenGetter() {
     { provide: ErrorHandler, useClass: ErrorHandleService },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: MatPaginatorIntl, useValue: getGermanPaginatorIntl() }
+  ],
+  entryComponents: [
+    AppSnackBarComponent,
   ],
   bootstrap: [AppComponent],
 })

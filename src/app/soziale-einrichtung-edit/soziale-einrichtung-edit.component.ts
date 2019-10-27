@@ -7,12 +7,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Point } from 'leaflet';
 import { OSM_TILE_LAYER_URL } from '@yaga/leaflet-ng2';
 import { T30SozialeEinrichtungService } from '../services/t30-soziale-einrichtung.service';
+import { NominatimService } from '../services/nominatim.service';
 import { SozialeEinrichtung } from '../sozialeEinrichtung';
 import { NotificationError } from '../notification-error';
 import { DemandedStreetSectionService } from '../services/demanded-street-section.service';
 import { forkJoin } from 'rxjs';
 import { StreetSectionEditComponent } from '../street-section-edit/street-section-edit.component';
-import { HAMBURG_LAT, HAMBURG_LON } from '../const';
+import { HAMBURG_LAT, HAMBURG_LON, KITA_TRAEGER, KITA_TRAEGER_POST } from '../const';
+
 
 @Component({
   selector: 'app-soziale-einrichtung-edit',
@@ -22,6 +24,8 @@ import { HAMBURG_LAT, HAMBURG_LON } from '../const';
 
 export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlComponent implements OnInit {
   id = -1;
+  KITA_TRAEGER = KITA_TRAEGER;
+  KITA_TRAEGER_POST = KITA_TRAEGER_POST;
   public loadedData: SozialeEinrichtung = SozialeEinrichtung.DEFAULT;
   public einrichtung: FormGroup = this.fb.group({
     id: [-1],
@@ -33,6 +37,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     zip: ['', Validators.required],
     city: ['Hamburg', Validators.required],
     type: ['1', Validators.required],
+    company: [0],
     streetSections: this.fb.array([
     ]),
     streetsection_complete: [false],
@@ -51,6 +56,8 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
   position = [HAMBURG_LON, HAMBURG_LAT];
   mapPos = [HAMBURG_LON, HAMBURG_LAT];
   newPos = [HAMBURG_LON, HAMBURG_LAT];
+  step = 3;
+  near = [];
   constructor(
     protected fb: FormBuilder,
     private router: Router,
@@ -58,6 +65,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     private sozService: T30SozialeEinrichtungService,
     private streetSectionService: DemandedStreetSectionService,
     private strassenlisteService: StrassenlisteService,
+    private nominatimService: NominatimService,
   ) {
     super();
   }
@@ -67,16 +75,25 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
   getFormControl() {
     return this.einrichtung;
   }
+  getKitaTraegerKeys() {
+    return Object.keys(this.KITA_TRAEGER).sort();
+  }
+  getKitaTraegerPostKeys() {
+    return Object.keys(this.KITA_TRAEGER_POST);
+  }
   getStrassenAbschnitte() {
     return this.einrichtung.get('streetSections') as FormArray;
   }
   addStrassenAbschnitt() {
     this.getStrassenAbschnitte().push(StreetSectionEditComponent.createAngrStrassenFbGroup(this.fb));
   }
-  deleteStrassenAbschnitt(index: number) {
+  deleteStrassenAbschnitt(index: number): void {
     if (confirm('Soll der Straßenabschnitt wirklich gelöscht werden?')) {
-      this.getStrassenAbschnitte().removeAt(index);
+      this.deleteStrassenAbschnittNoAsk(index);
     }
+  }
+  deleteStrassenAbschnittNoAsk(index: number): void {
+    this.getStrassenAbschnitte().removeAt(index);
   }
   changePosFB(value) {
     if ((this.position[0] !== value[0]) ||
@@ -101,6 +118,9 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     this.einrichtung.patchValue({
       position: this.newPos,
     });
+    if (this.step === 2) {
+      this.searchNear();
+    }
   }
   mapDblClick(event) {
     if (event.latlng) {
@@ -150,9 +170,15 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
         console.log('res', result);
         if ('id' in result) {
           institutionId = result.id;
+          this.id = result.id;
         }
         if (this.getStrassenAbschnitte().value.length === 0) {
-          this.router.navigate(['einrichtung', 'view', institutionId]);
+          if (this.step === 3) {
+            this.setSubmitted();
+            this.router.navigate(['einrichtung', 'view', institutionId]);
+          } else {
+            this.step = 3;
+          }
         } else {
           this.getStrassenAbschnitte().value.forEach(function(streetSectionValue) {
             streetSectionValue.institution = institutionId;
@@ -166,7 +192,6 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
           });
           forkJoin(forkArray).subscribe(results => {
             // FIXME: checkResults
-            this.setSubmitted();
             if (showConfirmDialog) {
               confirm('Danke für die Angaben zu angrenzenden Straßenabschnitten. ' +
                 'Auf der folgenden Seite kannst du bei den Straßenabschnitten, ' +
@@ -174,6 +199,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
                 'auf "Tempo 30 fordern" klicken, um eine E-Mail an das ' +
                 'Polizeikommissariat zu generieren.');
             }
+            this.setSubmitted();
             this.router.navigate(['einrichtung', 'view', institutionId]);
           });
         }
@@ -192,6 +218,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
             }
       let newLen = data.angrenzendeStrassen.length;*/
       data.type = data.type.toString();
+      data.company = data.company.toString();
       this.einrichtung.patchValue(data);
       this.einrichtung.patchValue({
         mapPos: [data.position[0], data.position[1]],
@@ -202,7 +229,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     this.streetSectionService.list(id).subscribe(data => {
       const newLen = data.length;
       while (this.getStrassenAbschnitte().length > newLen) {
-        this.deleteStrassenAbschnitt(this.getStrassenAbschnitte().length);
+        this.deleteStrassenAbschnittNoAsk(this.getStrassenAbschnitte().length);
       }
       while (this.getStrassenAbschnitte().length < newLen) {
         this.addStrassenAbschnitt();
@@ -214,16 +241,64 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
       }
     });
   }
+  searchNear() {
+    this.sozService.getNear(this.position[1], this.position[0]).subscribe(near => {
+      this.near = near;
+      if (this.near.length === 0) {
+        this.step = 3;
+      }
+    });
+  }
+  searchPos() {
+    this.validateAllFormFields(this.einrichtung.get('street_house_no'));
+    this.validateAllFormFields(this.einrichtung.get('zip'));
+    this.validateAllFormFields(this.einrichtung.get('city'));
+    const valid = this.einrichtung.get('street_house_no').valid &&
+      this.einrichtung.get('city').valid &&
+      this.einrichtung.get('zip').valid;
+    console.log(valid);
+    if (!valid) {
+      throw new NotificationError('Bitte Fehler korrigieren.');
+    }
+    this.nominatimService.getPosition(
+      this.einrichtung.get('street_house_no').value,
+      this.einrichtung.get('zip').value,
+      this.einrichtung.get('city').value
+    ).subscribe(data => {
+      this.newPos = [data[0], data[1]];
+      this.mapPos = [data[0], data[1]];
+      this.position = [data[0], data[1]];
+      this.step = 2;
+      this.searchNear();
+    });
+  }
   ngOnInit() {
     this.einrichtung.get('position').valueChanges.subscribe(x => this.changePosFB(x));
     this.route.params.subscribe(param => {
       console.log('x1', param);
       if (param.id !== '-1') {
+        this.step = 3;
         this.load(param.id);
+      } else {
+        this.step = 1;
       }
     });
     this.strassenlisteService.getAll().subscribe(liste => {
       this.strassenliste = liste;
     });
+    this.einrichtung.get('streetsection_complete').disable();
+    this.einrichtung.get('streetSections').valueChanges.subscribe(
+      streetSections => {
+        const newDisable = (streetSections.length === 0);
+        const oldDisable = this.einrichtung.get('streetsection_complete').disabled;
+        if (oldDisable !== newDisable) {
+          if (newDisable) {
+            this.einrichtung.get('streetsection_complete').setValue(false);
+            this.einrichtung.get('streetsection_complete').disable();
+          } else {
+            this.einrichtung.get('streetsection_complete').enable();
+          }
+        }
+      });
   }
 }

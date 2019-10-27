@@ -17,8 +17,13 @@
     </i>
     </mat-panel-description>
   </mat-expansion-panel-header>
+  <div class="t30-full-width" *ngIf="!this.fg.get('mail_sent').value">
+    <button class="delete-button" mat-raised-button matTooltip="Diesen Straßenabschnitt löschen" (click)="onDeleteStrassenAbschnitt()" type="submit">
+      Diesen Straßenabschnitt löschen <mat-icon>delete</mat-icon>
+    </button>
+  </div>
 <div>
-    <mat-form-field class="t30-half-width">
+    <mat-form-field class="t30-3-width">
   <input matInput placeholder="Straße" [matAutocomplete]="auto" autocomplete="false" (ngModelChange)="changeStrassenname($event)" formControlName="street">
 </mat-form-field>
 <mat-autocomplete #auto="matAutocomplete">
@@ -31,15 +36,11 @@
     </mat-option>
   </ng-container>
 </mat-autocomplete>
-
-<!--     <mat-form-field class="t30-half-width">
- <input matInput placeholder="Straße" formControlName="street">
-</mat-form-field>-->
-<mat-form-field class="t30-hausnummer-width">
-  <input matInput placeholder="von Hausnummer" formControlName="house_no_from">
+<mat-form-field class="t30-3-width">
+  <input matInput placeholder="von Hausnummer/Kreuzung" formControlName="house_no_from">
 </mat-form-field>
-<mat-form-field class="t30-hausnummer-width">
-  <input matInput placeholder="bis Hausnummer" formControlName="house_no_to">
+<mat-form-field class="t30-3-width">
+  <input matInput placeholder="bis Hausnummer/Kreuzung" formControlName="house_no_to">
 </mat-form-field>
 <mat-form-field class="t30-half-width">
   <mat-select placeholder="Ist hier ein Haupteingang und/oder An- und Abreiseverkehr?" formControlName="entrance">
@@ -88,10 +89,5 @@
    Z.B. "Die Busse verlangsamen ihre Fahrt an der Stelle ohnehin wegen einer Bushaltestelle/der abbiegenden Buslinie."
   </mat-hint>
 </mat-form-field>
-<div class="t30-full-width">
-  <button mat-raised-button matTooltip="Diesen Straßenabschnitt löschen" (click)="onDeleteStrassenAbschnitt()" type="submit">
-    Diesen Straßenabschnitt löschen <mat-icon>delete</mat-icon>
-  </button>
-</div>
 </div>
 </mat-expansion-panel>

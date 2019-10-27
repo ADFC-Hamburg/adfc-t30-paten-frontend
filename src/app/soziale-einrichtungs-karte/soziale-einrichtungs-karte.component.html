@@ -1,4 +1,10 @@
 <h2 class="mat-h2">Karte der sozialen Einrichtungen</h2>
+<mat-action-row>
+  <button *ngIf="showLegende===false" mat-raised-button (click)="showLegende=true;">
+    <mat-icon>help</mat-icon> Legende
+  </button>
+</mat-action-row>
+<app-star-legende [(showLegende)]="showLegende"></app-star-legende>
 <div class="t30-map-div">
   <yaga-map class="adfc-map" [(zoom)]="mapZoom" [(lat)]="mapLat" [(lng)]="mapLon">
     <yaga-tile-layer [(url)]="tileLayerUrl"></yaga-tile-layer>
@@ -19,8 +25,4 @@
   <button mat-raised-button color="primary" routerLink="/einrichtung/edit/-1" type="submit">
     <mat-icon>add_box</mat-icon> Fehlende soziale Einrichtung hinzufügen
   </button>
-  <button *ngIf="showLegende===false" mat-raised-button (click)="showLegende=true;">
-    <mat-icon>help</mat-icon> Legende
-  </button>
 </mat-action-row>
-<app-star-legende [(showLegende)]="showLegende"></app-star-legende>

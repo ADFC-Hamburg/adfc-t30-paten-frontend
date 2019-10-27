@@ -1,0 +1,5 @@
+<span>
+  <mat-icon *ngIf="data.isError()">error</mat-icon>
+  {{ data.getMessage() }}
+  <span class="action" (click)="dismiss()">OKAY <mat-icon *ngIf="data.isSuccess()">done</mat-icon> </span>
+</span>

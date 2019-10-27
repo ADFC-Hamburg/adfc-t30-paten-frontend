@@ -64,8 +64,23 @@ export class DemandedStreetSectionService {
           }
         }));
   }
-  save(einr) {
-    return this.http.put<any>(this.baseUrl + 'crud.php?entity=demandedstreetsection', einr, httpOptions)
+  save(streetSection) {
+    let saveData = streetSection;
+    if (streetSection.mail_sent) {
+      saveData = {
+        id: streetSection.id,
+        entrance: streetSection.entrance,
+        status: streetSection.status,
+        user_note: streetSection.user_note,
+        multilane: streetSection.multilane,
+        bus_lines: streetSection.bus_lines,
+        much_bus_traffic: streetSection.much_bus_traffic,
+        reason_slower_buses: streetSection.reason_slower_buses,
+        time_restriction: streetSection.time_restriction,
+        progress_report: streetSection.progress_report,
+      };
+    }
+    return this.http.put<any>(this.baseUrl + 'crud.php?entity=demandedstreetsection', saveData, httpOptions)
       .pipe(
         map(res => {
           if (res.error) {

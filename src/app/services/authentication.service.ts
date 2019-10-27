@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { environment } from '../../environments/environment';
-import { ErrorNotifierService } from './error-notifier.service';
+import { NotifierService } from './notifier.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -16,7 +16,7 @@ export class AuthenticationService {
     private http: HttpClient,
     private router: Router,
     private jwtHelper: JwtHelperService,
-    private errorNotifierService: ErrorNotifierService,
+    private notifierService: NotifierService,
   ) {
     const o = localStorage.getItem('access_token');
     if (o != null) {
@@ -35,7 +35,7 @@ export class AuthenticationService {
       console.log('setJWTValid', validTime.toString());
       localStorage.setItem('access_token', user.token);
       this.currentUser = decodedToken.data.username;
-      this.errorNotifierService.clearAllErrrors();
+      this.notifierService.clearAllErrrors();
     }
     return user;
   }

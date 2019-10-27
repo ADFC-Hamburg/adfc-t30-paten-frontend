@@ -17,12 +17,13 @@
 }
 .t30-full-width {
   width: 100%;
+  overflow: auto;
 }
 .t30-half-width {
   width: 50%;
 }
 .t30-3-width {
-  width: 32%;
+  width: 33.3%;
 }
 .t30-hausnummer-width {
   width: 15%;
@@ -31,4 +32,7 @@
 .t30-full-width-flex {
     width: 100%;
     display: flex;
+}
+button.delete-button {
+  float:right;
 }

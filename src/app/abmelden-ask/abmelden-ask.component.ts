@@ -13,7 +13,6 @@ export class AbmeldenAskComponent implements OnInit {
   ngOnInit() {
   }
   logout() {
-    console.log('xxx logout');
     this.authenticationService.logout();
   }
 }

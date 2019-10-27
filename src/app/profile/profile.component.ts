@@ -59,7 +59,6 @@ export class ProfileComponent extends CanDeactivateFormControlComponent implemen
 
     });
     this.userService.getCurrentUser().subscribe(data => {
-      console.log(data);
       this.profileForm.patchValue(data);
     });
   }
@@ -81,7 +80,7 @@ export class ProfileComponent extends CanDeactivateFormControlComponent implemen
     if (this.profileForm.invalid) {
       return;
     }
-    console.log(this.router); // FIXME
+
     this.loading = true;
 
     this.userService.update(this.profileForm.value)
@@ -89,7 +88,6 @@ export class ProfileComponent extends CanDeactivateFormControlComponent implemen
       .subscribe(
         data => {
           if (this.profileForm.get('change_pw').value) {
-            console.log(this.authenticationService.changePassword);
             this.authenticationService.changePassword(this.profileForm.get('password1').value).subscribe(
               data2 => {
                 this.setSubmitted();

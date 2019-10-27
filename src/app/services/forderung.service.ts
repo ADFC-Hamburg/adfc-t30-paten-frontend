@@ -39,7 +39,6 @@ export class ForderungService {
         }));
   }
   update(data) {
-    console.log('update', data);
     return this.http.put<any>(this.baseUrl + 'crud.php?entity=email', data, httpOptions)
       .pipe(
         map(res => {
@@ -87,7 +86,6 @@ export class ForderungService {
       userId + '\']', httpOptions)
       .pipe(
         map(res => {
-          console.log('res', res);
           if (res.error) {
             throw new NotificationError(res.error);
           }

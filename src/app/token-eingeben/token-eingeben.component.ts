@@ -36,7 +36,6 @@ export class TokenEingebenComponent implements OnInit, OnDestroy {
         this.filledIn = true;
       }
     });
-    console.log('x');
   }
 
   onSubmit() {
@@ -45,7 +44,7 @@ export class TokenEingebenComponent implements OnInit, OnDestroy {
     this.service.submitToken(email, token).subscribe(results => {
       this.router.navigate(['/login']);
     }, error => {
-      console.log(error);
+      console.error(error);
       if (error.error.message.includes('No pending verification found for given user')) {
         this.errorHandleService.handleError(
           'Der eingebene Token ist ungültig, weil er abgelaufen, bereits benutzt wurde oder falsch eingeben wurde.'

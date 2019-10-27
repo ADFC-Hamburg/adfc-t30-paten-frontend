@@ -99,7 +99,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   extendLoginTime() {
     this.authenticationService.extendLoginTime().subscribe(val => {
-      console.log(val);
     });
   }
   calcForderungList() {
@@ -138,7 +137,6 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       }
       if (!found) {
-        console.log(p);
         if (p.startsWith('/patenschaft/')) {
           this.myNavLinks.push({
             path: p,

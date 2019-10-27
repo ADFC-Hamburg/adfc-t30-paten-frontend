@@ -32,7 +32,6 @@ export class AuthenticationService {
       const decodedToken = this.jwtHelper.decodeToken(user.token);
       const validTime = Date.now() + (decodedToken.exp - decodedToken.iat) * 1000;
       localStorage.setItem('jwtValid', validTime.toString());
-      console.log('setJWTValid', validTime.toString());
       localStorage.setItem('access_token', user.token);
       this.currentUser = decodedToken.data.username;
       this.notifierService.clearAllErrrors();
@@ -45,7 +44,6 @@ export class AuthenticationService {
       'username': username,
       'password': password,
     }).pipe(map(user => {
-      console.log('x-login', user);
       return this.loginSuccess(user);
     }));
   }
@@ -61,7 +59,6 @@ export class AuthenticationService {
     return this.http.post<any>(this.baseUrl + 'portal.php', {
       'concern': 'extendLogin',
     }).pipe(map(user => {
-      console.log('x-login', user);
       // login successful if there's a jwt token in the response
       if (user && user.token) {
         const oldToken = localStorage.getItem('access_token');
@@ -73,7 +70,6 @@ export class AuthenticationService {
       }
       return user;
     }));
-    console.log('click');
   }
   changePassword(newPassword: string) {
     return this.http.post<any>(this.baseUrl + 'portal.php', {
@@ -95,6 +91,7 @@ export class AuthenticationService {
   isLoggedIn(): boolean {
     return (this.currentUser !== null);
   }
+
   calcLogInTime() {
     const jwtValid = localStorage.getItem('jwtValid');
     if (jwtValid != null) {
@@ -106,19 +103,18 @@ export class AuthenticationService {
     } // else
     return -1;
   }
+
   logout() {
     if (this.currentUser) {
       this.currentUser = null;
       return this.http.post<any>(this.baseUrl + 'portal.php', {
         'concern': 'logout',
       }).subscribe(results => {
-        console.log(results);
         this.authError();
         this.router.navigate(['/sozEinrKarte']);
       });
     } else {
       this.authError();
-
     }
   }
 }

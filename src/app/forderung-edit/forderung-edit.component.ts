@@ -78,6 +78,13 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     'Haupteingang',
     'Haupteingang und An- und Abreiseverkehr',
   ];
+  PLATZHALTER = {
+    'firstName': '<Vorname>',
+    'lastName': '<Nachname>',
+    'street_house_no': '<Straße> <Hausnummer>',
+    'zip': '<PLZ>',
+    'city': '<Ort>',
+  };
   public currentUser: User = {
     id: -1,
     firstName: '',
@@ -113,8 +120,17 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
   getFormControl() {
     return this.forderungFG;
   }
-  genEMailStartText() {
+  getPlatzhalterUser() {
     const user = this.currentUser;
+    for (const attr of Object.keys(this.PLATZHALTER)) {
+      if (user[attr] === '') {
+        user[attr] = this.PLATZHALTER[attr];
+      }
+    }
+    return user;
+  }
+  genEMailStartText() {
+    const user = this.getPlatzhalterUser();
     const einr = this.einrichtung;
 
     let newEMailText = 'Sehr geehrte Damen und Herren,\n' +
@@ -127,8 +143,9 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     }
 
   }
+
   genEMailEndText() {
-    const user = this.currentUser;
+    const user = this.getPlatzhalterUser();
     const newEMailText = 'Vielen Dank und mit freundlichen Grüßen\n\n' +
       `${user.firstName} ${user.lastName}\n\n` +
       `${user.street_house_no}\n` +
@@ -144,7 +161,7 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
   genEMailText() {
     const einr = this.einrichtung;
     const streetSection = this.streetSection;
-    console.log(streetSection);
+
     let newEMailText = `Im Umfeld dieser Einrichtung fehlt leider noch Tempo 30.\n\n` +
       `Ich ersuche Sie hiermit, an diesem an ${this.ANGR_ART[einr.type]} angrenzenden Straßenabschnitt ` +
       `${streetSection.street} von Hausnummer/Kreuzung ${streetSection.house_no_from} bis Hausnummer/Kreuzung ` +
@@ -168,13 +185,13 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
       '§45 StVO soll zum Schutz besonders schützenswerter Personen im Umfeld sozialer Einrichtungen,\n' +
       'also dort wo Haupteingänge sind oder Quell- und Zielverkehr zur Einrichtung herrscht, regulär Tempo 30 ' +
       'gelten, ohne dass eine besondere Gefahrenlage erwiesen ist.';
-    console.log('gen-email');
+
     if ((!this.forderungFG.get('mail_body').dirty) && (newEMailText !== this.forderungFG.get('mail_body').value)) {
       this.forderungFG.get('mail_body').setValue(newEMailText);
     }
   }
   onSave(sendMailNow) {
-    console.log(this.forderungFG.value);
+
     let call;
     const data = this.forderungFG.value;
     data.person = this.currentUser.id;
@@ -190,7 +207,6 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
       this.setSubmitted();
       if (sendMailNow) {
         if (emailId === -1) {
-          console.log(rtnData);
           emailId = rtnData.id;
         }
         this.forderungService.sendMail(emailId, data.password).subscribe(rtnMailSend => {
@@ -215,12 +231,11 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     if (this.relationId === -1) {
       delete relationData.id;
       this.relationInstitutionService.create(relationData).subscribe(rtn => {
-        console.log(rtn);
         localStorage.setItem('recalc_main_link', '1');
       });
     } else {
       this.relationInstitutionService.update(relationData).subscribe(rtn => {
-        console.log(rtn);
+
       });
     }
   }
@@ -230,7 +245,6 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
   onPasswordChange(password: string) {
     this.forderungService.validateAktionsPassword(this.einrichtung.type, password).subscribe(rtn => {
       this.isPasswordOkay = rtn;
-      console.log(rtn);
     });
   }
   ngOnInit() {
@@ -248,15 +262,12 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
           });
         }
         this.forderungService.get(param.id, user.id).subscribe(forderung => {
+
           this.demandedStreetSectionService.get(param.id).pipe(take(1)).subscribe(streetSection => {
             this.streetSection = streetSection[0];
-            console.log(streetSection);
-            console.log(this.einrichtung);
             this.einrichtung = this.streetSection.institution;
-            console.log(this.einrichtung);
             const einr = this.einrichtung;
             this.relationInstitutionService.get(einr.id, this.currentUser.id).subscribe(relInsData => {
-              console.log(relInsData);
               if (relInsData.length > 0) {
                 this.relationId = relInsData[0].id;
                 this.forderungFG.get('bezugZurEinrichtung').setValue(relInsData[0].relation_type);
@@ -272,6 +283,7 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
             this.forderungService.getPK(einr.id).subscribe(polizeiData => {
               this.polizeiData = polizeiData[0];
             });
+
             if (forderung.length === 1) {
               this.forderungFG.patchValue(forderung[0]);
               this.forderungFG.get('geprueft').setValue('2');

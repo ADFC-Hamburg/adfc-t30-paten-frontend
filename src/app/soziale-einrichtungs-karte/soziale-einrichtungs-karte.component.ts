@@ -60,7 +60,7 @@ export class SozialeEinrichtungsKarteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.sozEinrService.list().subscribe(
+    this.sozEinrService.listFast().subscribe(
       data => {
         const items = [];
         for (const item of data) {

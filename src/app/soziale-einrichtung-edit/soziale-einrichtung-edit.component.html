@@ -8,6 +8,14 @@
       <mat-option *ngFor="let item of [1,2,3,4];" value="{{item}}">{{item |einrichtungsart }}</mat-option>
     </mat-select>
   </mat-form-field>
+  <mat-form-field *ngIf="einrichtung.get('type').value==1" class="t30-full-width">
+    <mat-select placeholder="Träger des Kindergartens" formControlName="company">
+      <mat-option value="0">Unbekannt</mat-option>
+      <mat-option *ngFor="let item of getKitaTraegerKeys();" value="{{ KITA_TRAEGER[item] }}">{{ item }}</mat-option>
+      <mat-option>- - - - -</mat-option>
+      <mat-option *ngFor="let item of getKitaTraegerPostKeys()" value="{{ KITA_TRAEGER_POST[item] }}">{{ item }}</mat-option>
+    </mat-select>
+  </mat-form-field>
   <b>Adresse der Einrichtung bzw. Nebenstelle</b>
   <mat-form-field class="t30-full-width">
     <input matInput placeholder="Straße und Hausnummer" autocomplete="false" formControlName="street_house_no">

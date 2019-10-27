@@ -12,7 +12,7 @@ import { NotificationError } from '../notification-error';
 import { DemandedStreetSectionService } from '../services/demanded-street-section.service';
 import { forkJoin } from 'rxjs';
 import { StreetSectionEditComponent } from '../street-section-edit/street-section-edit.component';
-import { HAMBURG_LAT, HAMBURG_LON } from '../const';
+import { HAMBURG_LAT, HAMBURG_LON, KITA_TRAEGER, KITA_TRAEGER_POST } from '../const';
 
 @Component({
   selector: 'app-soziale-einrichtung-edit',
@@ -22,6 +22,8 @@ import { HAMBURG_LAT, HAMBURG_LON } from '../const';
 
 export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlComponent implements OnInit {
   id = -1;
+  KITA_TRAEGER = KITA_TRAEGER;
+  KITA_TRAEGER_POST = KITA_TRAEGER_POST;
   public loadedData: SozialeEinrichtung = SozialeEinrichtung.DEFAULT;
   public einrichtung: FormGroup = this.fb.group({
     id: [-1],
@@ -33,6 +35,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     zip: ['', Validators.required],
     city: ['Hamburg', Validators.required],
     type: ['1', Validators.required],
+    company: [0],
     streetSections: this.fb.array([
     ]),
     streetsection_complete: [false],
@@ -66,6 +69,12 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
   }
   getFormControl() {
     return this.einrichtung;
+  }
+  getKitaTraegerKeys() {
+    return Object.keys(this.KITA_TRAEGER).sort();
+  }
+  getKitaTraegerPostKeys() {
+    return Object.keys(this.KITA_TRAEGER_POST);
   }
   getStrassenAbschnitte() {
     return this.einrichtung.get('streetSections') as FormArray;
@@ -195,6 +204,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
             }
       let newLen = data.angrenzendeStrassen.length;*/
       data.type = data.type.toString();
+      data.company = data.company.toString();
       this.einrichtung.patchValue(data);
       this.einrichtung.patchValue({
         mapPos: [data.position[0], data.position[1]],

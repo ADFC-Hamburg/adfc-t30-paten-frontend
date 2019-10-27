@@ -8,6 +8,10 @@
     <div class="key">Art:</div>
     <div class="value">{{ einrichtung.type |einrichtungsart }}</div>
   </div>
+  <div *ngIf="einrichtung.type ==1 " class="line">
+    <div class="key">Träger:</div>
+    <div class="value">{{ getKitaTaeger(einrichtung.company) }}</div>
+  </div>
   <div class="line">
     <div class="key">Anschrift:</div>
     <div class="value">{{einrichtung.street_house_no}}, {{einrichtung.zip}} {{einrichtung.city}}</div>

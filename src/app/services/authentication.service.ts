@@ -36,6 +36,7 @@ export class AuthenticationService {
       localStorage.setItem('access_token', user.token);
       this.currentUser = decodedToken.data.username;
       this.notifierService.clearAllErrrors();
+      localStorage.setItem('recalc_main_link', '1');
     }
     return user;
   }

@@ -7,12 +7,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Point } from 'leaflet';
 import { OSM_TILE_LAYER_URL } from '@yaga/leaflet-ng2';
 import { T30SozialeEinrichtungService } from '../services/t30-soziale-einrichtung.service';
+import { NominatimService } from '../services/nominatim.service';
 import { SozialeEinrichtung } from '../sozialeEinrichtung';
 import { NotificationError } from '../notification-error';
 import { DemandedStreetSectionService } from '../services/demanded-street-section.service';
 import { forkJoin } from 'rxjs';
 import { StreetSectionEditComponent } from '../street-section-edit/street-section-edit.component';
 import { HAMBURG_LAT, HAMBURG_LON } from '../const';
+
 
 @Component({
   selector: 'app-soziale-einrichtung-edit',
@@ -51,6 +53,8 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
   position = [HAMBURG_LON, HAMBURG_LAT];
   mapPos = [HAMBURG_LON, HAMBURG_LAT];
   newPos = [HAMBURG_LON, HAMBURG_LAT];
+  step = 3;
+  near = [];
   constructor(
     protected fb: FormBuilder,
     private router: Router,
@@ -58,6 +62,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     private sozService: T30SozialeEinrichtungService,
     private streetSectionService: DemandedStreetSectionService,
     private strassenlisteService: StrassenlisteService,
+    private nominatimService: NominatimService,
   ) {
     super();
   }
@@ -104,6 +109,9 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     this.einrichtung.patchValue({
       position: this.newPos,
     });
+    if (this.step === 2) {
+      this.searchNear();
+    }
   }
   mapDblClick(event) {
     if (event.latlng) {
@@ -153,9 +161,14 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
         console.log('res', result);
         if ('id' in result) {
           institutionId = result.id;
+          this.id = result.id;
         }
         if (this.getStrassenAbschnitte().value.length === 0) {
-          this.router.navigate(['einrichtung', 'view', institutionId]);
+          if (this.step === 3) {
+            this.router.navigate(['einrichtung', 'view', institutionId]);
+          } else {
+            this.step = 3;
+          }
         } else {
           this.getStrassenAbschnitte().value.forEach(function(streetSectionValue) {
             streetSectionValue.institution = institutionId;
@@ -217,12 +230,46 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
       }
     });
   }
+  searchNear() {
+    this.sozService.getNear(this.position[1], this.position[0]).subscribe(near => {
+      this.near = near;
+      if (this.near.length === 0) {
+        this.step = 3;
+      }
+    });
+  }
+  searchPos() {
+    this.validateAllFormFields(this.einrichtung.get('street_house_no'));
+    this.validateAllFormFields(this.einrichtung.get('zip'));
+    this.validateAllFormFields(this.einrichtung.get('city'));
+    const valid = this.einrichtung.get('street_house_no').valid &&
+      this.einrichtung.get('city').valid &&
+      this.einrichtung.get('zip').valid;
+    console.log(valid);
+    if (!valid) {
+      throw new NotificationError('Bitte Fehler korrigieren.');
+    }
+    this.nominatimService.getPosition(
+      this.einrichtung.get('street_house_no').value,
+      this.einrichtung.get('zip').value,
+      this.einrichtung.get('city').value
+    ).subscribe(data => {
+      this.newPos = [data[0], data[1]];
+      this.mapPos = [data[0], data[1]];
+      this.position = [data[0], data[1]];
+      this.step = 2;
+      this.searchNear();
+    });
+  }
   ngOnInit() {
     this.einrichtung.get('position').valueChanges.subscribe(x => this.changePosFB(x));
     this.route.params.subscribe(param => {
       console.log('x1', param);
       if (param.id !== '-1') {
+        this.step = 3;
         this.load(param.id);
+      } else {
+        this.step = 1;
       }
     });
     this.strassenlisteService.getAll().subscribe(liste => {

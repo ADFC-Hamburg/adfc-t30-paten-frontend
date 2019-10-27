@@ -18,7 +18,14 @@
   <mat-form-field class="t30-half-width">
     <input matInput placeholder="Ort" formControlName="city">
   </mat-form-field>
-  <div class="t30-full-width-flex">
+  <div *ngIf="step===1">
+    <mat-action-row>
+      <button mat-raised-button color="primary" (click)="searchPos()">
+        <mat-icon>navigate_next</mat-icon> Weiter
+      </button>
+    </mat-action-row>
+  </div>
+  <div *ngIf="step>1" class="t30-full-width-flex">
     <div class="t30-map-div">
       <yaga-map class="t30-map" zoom="17" [(lat)]="mapPos[1]" [(lng)]="mapPos[0]" (dblclick)="mapDblClick($event)">
         <yaga-tile-layer [(url)]="tileLayerUrl"></yaga-tile-layer>
@@ -44,8 +51,24 @@
       </div>
     </div>
   </div>
+  <div *ngIf="step===2">
+    <h2 class="mat-h2">Existierende Einrichtungen in unserer Datenbank in der Nähe</h2>
+    <ul>
+      <li *ngFor="let item of near; let i = index;">{{item.name}}, {{item.street_house_no}}, {{item.zip}} {{item.city}}</li>
+    </ul>
+    <b>Ist diese Einrichtung wirklich neu?</b>
+    <mat-action-row>
+      <button mat-raised-button (click)="cancel()">
+        <mat-icon>cancel</mat-icon> Nein, Abbrechen
+      </button>
+      <button mat-raised-button color="primary" (click)="onSave()">
+        <mat-icon>save</mat-icon> Ja, Speichern
+      </button>
+    </mat-action-row>
+  </div>
+  <div *ngIf="step>2">
   <h2 class="mat-h2">Hier kannst du alle Straßenabschnitte mit Haupteingängen und/oder An- und Abreiseverkehr im näheren Umfeld der Einrichtung einzeln eingeben.</h2>
-  <div *ngIf=" getStrassenAbschnitte().length === 0">
+  <div *ngIf="getStrassenAbschnitte().length === 0">
     Hier fehlen noch Straßenabschnitte. Wir suchen Freiwillige mit Ortskenntnissen!
   </div>
   <p>Einige der Angaben werden später automatisch in die E-Mail an das Polizeikommissariat übernommen (Name und Adresse der Einrichtung, Straßenabschnitt mit Hausnummer/Kreuzung, Begründung für Tempo 30 und Anmerkungen zum Busverkehr). Du kannst sie auch später noch direkt in der E-Mail anpassen. </p>
@@ -68,4 +91,5 @@
       <mat-icon>save</mat-icon> Speichern
     </button>
   </mat-action-row>
+  </div>
 </div>

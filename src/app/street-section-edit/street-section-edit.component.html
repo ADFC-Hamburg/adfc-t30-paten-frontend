@@ -17,6 +17,11 @@
     </i>
     </mat-panel-description>
   </mat-expansion-panel-header>
+  <div class="t30-full-width" *ngIf="!this.fg.get('mail_sent').value">
+    <button class="delete-button" mat-raised-button matTooltip="Diesen Straßenabschnitt löschen" (click)="onDeleteStrassenAbschnitt()" type="submit">
+      Diesen Straßenabschnitt löschen <mat-icon>delete</mat-icon>
+    </button>
+  </div>
 <div>
     <mat-form-field class="t30-3-width">
   <input matInput placeholder="Straße" [matAutocomplete]="auto" autocomplete="false" (ngModelChange)="changeStrassenname($event)" formControlName="street">
@@ -84,10 +89,5 @@
    Z.B. "Die Busse verlangsamen ihre Fahrt an der Stelle ohnehin wegen einer Bushaltestelle/der abbiegenden Buslinie."
   </mat-hint>
 </mat-form-field>
-<div class="t30-full-width">
-  <button mat-raised-button matTooltip="Diesen Straßenabschnitt löschen" (click)="onDeleteStrassenAbschnitt()" type="submit">
-    Diesen Straßenabschnitt löschen <mat-icon>delete</mat-icon>
-  </button>
-</div>
 </div>
 </mat-expansion-panel>

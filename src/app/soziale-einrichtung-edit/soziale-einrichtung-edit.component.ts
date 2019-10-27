@@ -164,6 +164,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
           institutionId = result.id;
         }
         if (this.getStrassenAbschnitte().value.length === 0) {
+          this.setSubmitted();
           this.router.navigate(['einrichtung', 'view', institutionId]);
         } else {
           this.getStrassenAbschnitte().value.forEach(function(streetSectionValue) {
@@ -178,7 +179,6 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
           });
           forkJoin(forkArray).subscribe(results => {
             // FIXME: checkResults
-            this.setSubmitted();
             if (showConfirmDialog) {
               confirm('Danke für die Angaben zu angrenzenden Straßenabschnitten. ' +
                 'Auf der folgenden Seite kannst du bei den Straßenabschnitten, ' +
@@ -186,6 +186,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
                 'auf "Tempo 30 fordern" klicken, um eine E-Mail an das ' +
                 'Polizeikommissariat zu generieren.');
             }
+            this.setSubmitted();
             this.router.navigate(['einrichtung', 'view', institutionId]);
           });
         }

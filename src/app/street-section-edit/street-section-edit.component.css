@@ -17,6 +17,7 @@
 }
 .t30-full-width {
   width: 100%;
+  overflow: auto;
 }
 .t30-half-width {
   width: 50%;
@@ -31,4 +32,7 @@
 .t30-full-width-flex {
     width: 100%;
     display: flex;
+}
+button.delete-button {
+  float:right;
 }

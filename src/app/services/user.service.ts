@@ -4,11 +4,13 @@ import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { User } from '../user';
 
+import { MAILINGLISTE_SUBSCRIBE } from '../const';
+
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
   baseUrl = environment.API_BASE_URL;
-  mailinglisteUrl = 'https://ml-cgn06.ispgateway.de/mailman/subscribe/soziale-t30_lists.hamburg.adfc.de';
+
   constructor(
     private http: HttpClient,
   ) { }
@@ -51,7 +53,7 @@ export class UserService {
         'Content-Type': 'application/x-www-form-urlencoded',
       }),
     };
-    return this.http.post<any>(this.mailinglisteUrl, params, httpOptions);
+    return this.http.post<any>(MAILINGLISTE_SUBSCRIBE, params, httpOptions);
   }
 
   update(user: User) {

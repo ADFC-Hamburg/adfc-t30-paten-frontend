@@ -109,3 +109,6 @@ export const KITA_TRAEGER_POST = {
   'kleiner Träger (bertreibt weniger als 5 Kitas in Hamburg)': 2000,
   'Träger betreibt mehr als 4 Kitas in Hamburg und ist nicht in der Liste aufgeführt': 2001,
 };
+
+export const MAILINGLISTE_LISTINFO = 'https://ml-cgn03.ispgateway.de/mailman/listinfo/infomailtempo30sozial_lists.hamburg.adfc.de';
+export const MAILINGLISTE_SUBSCRIBE = 'https://ml-cgn03.ispgateway.de/mailman/subscribe/infomailtempo30sozial_lists.hamburg.adfc.de';

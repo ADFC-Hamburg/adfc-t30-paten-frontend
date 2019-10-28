@@ -8,6 +8,7 @@ import { UserService } from '../services/user.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { environment } from '../../environments/environment';
 import { T30Validators } from '../t30validators';
+import { MAILINGLISTE_LISTINFO } from '../const';
 
 @Component({
   selector: 'app-profile',
@@ -67,7 +68,7 @@ export class ProfileComponent extends CanDeactivateFormControlComponent implemen
     return field.hasError(errorType) && (field.dirty || field.touched || this.submitted);
   }
   openMailinglist() {
-    window.open('https://ml-cgn06.ispgateway.de/mailman/listinfo/soziale-t30_lists.hamburg.adfc.de/', '_blank');
+    window.open(MAILINGLISTE_LISTINFO, '_blank');
   }
   deleteProfile() {
     confirm('Bitte wende dich per E-Mail an' + environment.CONTACT_MAIL);

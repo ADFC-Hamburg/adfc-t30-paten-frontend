@@ -26,7 +26,7 @@
         <input matInput placeholder="Passwort wiederholen" type="password" formControlName="password2" required>
         <mat-error class="error-message"  *ngIf="checkValidateError('password2', 'notMatched')"><mat-icon>warning</mat-icon>Passwörter sind nicht identisch.</mat-error>
       </mat-form-field>
-      <p>Name, E-Mail und Passwort werden für die Registrierung benötigt. Die weiteren Felder enthalten keine Pflichtangaben. Straße, Hausnummer und PLZ werden ggf. in die Forderungsmail übernommen. Die Telefonnummer hilft dem Kampagnenteam, ggf. schnell Kontakt mit dir aufzunehmen.</p>
+      <p>Name, E-Mail und Passwort werden für die Registrierung benötigt. Die weiteren Felder enthalten keine Pflichtangaben. Name, Email, Straße, Hausnummer und PLZ werden ggf. in die Forderungsmail an das zuständige Polizeikommissariat übernommen. Die Telefonnummer hilft dem Kampagnenteam, ggf. schnell Kontakt mit dir aufzunehmen.</p>
       <mat-form-field class="t30-full-width">
         <input matInput placeholder="Straße und Hausnummer" formControlName="street_house_no" autocomplete="street-address">
         <mat-error class="error-message" *ngIf="checkValidateError('street_house_no', 'minlength')">zu kurz</mat-error>

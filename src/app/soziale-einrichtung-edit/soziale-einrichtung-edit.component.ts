@@ -24,6 +24,7 @@ import { HAMBURG_LAT, HAMBURG_LON, KITA_TRAEGER, KITA_TRAEGER_POST } from '../co
 
 export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlComponent implements OnInit {
   id = -1;
+  loading = false;
   KITA_TRAEGER = KITA_TRAEGER;
   KITA_TRAEGER_POST = KITA_TRAEGER_POST;
   public loadedData: SozialeEinrichtung = SozialeEinrichtung.DEFAULT;
@@ -233,12 +234,24 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     });
   }
   searchNear() {
-    this.sozService.getNear(this.position[1], this.position[0]).subscribe(near => {
-      this.near = near;
-      if (this.near.length === 0) {
-        this.step = 3;
+    this.loading = true;
+    this.sozService.getNear(this.position[1], this.position[0]).subscribe(
+      near => {
+        this.near = near;
+        if (this.near.length === 0) {
+          this.step = 3;
+        }
+        this.loading = false;
+      },
+      error => {
+        console.error(error);
+        this.loading = false;
+        confirm('Leider konnten mögliche Dubletten gerade nicht ermittelt werden. ' +
+          'Bitte versuche es später erneut. ' +
+          'Informiere gerne auch den ADFC');
+        this.cancel();
       }
-    });
+    );
   }
   searchPos() {
     this.validateAllFormFields(this.einrichtung.get('street_house_no'));
@@ -250,17 +263,32 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     if (!valid) {
       throw new NotificationError('Bitte Fehler korrigieren.');
     }
+    this.loading = true;
     this.nominatimService.getPosition(
       this.einrichtung.get('street_house_no').value,
       this.einrichtung.get('zip').value,
       this.einrichtung.get('city').value
-    ).subscribe(data => {
-      this.newPos = [data[0], data[1]];
-      this.mapPos = [data[0], data[1]];
-      this.position = [data[0], data[1]];
-      this.step = 2;
-      this.searchNear();
-    });
+    ).subscribe(
+      data => {
+        this.newPos = [data[0], data[1]];
+        this.mapPos = [data[0], data[1]];
+        this.position = [data[0], data[1]];
+        this.step = 2;
+        this.searchNear();
+      },
+      error => {
+        console.error(error);
+        this.loading = false;
+        confirm('Leider konnte die Position gerade nicht ermittelt werden. ' +
+          'Bitte versuche es später erneut. ' +
+          'Sollte der Fehler länger auftreten Informiere bitte den ADFC');
+        this.cancel();
+      }
+    );
+  }
+  cancel() {
+    this.setSubmitted();
+    this.router.navigate(['main']);
   }
   ngOnInit() {
     this.einrichtung.get('position').valueChanges.subscribe(x => this.changePosFB(x));

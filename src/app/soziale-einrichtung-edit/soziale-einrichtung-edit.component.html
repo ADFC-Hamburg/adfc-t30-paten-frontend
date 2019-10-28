@@ -32,6 +32,7 @@
         <mat-icon>navigate_next</mat-icon> Weiter
       </button>
     </mat-action-row>
+    <mat-spinner *ngIf="loading"> </mat-spinner>
   </div>
   <div *ngIf="step>1" class="t30-full-width-flex">
     <div class="t30-map-div">
@@ -73,6 +74,7 @@
         <mat-icon>save</mat-icon> Ja, Speichern
       </button>
     </mat-action-row>
+    <mat-spinner *ngIf="loading"> </mat-spinner>
   </div>
   <div *ngIf="step>2">
   <h2 class="mat-h2">Hier kannst du alle Straßenabschnitte mit Haupteingängen und/oder An- und Abreiseverkehr im näheren Umfeld der Einrichtung einzeln eingeben.</h2>

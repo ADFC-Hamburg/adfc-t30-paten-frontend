@@ -43,7 +43,7 @@
           <mat-error class="error-message" *ngIf="checkValidateError('phone', 'minlength')">zu kurz</mat-error>
           <mat-error class="error-message" *ngIf="checkValidateError('phone', 'pattern')">unerlaubte Zeichen</mat-error>
         </mat-form-field>
-
+        <p>Name, E-Mail und Passwort werden für die Registrierung benötigt. Die weiteren Felder enthalten keine Pflichtangaben. Name, Email, Straße, Hausnummer und PLZ werden ggf. in die Forderungsmail an das zuständige Polizeikommissariat übernommen. Die Telefonnummer hilft dem Kampagnenteam, ggf. schnell Kontakt mit dir aufzunehmen.</p>
         <mat-action-row>
           <button mat-raised-button color="primary" type="submit" [disabled]="!(profileForm.get('save').value)">
             <mat-icon>save</mat-icon> Speichern

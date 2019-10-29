@@ -110,6 +110,7 @@
       <textarea class="t30-emailend-area" matInput formControlName="mail_end" placeholder="Grußformel und Absender (wird an die Polizei geschickt, aber nicht veröffentlicht)">
   </textarea>
     </mat-form-field>
+    <p>Diese E-Mail wird unter Angabe Deiner E-Mailadresse als Absender an das für die Einrichtung zuständige Polizeikommissariat übermittelt. Dein Name und deine Adresse werden ebenfalls als Absenderinformation in die E-Mail übernommen, sofern du sie im Profil angegeben hast und nicht aus der E-Mail gelöscht hast. Durch Klick auf "Speichern und E-Mail absenden" stimmst Du diesem Vorgang zu.</p>
     <mat-action-row>
       <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="primary" (click)="onSave(false)">
         <mat-icon>save</mat-icon> Speichern und später weiter bearbeiten

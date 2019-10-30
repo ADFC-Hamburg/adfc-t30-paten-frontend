@@ -1,6 +1,6 @@
 {
   "name": "t30-paten",
-  "version": "0.0.53",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

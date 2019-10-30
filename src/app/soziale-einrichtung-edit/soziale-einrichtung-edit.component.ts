@@ -270,9 +270,11 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
       this.einrichtung.get('city').value
     ).subscribe(
       data => {
-        this.newPos = [data[0], data[1]];
-        this.mapPos = [data[0], data[1]];
-        this.position = [data[0], data[1]];
+        this.einrichtung.patchValue({
+          mapPos: [data[0], data[1]],
+          position: [data[0], data[1]],
+          newPos: [data[0], data[1]]
+        });
         this.step = 2;
         this.searchNear();
       },

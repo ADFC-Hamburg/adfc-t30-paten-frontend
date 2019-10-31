@@ -64,12 +64,12 @@
   </mat-radio-group>
   <div *ngIf="(forderungFG.get('geprueft').value==='1')">
     <mat-icon color="warn">warning</mat-icon> Bitte korrigiere zunächst die Angaben:
-    <button mat-raised-button matTooltip="Einrichtung bearbeiten oder Fehler korrigieren" routerLink="/einrichtung/edit/{{einrichtung.id}}" type="submit">
+    <button mat-raised-button matTooltip="Einrichtung bearbeiten oder Fehler korrigieren" (click)="routeEdit()" type="submit">
       <mat-icon>edit</mat-icon>
     </button>
     und dann hierher zurückkehren.
     <hr>
-    <button mat-raised-button matTooltip="Einrichtung ansehen" routerLink="/einrichtung/view/{{einrichtung.id}}" type="submit">
+    <button mat-raised-button matTooltip="Einrichtung ansehen" (click)="routeBack()" type="submit">
       <mat-icon>undo</mat-icon> zurück
     </button>
     <hr>

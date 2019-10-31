@@ -242,6 +242,14 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
   mainMenu() {
     this.router.navigate(['/einrichtung/view', this.einrichtung.id]);
   }
+  routeEdit() {
+    this.setSubmitted();
+    this.router.navigate(['/einrichtung/edit', this.einrichtung.id]);
+  }
+  routeBack() {
+    this.setSubmitted();
+    this.router.navigate(['/einrichtung/view', this.einrichtung.id]);
+  }
   onPasswordChange(password: string) {
     this.forderungService.validateAktionsPassword(this.einrichtung.type, password).subscribe(rtn => {
       this.isPasswordOkay = rtn;

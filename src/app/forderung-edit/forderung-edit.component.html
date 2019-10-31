@@ -122,9 +122,11 @@
         <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="primary" (click)="onSave(false)">
           <mat-icon>save</mat-icon> Speichern und später weiter bearbeiten
         </button>
-        <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="accent" (click)="onSave(true)" [disabled]="(this.isPasswordOkay==0)">
-          <mat-icon>email</mat-icon> Speichern und E-Mail Absenden
-        </button>
+        <span matTooltip="Bitte gib das Aktionskennwort (s.o.) ein um die Forderung zu verschicken." [matTooltipDisabled]="(this.isPasswordOkay!=0)">
+          <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="accent" (click)="onSave(true)"  [disabled]="(this.isPasswordOkay==0)">
+            <mat-icon>email</mat-icon> Speichern und E-Mail Absenden
+          </button>
+        </span>
       </mat-action-row>
     </div>
   </div>

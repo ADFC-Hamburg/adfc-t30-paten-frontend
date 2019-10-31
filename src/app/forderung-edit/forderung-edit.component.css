@@ -47,6 +47,29 @@ textarea#standDerDinge {
 .tp-radio-button {
    margin: 5px;
 }
+.email {
+  background-color: #f0f0f0;
+  border-style:solid;
+  border-width: thin;
+  border-color: #d0d0d0;
+  box-shadow: 5px 1px 1px #e0e0e0;
+  margin-right: 10px;
+  padding: 30px;
+}
+.email textarea {
+  background-color: white;
+  border-raidus: 5px;
+  border-style: solid;
+  border-color: #f0f0f0;
+  border-bottom-width: 20px;
+}
+.email input {
+  background-color: white;
+  border-raidus: 5px;
+  border-style: solid;
+  border-color: #f0f0f0;
+  border-bottom-width: 20px;
+}
 .green-icon {
     color: green;
 }

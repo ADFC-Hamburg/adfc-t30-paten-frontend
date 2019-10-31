@@ -174,9 +174,9 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
       'besondere Aufmerksamkeit walten zu lassen.\n';
 
     if (streetSection.much_bus_traffic > 1) {
-      newEMailText = newEMailText + 'Die Änderung für den KFZ- und Busverkehr';
+      newEMailText = newEMailText + 'Die Änderung für den KFZ- und Busverkehr ';
     } else {
-      newEMailText = newEMailText + 'Die Änderung für den KFZ-Verkehr';
+      newEMailText = newEMailText + 'Die Änderung für den KFZ-Verkehr ';
     }
     newEMailText = newEMailText + 'halte ich angesichts des Sicherheitsgewinns für angemessen. ' +
       'Der Sicherheit muss Vorrang vor Geschwindigkeit gewährt werden.\n\n' +

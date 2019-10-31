@@ -2,7 +2,7 @@
 <h2 class="mat-h2">{{ einrichtung.type |einrichtungsart }} {{ einrichtung.name}}</h2>
 <div [formGroup]="forderungFG">
   <p *ngIf="aktionsData.reached === false">
-    <mat-icon color="warn">warning</mat-icon>
+    <mat-icon *ngIf="isPasswordOkay==0" color="warn">warning</mat-icon>
     Der ADFC hat mit der Hamburger Elternkammer (Schulen) und dem Landeselternausschuss (Kitas) vereinbart, dass zunächst nur
     zur jeweiligen Schule/ Kita Gehörige die Tempo-30-Forderungen stellen sollen.
     Daher können die Tempo-30-Forderungen für Schulen und Kitas bis zum {{ aktionsData.until |date:'dd.MM.yyyy' }}
@@ -12,6 +12,8 @@
   </p>
   <mat-form-field class="t30-full-width" *ngIf="aktionsData.reached === false">
     <input matInput placeholder="Stichwort" formControlName="password" (input)="onPasswordChange($event.target.value)">
+    <mat-icon *ngIf="isPasswordOkay!=0" matSuffix class="green-icon">check</mat-icon>
+    <mat-icon *ngIf="isPasswordOkay==0" matSuffix color="warn">close</mat-icon>
   </mat-form-field>
   <p>Wir empfehlen, vor dem Versand der E-Mail, die Einrichtung über dein Vorhaben zu informieren und mit ihr Rücksprache zu halten. Danke.</p>
   <p>Bitte prüfe zunächst die folgenden Angaben:</p>
@@ -64,12 +66,12 @@
   </mat-radio-group>
   <div *ngIf="(forderungFG.get('geprueft').value==='1')">
     <mat-icon color="warn">warning</mat-icon> Bitte korrigiere zunächst die Angaben:
-    <button mat-raised-button matTooltip="Einrichtung bearbeiten oder Fehler korrigieren" routerLink="/einrichtung/edit/{{einrichtung.id}}" type="submit">
+    <button mat-raised-button matTooltip="Einrichtung bearbeiten oder Fehler korrigieren" (click)="routeEdit()" type="submit">
       <mat-icon>edit</mat-icon>
     </button>
     und dann hierher zurückkehren.
     <hr>
-    <button mat-raised-button matTooltip="Einrichtung ansehen" routerLink="/einrichtung/view/{{einrichtung.id}}" type="submit">
+    <button mat-raised-button matTooltip="Einrichtung ansehen" (click)="routeBack()" type="submit">
       <mat-icon>undo</mat-icon> zurück
     </button>
     <hr>

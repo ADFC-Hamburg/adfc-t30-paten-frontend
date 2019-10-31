@@ -174,14 +174,17 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
       'besondere Aufmerksamkeit walten zu lassen.\n';
 
     if (streetSection.much_bus_traffic > 1) {
-      newEMailText = newEMailText + 'Die Änderung für den KFZ- und Busverkehr';
+      newEMailText = newEMailText + 'Die Änderung für den KFZ- und Busverkehr ';
     } else {
-      newEMailText = newEMailText + 'Die Änderung für den KFZ-Verkehr';
+      newEMailText = newEMailText + 'Die Änderung für den KFZ-Verkehr ';
     }
     newEMailText = newEMailText + 'halte ich angesichts des Sicherheitsgewinns für angemessen. ' +
-      'Der Sicherheit muss Vorrang vor Geschwindigkeit gewährt werden.\n\n' +
-      streetSection.reason_slower_buses + '\n\n' +
-      'Laut §45 Absatz 9 Satz 4 Ziffer 6 der StVO in Verbindung mit der Verwaltungsvorschrift zu ' +
+      'Der Sicherheit muss Vorrang vor Geschwindigkeit gewährt werden.\n\n';
+    if (streetSection.reason_slower_buses !== '') {
+      newEMailText = newEMailText + 'Anmerkungen zum Busverkehr:\n' +
+        streetSection.reason_slower_buses + '\n\n';
+    }
+    newEMailText = newEMailText + 'Laut §45 Absatz 9 Satz 4 Ziffer 6 der StVO in Verbindung mit der Verwaltungsvorschrift zu ' +
       '§45 StVO soll zum Schutz besonders schützenswerter Personen im Umfeld sozialer Einrichtungen,\n' +
       'also dort wo Haupteingänge sind oder Quell- und Zielverkehr zur Einrichtung herrscht, regulär Tempo 30 ' +
       'gelten, ohne dass eine besondere Gefahrenlage erwiesen ist.';
@@ -240,6 +243,14 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     }
   }
   mainMenu() {
+    this.router.navigate(['/einrichtung/view', this.einrichtung.id]);
+  }
+  routeEdit() {
+    this.setSubmitted();
+    this.router.navigate(['/einrichtung/edit', this.einrichtung.id]);
+  }
+  routeBack() {
+    this.setSubmitted();
     this.router.navigate(['/einrichtung/view', this.einrichtung.id]);
   }
   onPasswordChange(password: string) {

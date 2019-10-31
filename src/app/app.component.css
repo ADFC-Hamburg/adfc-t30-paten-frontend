@@ -15,11 +15,24 @@ a.adfc-t30-tab-extra {
   width: 50%;
   display: block;
 }
+a.bingo {
+  float: right;
+  margin-right: 10px;
+  text-decoration: none;
+  color: #2c4574;
+}
+a.bingo:visited {
+  text-decoration: none;
+  color: #2c4574;
+}
+div.bingo {
+  position: relative;
+  top: -1px;
+  left: -10px;
+}
 img.bingo {
   height: 94px;
   width: 102px;
-  float: right;
-  margin-right: 10px;
 }
 img.t30-herz {
   height: 94px;

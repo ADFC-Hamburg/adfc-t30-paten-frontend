@@ -28,13 +28,13 @@
          <td mat-cell *matCellDef="let pate">
            <span *ngIf="pate.demanded_street_section.mail_sent">
              <mat-icon>check_box</mat-icon>E-Mail wurde verschickt
-             <button mat-raised-button routerLink="/forderung/view/{{pate.id}}" type="submit">
+             <button mat-raised-button routerLink="/forderung/view/{{row.demanded_street_section.id}}" type="submit">
                 <mat-icon>mail</mat-icon><mat-icon>visibility</mat-icon>
             </button>
            </span>
            <span *ngIf="!(pate.demanded_street_section.mail_sent)">
              <mat-icon>check_box_outline_blank</mat-icon>E-Mail als Entwurf gespeichert
-             <button mat-raised-button color="primary" routerLink="/forderung/edit/{{pate.id}}" type="submit">
+             <button mat-raised-button color="primary" routerLink="/forderung/edit/{{row.demanded_street_section.id}}" type="submit">
                 <mat-icon>mail</mat-icon><mat-icon>edit</mat-icon>
             </button>
            </span>

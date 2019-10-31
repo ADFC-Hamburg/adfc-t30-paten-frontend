@@ -47,3 +47,9 @@ textarea#standDerDinge {
 .tp-radio-button {
    margin: 5px;
 }
+.green-icon {
+    color: green;
+}
+.green-icon svg {
+    fill: green;
+}

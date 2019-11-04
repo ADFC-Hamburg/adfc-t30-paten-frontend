@@ -1,50 +1,68 @@
-    <h2 class="mat-h2">Meine Forderungsmails</h2>
-    <table mat-table [dataSource]="forderungList" matSort class="mat-elevation-z8">
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let row"> {{row.demanded_street_section.institution.name}}</td>
-      </ng-container>
-       <ng-container matColumnDef="street">
-         <th mat-header-cell *matHeaderCellDef> Straße </th>
-         <td mat-cell *matCellDef="let row"> {{row.demanded_street_section.street}}</td>
-       </ng-container>
-       <ng-container matColumnDef="house_no">
-         <th mat-header-cell *matHeaderCellDef> Hausnummern </th>
-         <td mat-cell *matCellDef="let row"> {{row.demanded_street_section.house_no_from}} bis {{row.demanded_street_section.house_no_to}}  </td>
-       </ng-container>
-       <ng-container matColumnDef="aktion">
-         <th mat-header-cell *matHeaderCellDef> Aktionen </th>
-         <td mat-cell *matCellDef="let row">
-           <button mat-raised-button routerLink="/einrichtung/edit/{{row.demanded_street_section.institution.id}}" type="submit">
-              Einrichtung bearbeiten<mat-icon>edit</mat-icon>
-          </button>
-          <button mat-raised-button routerLink="/einrichtung/view/{{row.demanded_street_section.institution.id}}" type="submit">
-             Einrichtung ansehen<mat-icon>visibility</mat-icon>
-         </button>
-        </td>
-       </ng-container>
-       <ng-container matColumnDef="status">
-         <th mat-header-cell *matHeaderCellDef> Status </th>
-         <td mat-cell *matCellDef="let pate">
-           <span *ngIf="pate.demanded_street_section.mail_sent">
-             <mat-icon>check_box</mat-icon>E-Mail wurde verschickt
-             <button mat-raised-button routerLink="/forderung/view/{{row.demanded_street_section.id}}" type="submit">
-                <mat-icon>mail</mat-icon><mat-icon>visibility</mat-icon>
-            </button>
-           </span>
-           <span *ngIf="!(pate.demanded_street_section.mail_sent)">
-             <mat-icon>check_box_outline_blank</mat-icon>E-Mail als Entwurf gespeichert
-             <button mat-raised-button color="primary" routerLink="/forderung/edit/{{row.demanded_street_section.id}}" type="submit">
-                <mat-icon>mail</mat-icon><mat-icon>edit</mat-icon>
-            </button>
-           </span>
-        </td>
-       </ng-container>
+<h2 class="mat-h2">Meine Forderungsmails</h2>
+<div *ngIf="(forderungList.length===0)">
+<p>
+  Hier findest du die von dir verfassten E-Mails mit Tempo-30-Forderungen für
+  bestimmte Straßenabschnitte an das zuständige Polizeikommissariat wieder, sobald
+  du sie abgeschickt oder als Entwurf gespeichert hast.
+</p>
+<p>
+  Um eine Forderungsmail zu verfassen, gib zunächst die Informationen zu den
+  Straßenabschnitten im Umfeld der Einrichtung ein (Klick auf Button "Bearbeiten"
+  bei der jeweiligen Einrichtung). Dann kannst du auf der Seite "Details" der
+  jeweiligen Einrichtung für jeden Straßenabschnitt, an dem Tempo 30 fehlt,
+   auf den Button "Tempo 30 fordern" klicken.
+ </p>
+ </div>
+ <div  *ngIf="(forderungList.length>0)">
+<table mat-table [dataSource]="forderungList" class="mat-elevation-z8">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let row"> {{row.demanded_street_section.institution.name}}</td>
+  </ng-container>
+  <ng-container matColumnDef="street">
+    <th mat-header-cell *matHeaderCellDef> Straße </th>
+    <td mat-cell *matCellDef="let row"> {{row.demanded_street_section.street}}</td>
+  </ng-container>
+  <ng-container matColumnDef="house_no">
+    <th mat-header-cell *matHeaderCellDef> Hausnummern </th>
+    <td mat-cell *matCellDef="let row"> {{row.demanded_street_section.house_no_from}} bis {{row.demanded_street_section.house_no_to}} </td>
+  </ng-container>
+  <ng-container matColumnDef="aktion">
+    <th mat-header-cell *matHeaderCellDef> Aktionen </th>
+    <td mat-cell *matCellDef="let row">
+      <button mat-raised-button routerLink="/einrichtung/edit/{{row.demanded_street_section.institution.id}}" type="submit">
+        Einrichtung bearbeiten<mat-icon>edit</mat-icon>
+      </button>
+      <button mat-raised-button routerLink="/einrichtung/view/{{row.demanded_street_section.institution.id}}" type="submit">
+        Einrichtung ansehen<mat-icon>visibility</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef> Status </th>
+    <td mat-cell *matCellDef="let row">
+      <span *ngIf="row.demanded_street_section.mail_sent">
+        <mat-icon>check_box</mat-icon>E-Mail wurde verschickt
+        <button mat-raised-button routerLink="/forderung/view/{{row.demanded_street_section.id}}" type="submit">
+          <mat-icon>mail</mat-icon>
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </span>
+      <span *ngIf="!(row.demanded_street_section.mail_sent)">
+        <mat-icon>check_box_outline_blank</mat-icon>E-Mail als Entwurf gespeichert
+        <button mat-raised-button color="primary" routerLink="/forderung/edit/{{row.demanded_street_section.id}}" type="submit">
+          <mat-icon>mail</mat-icon>
+          <mat-icon>edit</mat-icon>
+        </button>
+      </span>
+    </td>
+  </ng-container>
 
-       <tr mat-header-row *matHeaderRowDef="displayedPatenColumns"></tr>
-       <tr mat-row *matRowDef="let row; columns: displayedPatenColumns;"></tr>
-    </table>
-  <!-- <h2 class="mat-h2">Meine Korrekturen</h2>
+  <tr mat-header-row *matHeaderRowDef="displayedPatenColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedPatenColumns;"></tr>
+</table>
+</div>
+<!-- <h2 class="mat-h2">Meine Korrekturen</h2>
   <button mat-raised-button color="primary" type="submit">
     <mat-icon>send</mat-icon> Neuen Antrag vorbereiten
     </button> -->

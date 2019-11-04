@@ -254,6 +254,9 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
   onPasswordChange(password: string) {
     this.forderungService.validateAktionsPassword(this.einrichtung.type, password).subscribe(rtn => {
       this.isPasswordOkay = rtn;
+      if (this.isPasswordOkay) {
+        localStorage.setItem('ADFCAktionsPw', password);
+      }
     });
   }
   ngOnInit() {
@@ -286,6 +289,12 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
               this.aktionsData.reached = aktionsData.reached;
               if (this.aktionsData.reached) {
                 this.isPasswordOkay = 1;
+              } else {
+                const acp = localStorage.getItem('ADFCAktionsPw');
+                if (acp != null) {
+                  this.forderungFG.get('password').setValue(acp);
+                  this.onPasswordChange(acp);
+                }
               }
               this.aktionsData.until = new Date(aktionsData.until + 'T00:00:00');
             });

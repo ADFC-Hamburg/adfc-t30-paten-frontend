@@ -3,12 +3,9 @@ import { environment } from '../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotifierService } from './services/notifier.service';
 import { AuthenticationService } from './services/authentication.service';
-import { UserService } from './services/user.service';
-import { ForderungService } from './services/forderung.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
 import { AppSnackBarComponent } from './app-snack-bar/app-snack-bar.component';
 
 @Component({
@@ -56,7 +53,6 @@ export class AppComponent implements OnInit, OnDestroy {
   myNavLinks = [];
   myRoute = null;
   showHint = true;
-  forderungList = [];
   logoutInSeconds = -1;
   logoutWarnTime = 600;
   logoutHintSub: Subscription = null;
@@ -67,8 +63,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private authenticationService: AuthenticationService,
     private location: Location,
     private router: Router,
-    private userService: UserService,
-    private forderungService: ForderungService,
   ) {
   }
   ngOnInit() {
@@ -90,7 +84,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.events.subscribe(event => {
       this.calcNavLinks();
     });
-    this.calcForderungList();
     this.logoutHintSub = interval(1000).subscribe(val => this.calcLogoutHint());
     this.calcLogoutHint();
   }
@@ -101,24 +94,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authenticationService.extendLoginTime().subscribe(val => {
     });
   }
-  calcForderungList() {
-    if (this.authenticationService.isLoggedIn()) {
-      this.userService.getCurrentUser().pipe(take(1)).subscribe(user => {
-        this.forderungService.list(user.id).subscribe(data => {
-          this.forderungList = data;
-        });
-      });
-    }
-  }
   showLink(link) {
     if (this.authenticationService.isLoggedIn()) {
-      if (link.path === '/main') {
-        if (localStorage.getItem('recalc_main_link')) {
-          localStorage.removeItem('recalc_main_link');
-          this.calcForderungList();
-        }
-        return (this.forderungList.length > 0);
-      }
       return link.showUser;
     } else {
       return link.showPublic;

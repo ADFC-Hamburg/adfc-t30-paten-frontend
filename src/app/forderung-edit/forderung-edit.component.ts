@@ -149,9 +149,7 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
     const newEMailText = 'Vielen Dank und mit freundlichen Grüßen\n\n' +
       `${user.firstName} ${user.lastName}\n\n` +
       `${user.street_house_no}\n` +
-      `${user.zip} ${user.city}\n\n` +
-      '--\nDiese E-Mail wurde durch das Tempo 30-Tool des ADFC-Hamburg verschickt, mehr Infos dazu unter:\n' +
-      environment.CAMPAIN_URL;
+      `${user.zip} ${user.city}\n\n`;
     if ((!this.forderungFG.get('mail_end').dirty) &&
       (newEMailText !== this.forderungFG.get('mail_end').value)) {
       this.forderungFG.get('mail_end').setValue(newEMailText);
@@ -254,6 +252,9 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
   onPasswordChange(password: string) {
     this.forderungService.validateAktionsPassword(this.einrichtung.type, password).subscribe(rtn => {
       this.isPasswordOkay = rtn;
+      if (this.isPasswordOkay) {
+        localStorage.setItem('ADFCAktionsPw', password);
+      }
     });
   }
   ngOnInit() {
@@ -286,6 +287,12 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
               this.aktionsData.reached = aktionsData.reached;
               if (this.aktionsData.reached) {
                 this.isPasswordOkay = 1;
+              } else {
+                const acp = localStorage.getItem('ADFCAktionsPw');
+                if (acp != null) {
+                  this.forderungFG.get('password').setValue(acp);
+                  this.onPasswordChange(acp);
+                }
               }
               this.aktionsData.until = new Date(aktionsData.until + 'T00:00:00');
             });

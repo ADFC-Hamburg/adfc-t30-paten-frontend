@@ -90,13 +90,13 @@
       <div>Die E-Mailadresse des zuständigen Polizeikommissariats wird automatisch anhand der Adresse der sozialen Einrichtung ermittelt.</div>
       <p>Anonyme Mails an die Polizei sind nicht möglich. Wir setzen deine bei der Registrierung angegebene E-Mailadresse in CC und bitten im E-Mailtext die Polizei, an deine E-Mailadresse zu antworten.
       <mat-form-field class="t30-full-width">
-        <input matInput placeholder="Von" matTooltip="Der Absender wird automatisch aus deinen Registrierungsdaten erzeugt und ist nicht änderbar." readonly="true" value="&lt;bitte-nicht-antworten-t30f@tools.adfc-hamburg.de&gt;">
+        <input matInput placeholder="Von" matTooltip="Von dieser Adresse wird die Mail versandt. Die Antwort geht an deine bei der Registrierung eingegeben Mailadresse und das Kampagnenteam." readonly="true" value="&lt;bitte-nicht-antworten-t30f@tools.adfc-hamburg.de&gt;">
       </mat-form-field>
       <mat-form-field class="t30-full-width">
         <input matInput placeholder="An" matTooltip="Der Empfänger wird automatisch anhand der Postion der Einrichtung ermittelt und ist nicht änderbar." readonly="true" value="Polizei {{ polizeiData.name }} &lt;{{ polizeiData.email }}&gt;">
       </mat-form-field>
       <mat-form-field class="t30-full-width">
-        <input matInput placeholder="CC" matTooltip="Wir möchten eine Kopie deiner E-Mail." readonly="true" value="{{ currentUser.firstName }} {{ currentUser.lastName  }} &lt;{{ currentUser.user }}&gt;, ADFC Hamburg &lt;{{ CONTACT_MAIL }}&gt;">
+        <input matInput placeholder="CC" matTooltip="Du und das Kampagnenteam erhalten eine Kopie der Email. An diese soll auch die Antwort der Polizei geschickt werden." readonly="true" value="{{ currentUser.firstName }} {{ currentUser.lastName  }} &lt;{{ currentUser.user }}&gt;, ADFC Hamburg &lt;{{ CONTACT_MAIL }}&gt;">
       </mat-form-field>
       <div *ngIf="forderungFG.get('mailSend').value">
         <mat-icon>report</mat-icon><b>Die E-Mail wurde bereits verschickt und kann nicht mehr bearbeitet werden</b>

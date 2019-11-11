@@ -38,7 +38,7 @@
   <p>Von hier aus kannst du für die einzelnen Straßenabschnitte jeweils eine Tempo-30-Forderungsmail an das zuständige Polizeikommissariat generieren, wenn diese im Bereich "Bearbeiten" mit dem Status "Hier fehlt Tempo 30" markiert wurden.</p>
   <div *ngIf="streetSectionList.filteredData.length===0">
     <b>Es wurden bisher keine Straßenabschnitte zur Einrichtung gespeichert.
-    Bitte ergänze Straßenabschnitte unter "Bearbeiten".</b>
+      Bitte ergänze Straßenabschnitte unter "Bearbeiten".</b>
   </div>
   <table *ngIf="streetSectionList.filteredData.length>0" mat-table [dataSource]="streetSectionList" class="mat-elevation-z8">
     <ng-container matColumnDef="abschnitt">

@@ -25,9 +25,11 @@ export class AppNotification {
     return this.msg;
   }
 }
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class NotifierService {
   public messages = new Subject<AppNotification>();
   private addMsg(type: AppNotificationType, msg: string, duration: number) {

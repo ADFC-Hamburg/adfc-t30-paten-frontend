@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './email-versand.component.html',
   styleUrls: ['./email-versand.component.css']
 })
-export class EmailVersandComponent {
 
+export class EmailVersandComponent {
 }

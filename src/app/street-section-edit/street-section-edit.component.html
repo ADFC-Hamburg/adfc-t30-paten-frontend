@@ -1,20 +1,20 @@
-<mat-expansion-panel [formGroup]="fg" [expanded]="true"  [ngClass]="{ odd: (fgIndex % 2 == 0), even: fgIndex % 2 == 1 } ">
-  <mat-expansion-panel-header >
+<mat-expansion-panel [formGroup]="fg" [expanded]="true" [ngClass]="{ odd: (fgIndex % 2 == 0), even: fgIndex % 2 == 1 } ">
+  <mat-expansion-panel-header>
     <mat-panel-title>
       {{ this.fg.get('street').value }}
-      {{ this.fg.get('house_no_from').value }}  -  {{ this.fg.get('house_no_to').value }}
+      {{ this.fg.get('house_no_from').value }} - {{ this.fg.get('house_no_to').value }}
     </mat-panel-title>
     <mat-panel-description>
-    Status: {{ this.fg.get('status').value | t30StatusShortText}}
-    <i class="material-icons" matTooltip="Busverkehr" *ngIf="['2','3'].includes(this.fg.get('much_bus_traffic').value)">
-      directions_bus
-    </i>
-    <i class="material-icons" matTooltip="viel Busverkehr" *ngIf="'3'===this.fg.get('much_bus_traffic').value">
-      directions_bus
-    </i>
-    <i class="material-icons" matTooltip="Es wurde eine Forderungsemail verschickt" *ngIf="this.fg.get('mail_sent').value">
-      mail
-    </i>
+      Status: {{ this.fg.get('status').value | t30StatusShortText}}
+      <i class="material-icons" matTooltip="Busverkehr" *ngIf="['2','3'].includes(this.fg.get('much_bus_traffic').value)">
+        directions_bus
+      </i>
+      <i class="material-icons" matTooltip="viel Busverkehr" *ngIf="'3'===this.fg.get('much_bus_traffic').value">
+        directions_bus
+      </i>
+      <i class="material-icons" matTooltip="Es wurde eine Forderungsemail verschickt" *ngIf="this.fg.get('mail_sent').value">
+        mail
+      </i>
     </mat-panel-description>
   </mat-expansion-panel-header>
   <div class="t30-full-width" *ngIf="!this.fg.get('mail_sent').value">
@@ -22,72 +22,72 @@
       Diesen Straßenabschnitt löschen <mat-icon>delete</mat-icon>
     </button>
   </div>
-<div>
+  <div>
     <mat-form-field class="t30-3-width">
-  <input matInput placeholder="Straße" [matAutocomplete]="auto" autocomplete="false" (ngModelChange)="changeStrassenname($event)" formControlName="street">
-</mat-form-field>
-<mat-autocomplete #auto="matAutocomplete">
-  <mat-option *ngIf="isLoading" class="is-loading">
-    <mat-spinner diameter="50"></mat-spinner>
-  </mat-option>
-  <ng-container *ngIf="!isLoading">
-    <mat-option *ngFor="let einr of filteredStrassen" [value]="einr">
-      <span>{{ einr}}</span>
-    </mat-option>
-  </ng-container>
-</mat-autocomplete>
-<mat-form-field class="t30-3-width">
-  <input matInput placeholder="von Hausnummer/Kreuzung" formControlName="house_no_from">
-</mat-form-field>
-<mat-form-field class="t30-3-width">
-  <input matInput placeholder="bis Hausnummer/Kreuzung" formControlName="house_no_to">
-</mat-form-field>
-<mat-form-field class="t30-half-width">
-  <mat-select placeholder="Ist hier ein Haupteingang und/oder An- und Abreiseverkehr?" formControlName="entrance">
-    <mat-option value="2">Haupteingang und An- und Abreiseverkehr</mat-option>
-    <mat-option value="1">Haupteingang</mat-option>
-    <mat-option value="0">An- und Abreiseverkehr</mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field class="t30-half-width">
-  <mat-select placeholder="Wieviele KFZ-Spuren gibt es pro Fahrtrichtung?" formControlName="multilane">
-    <mat-option *ngFor="let item of [0,1];" value="{{item}}">{{item |spurigkeit }}</mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field class="t30-half-width">
-  <mat-select placeholder="Wie ist der Tempo-30-Status aktuell?" formControlName="status">
-    <mat-option value="0" *ngIf="!(this.fg.get('mail_sent').value)">Keine Angabe</mat-option>
-    <mat-option value="3" *ngIf="!(this.fg.get('mail_sent').value)">Hier fehlt Tempo 30</mat-option>
-    <mat-option value="1" *ngIf="this.fg.get('mail_sent').value">Hier wurde Tempo 30 gefordert</mat-option>
-    <mat-option value="2" *ngIf="!(this.fg.get('mail_sent').value)">Hier ist Tempo 30</mat-option>
-    <mat-option value="5">Tempo 30 wurde angeordnet, die Schilder stehen aber noch nicht</mat-option>
-    <mat-option value="4">Die Behörde hat abgelehnt, hier Tempo 30 einzuführen</mat-option>
-    <mat-option value="2" *ngIf="this.fg.get('mail_sent').value">Hier wurde Tempo 30 eingeführt</mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field class="t30-half-width">
-  <input matInput placeholder="Zu welchen Uhrzeiten gilt hier Tempo 30, z.B. nur Mo-Fr 6:00-20:00 Uhr?" formControlName="time_restriction">
-</mat-form-field>
-<mat-form-field class="t30-full-width">
-  <textarea matInput placeholder="Was ist bisher geschehen, um hier Tempo 30 durchzusetzen? Gab es Kontakt oder Reaktionen von Politik, Polizei oder anderen?" formControlName="progress_report"></textarea>
-</mat-form-field>
-<mat-form-field class="t30-full-width">
-  <textarea  matInput formControlName="user_note" placeholder="Warum sollte gerade hier Tempo 30 gelten? (Sicherheit, Unfälle, Lärm?)"></textarea>
-</mat-form-field>
-<mat-form-field class="t30-half-width">
-  <mat-select placeholder="Wie viele Busse fahren hier werktags zwischen 7 und 8 Uhr in eine Richtung?" formControlName="much_bus_traffic">
-    <mat-option *ngFor="let item of [1,2,3];" value="{{item}}">{{item |busverkehr }}</mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field class="t30-half-width">
-  <input matInput placeholder="Welche Buslininien fahren hier? Bitte mit Komma trennen." formControlName="bus_lines">
-</mat-form-field>
-<mat-form-field class="t30-full-width">
-  <textarea  matInput formControlName="reason_slower_buses" placeholder="Anmerkung zum Busverkehr"></textarea>
-  <mat-hint>
-   Kann ein Bus hier wirklich schneller als 30 km/h fahren? Oder ist hier sowieso eine Ampel/Bushaltestelle etc. Bitte unterscheide Hauptverkehrszeit / Nebenzeit.
-   Z.B. "Die Busse verlangsamen ihre Fahrt an der Stelle ohnehin wegen einer Bushaltestelle/der abbiegenden Buslinie."
-  </mat-hint>
-</mat-form-field>
-</div>
+      <input matInput placeholder="Straße" [matAutocomplete]="auto" autocomplete="false" (ngModelChange)="changeStrassenname($event)" formControlName="street">
+    </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngIf="isLoading" class="is-loading">
+        <mat-spinner diameter="50"></mat-spinner>
+      </mat-option>
+      <ng-container *ngIf="!isLoading">
+        <mat-option *ngFor="let einr of filteredStrassen" [value]="einr">
+          <span>{{ einr}}</span>
+        </mat-option>
+      </ng-container>
+    </mat-autocomplete>
+    <mat-form-field class="t30-3-width">
+      <input matInput placeholder="von Hausnummer/Kreuzung" formControlName="house_no_from">
+    </mat-form-field>
+    <mat-form-field class="t30-3-width">
+      <input matInput placeholder="bis Hausnummer/Kreuzung" formControlName="house_no_to">
+    </mat-form-field>
+    <mat-form-field class="t30-half-width">
+      <mat-select placeholder="Ist hier ein Haupteingang und/oder An- und Abreiseverkehr?" formControlName="entrance">
+        <mat-option value="2">Haupteingang und An- und Abreiseverkehr</mat-option>
+        <mat-option value="1">Haupteingang</mat-option>
+        <mat-option value="0">An- und Abreiseverkehr</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="t30-half-width">
+      <mat-select placeholder="Wieviele KFZ-Spuren gibt es pro Fahrtrichtung?" formControlName="multilane">
+        <mat-option *ngFor="let item of [0,1];" value="{{item}}">{{item |spurigkeit }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="t30-half-width">
+      <mat-select placeholder="Wie ist der Tempo-30-Status aktuell?" formControlName="status">
+        <mat-option value="0" *ngIf="!(this.fg.get('mail_sent').value)">Keine Angabe</mat-option>
+        <mat-option value="3" *ngIf="!(this.fg.get('mail_sent').value)">Hier fehlt Tempo 30</mat-option>
+        <mat-option value="1" *ngIf="this.fg.get('mail_sent').value">Hier wurde Tempo 30 gefordert</mat-option>
+        <mat-option value="2" *ngIf="!(this.fg.get('mail_sent').value)">Hier ist Tempo 30</mat-option>
+        <mat-option value="5">Tempo 30 wurde angeordnet, die Schilder stehen aber noch nicht</mat-option>
+        <mat-option value="4">Die Behörde hat abgelehnt, hier Tempo 30 einzuführen</mat-option>
+        <mat-option value="2" *ngIf="this.fg.get('mail_sent').value">Hier wurde Tempo 30 eingeführt</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="t30-half-width">
+      <input matInput placeholder="Zu welchen Uhrzeiten gilt hier Tempo 30, z.B. nur Mo-Fr 6:00-20:00 Uhr?" formControlName="time_restriction">
+    </mat-form-field>
+    <mat-form-field class="t30-full-width">
+      <textarea matInput placeholder="Was ist bisher geschehen, um hier Tempo 30 durchzusetzen? Gab es Kontakt oder Reaktionen von Politik, Polizei oder anderen?" formControlName="progress_report"></textarea>
+    </mat-form-field>
+    <mat-form-field class="t30-full-width">
+      <textarea matInput formControlName="user_note" placeholder="Warum sollte gerade hier Tempo 30 gelten? (Sicherheit, Unfälle, Lärm?)"></textarea>
+    </mat-form-field>
+    <mat-form-field class="t30-half-width">
+      <mat-select placeholder="Wie viele Busse fahren hier werktags zwischen 7 und 8 Uhr in eine Richtung?" formControlName="much_bus_traffic">
+        <mat-option *ngFor="let item of [1,2,3];" value="{{item}}">{{item |busverkehr }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="t30-half-width">
+      <input matInput placeholder="Welche Buslininien fahren hier? Bitte mit Komma trennen." formControlName="bus_lines">
+    </mat-form-field>
+    <mat-form-field class="t30-full-width">
+      <textarea matInput formControlName="reason_slower_buses" placeholder="Anmerkung zum Busverkehr"></textarea>
+      <mat-hint>
+        Kann ein Bus hier wirklich schneller als 30 km/h fahren? Oder ist hier sowieso eine Ampel/Bushaltestelle etc. Bitte unterscheide Hauptverkehrszeit / Nebenzeit.
+        Z.B. "Die Busse verlangsamen ihre Fahrt an der Stelle ohnehin wegen einer Bushaltestelle/der abbiegenden Buslinie."
+      </mat-hint>
+    </mat-form-field>
+  </div>
 </mat-expansion-panel>

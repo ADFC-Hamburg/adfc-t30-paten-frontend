@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
+
 import { NotificationError } from '../notification-error';
-// import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -31,6 +31,7 @@ export class DemandedStreetSectionService {
     });
     return entry;
   }
+
   get(id) {
     return this.http.get<any>(
       this.baseUrl + 'crud.php?entity=demandedstreetsection&refs=(format,data)&nores=[]&filter=[id,' + id + ']', httpOptions).pipe(

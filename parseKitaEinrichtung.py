@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 # Quelle: https://suche.transparenz.hamburg.de/dataset/kita-einrichtungen-hamburg10?forceWeb=true
-file=open("/home/sven/Downloads/Kita_Einrichtung.csv");
-lines= file.readlines();
-file.close();
+file=open("/home/sven/Downloads/Kita_Einrichtung.csv")
+lines= file.readlines()
+file.close()
 
 traeger_count = {}
 

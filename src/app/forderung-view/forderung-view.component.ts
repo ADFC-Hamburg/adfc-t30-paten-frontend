@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { ForderungService } from '../services/forderung.service';
 
 @Component({
@@ -7,6 +8,7 @@ import { ForderungService } from '../services/forderung.service';
   templateUrl: './forderung-view.component.html',
   styleUrls: ['./forderung-view.component.css']
 })
+
 export class ForderungViewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
@@ -23,6 +25,7 @@ export class ForderungViewComponent implements OnInit {
       }
     }
   };
+
   ngOnInit() {
     this.route.params.subscribe(param => {
       this.forderungService.getSendMail(param.id).subscribe(forderung => {

@@ -1,6 +1,6 @@
 <p *ngIf="!filledIn">Sie erhalten in kürze an Ihre E-Mail einen Link. Bitte schauen sie auch in Ihren Spam Ordner.
-Bitte klicken Sie auf den Link innerhalb von 12h, da wir sonst die Daten wieder löschen.
-Alternativ können sie auch hier den in der E-Mail angebenen Token eingeben.
+  Bitte klicken Sie auf den Link innerhalb von 12h, da wir sonst die Daten wieder löschen.
+  Alternativ können sie auch hier den in der E-Mail angebenen Token eingeben.
 </p>
 <p *ngIf="filledIn">Bitte bestätigen Sie ihre Anmeldung inden Sie dieses Formular absenden.</p>
 <form [formGroup]="tokenForm" (ngSubmit)="onSubmit()">
@@ -11,10 +11,10 @@ Alternativ können sie auch hier den in der E-Mail angebenen Token eingeben.
     <input matInput placeholder="Token" formControlName="token">
   </mat-form-field>
   <div class="t30-full-width">
-  <mat-action-row>
-    <button mat-raised-button color="primary" type="submit">
-      <mat-icon>send</mat-icon> Absenden
-    </button>
-  </mat-action-row>
+    <mat-action-row>
+      <button mat-raised-button color="primary" type="submit">
+        <mat-icon>send</mat-icon> Absenden
+      </button>
+    </mat-action-row>
   </div>
 </form>

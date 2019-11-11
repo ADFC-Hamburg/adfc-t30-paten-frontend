@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { LEGENDE_TEXT } from '../const';
 
@@ -7,7 +7,7 @@ import { LEGENDE_TEXT } from '../const';
   templateUrl: './star-legende.component.html',
   styleUrls: ['./star-legende.component.css']
 })
-export class StarLegendeComponent implements OnInit {
+export class StarLegendeComponent {
   LEGENDE_TEXT = LEGENDE_TEXT;
   showLegendeVal = false;
 
@@ -21,11 +21,6 @@ export class StarLegendeComponent implements OnInit {
   set showLegende(val) {
     this.showLegendeVal = val;
     this.showLegendeChange.emit(this.showLegendeVal);
-  }
-
-  constructor() { }
-
-  ngOnInit() {
   }
 
 }

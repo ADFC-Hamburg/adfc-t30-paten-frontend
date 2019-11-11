@@ -46,5 +46,4 @@ export class NotifierService {
   public clearAllErrrors() {
     this.addMsg(AppNotificationType.Clear, '', 0);
   }
-  constructor() { }
 }

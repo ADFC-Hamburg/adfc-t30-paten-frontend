@@ -8,7 +8,7 @@ import { EINRICHTUNGSART } from '../const';
 
 export class EinrichtungsartPipe implements PipeTransform {
 
-  transform(value: number): String {
+  transform(value: number): string {
     return EINRICHTUNGSART[value];
   }
 

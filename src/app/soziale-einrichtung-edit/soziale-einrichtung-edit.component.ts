@@ -70,7 +70,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
   ) {
     super();
   }
-  getSozService() {
+  getSozService(): T30SozialeEinrichtungService {
     return this.sozService;
   }
   getFormControl() {
@@ -85,7 +85,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
   getStrassenAbschnitte() {
     return this.einrichtung.get('streetSections') as FormArray;
   }
-  addStrassenAbschnitt() {
+  addStrassenAbschnitt(): void {
     this.getStrassenAbschnitte().push(StreetSectionEditComponent.createAngrStrassenFbGroup(this.fb));
   }
   deleteStrassenAbschnitt(index: number): void {
@@ -96,7 +96,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
   deleteStrassenAbschnittNoAsk(index: number): void {
     this.getStrassenAbschnitte().removeAt(index);
   }
-  changePosFB(value) {
+  changePosFB(value): void {
     if ((this.position[0] !== value[0]) ||
       (this.position[1] !== value[1])) {
       this.position = [value[0], value[1]];
@@ -104,18 +104,18 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
       this.newPos = [value[0], value[1]];
     }
   }
-  isMarkerMoved() {
+  isMarkerMoved(): boolean {
     return ((this.position[0] !== this.newPos[0]) || (this.position[1] !== this.newPos[1]));
   }
-  mapMoveEnd() {
+  mapMoveEnd(): void {
     this.einrichtung.patchValue({
       newPos: this.newPos,
     });
   }
-  posReset() {
+  posReset(): void {
     this.newPos = this.position;
   }
-  posAenderung() {
+  posAenderung(): void {
     this.einrichtung.patchValue({
       position: this.newPos,
     });
@@ -123,7 +123,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
       this.searchNear();
     }
   }
-  mapDblClick(event) {
+  mapDblClick(event): void {
     if (event.latlng) {
       this.newPos = [event.latlng.lng, event.latlng.lat];
       this.einrichtung.patchValue({
@@ -206,7 +206,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
       throw new NotificationError('Bitte Fehler korrigieren.');
     }
   }
-  load(id) {
+  load(id): void {
     this.id = id;
     this.sozService.get(id).subscribe(data => {
       data.type = data.type.toString();
@@ -233,7 +233,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
       }
     });
   }
-  searchNear() {
+  searchNear(): void {
     this.loading = true;
     this.sozService.getNear(this.position[1], this.position[0]).subscribe(
       near => {
@@ -253,7 +253,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
       }
     );
   }
-  searchPos() {
+  searchPos(): void {
     this.validateAllFormFields(this.einrichtung.get('street_house_no'));
     this.validateAllFormFields(this.einrichtung.get('zip'));
     this.validateAllFormFields(this.einrichtung.get('city'));
@@ -288,7 +288,7 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
       }
     );
   }
-  cancel() {
+  cancel(): void {
     this.setSubmitted();
     this.router.navigate(['main']);
   }

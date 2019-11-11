@@ -33,6 +33,10 @@ export class AppComponent implements OnInit, OnDestroy {
       showPublic: false, showUser: true
     },
     {
+      path: '/spenden', label: 'Spenden', icon: 'directions_bike',
+      showPublic: true, showUser: true
+    },
+    {
       path: '/AbmeldenAsk', label: 'Abmelden', icon: 'power_settings_new',
       showPublic: false, showUser: true
     },

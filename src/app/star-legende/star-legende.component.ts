@@ -11,12 +11,12 @@ export class StarLegendeComponent {
   LEGENDE_TEXT = LEGENDE_TEXT;
   showLegendeVal = false;
 
+  @Output() showLegendeChange = new EventEmitter();
+
   @Input()
   get showLegende() {
     return this.showLegendeVal;
   }
-
-  @Output() showLegendeChange = new EventEmitter();
 
   set showLegende(val) {
     this.showLegendeVal = val;

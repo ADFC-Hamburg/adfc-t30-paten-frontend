@@ -94,7 +94,14 @@ export class SozialeEinrichtungEditComponent extends CanDeactivateFormControlCom
     }
   }
   deleteStrassenAbschnittNoAsk(index: number): void {
+    const id = this.getStrassenAbschnitte().at(index).get('id').value;
     this.getStrassenAbschnitte().removeAt(index);
+    if (id !== '') {
+      console.log('DELETE', id);
+      this.streetSectionService.remove(Number(id)).subscribe(val => {
+        console.log(val);
+      });
+    }
   }
   changePosFB(value): void {
     if ((this.position[0] !== value[0]) ||

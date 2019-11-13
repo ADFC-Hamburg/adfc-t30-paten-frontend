@@ -43,6 +43,13 @@ export class DemandedStreetSectionService {
         }));
 
   }
+
+  remove(id): Observable<any> {
+    return this.http.delete(
+      this.baseUrl + 'crud.php?entity=demandedstreetsection&refs=(format,data)&nores=[]&filter=[id,' + id + ']', httpOptions
+    );
+  }
+
   list(institutionId) {
     return this.http.get<any>(
       this.baseUrl + 'crud.php?entity=demandedstreetsection&nores=[]&filter=[institution,' +
@@ -56,6 +63,7 @@ export class DemandedStreetSectionService {
           return res.map(this.optionValueToString);
         }));
   }
+
   create(einr) {
     return this.http.post<any>(this.baseUrl + 'crud.php?entity=demandedstreetsection', einr, httpOptions)
       .pipe(
@@ -65,6 +73,7 @@ export class DemandedStreetSectionService {
           }
         }));
   }
+
   save(streetSection) {
     let saveData = streetSection;
     if (streetSection.mail_sent) {

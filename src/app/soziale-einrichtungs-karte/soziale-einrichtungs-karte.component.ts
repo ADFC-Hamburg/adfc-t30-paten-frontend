@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { marker, Icon } from 'leaflet';
 
 import { T30SozialeEinrichtungService } from '../services/t30-soziale-einrichtung.service';
-import { FARBCODE, HAMBURG_LAT, HAMBURG_LON, START_ZOOM } from '../const';
+import { FARBCODE } from '../const';
+import { GeoPositionService } from '../services/geo-position.service';
 
 const CustomIcon = Icon.extend({
   options: {
@@ -36,9 +37,6 @@ function createSvgIcon(idx) {
 })
 
 export class SozialeEinrichtungsKarteComponent implements OnInit {
-  mapLat = HAMBURG_LAT;
-  mapLon = HAMBURG_LON;
-  mapZoom = START_ZOOM;
   geoData = {
     'features': [
     ],
@@ -57,6 +55,7 @@ export class SozialeEinrichtungsKarteComponent implements OnInit {
   public showLegende = false;
   constructor(
     private sozEinrService: T30SozialeEinrichtungService,
+    private geoPositionService: GeoPositionService,
   ) { }
 
   ngOnInit() {
@@ -86,6 +85,9 @@ export class SozialeEinrichtungsKarteComponent implements OnInit {
         };
       }
     );
+  }
+  getGeoPosService():GeoPositionService {
+    return this.geoPositionService;
   }
   createSvgUrl(idx) {
     return createSvgUrl(idx);

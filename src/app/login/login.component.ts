@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
 
-  showBrowserWarning = false;
+  showIEWarning = false;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -54,10 +54,9 @@ export class LoginComponent implements OnInit {
     });
     // get return url from route parameters or default to '/'
 
-    if (!([ BROWSERS.FIREFOX, BROWSERS.CHROME, BROWSERS.MS_EDGE_CHROMIUM].includes(this.deviceDetectorService.browser))) {
-        this.showBrowserWarning = true;
+    if (this.deviceDetectorService.browser === BROWSERS.IE ) {
+      this.showIEWarning = true;
     }
-
   }
 
   checkValidateError(fieldname: string, errorType: string): boolean {

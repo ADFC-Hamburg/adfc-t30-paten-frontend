@@ -86,7 +86,7 @@ export class SozialeEinrichtungsKarteComponent implements OnInit {
       }
     );
   }
-  getGeoPosService():GeoPositionService {
+  getGeoPosService(): GeoPositionService {
     return this.geoPositionService;
   }
   createSvgUrl(idx) {

@@ -6,8 +6,6 @@ import { HAMBURG_LAT, HAMBURG_LON, START_ZOOM } from '../const';
 })
 export class GeoPositionService {
 
-  constructor() { }
-
   private _position: [number, number] = [HAMBURG_LON, HAMBURG_LAT];
 
   private _zoom: number = START_ZOOM;

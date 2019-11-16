@@ -1,8 +1,8 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { DeviceDetectorService, BROWSERS } from 'ngx-device-detector';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-
 import { UserService } from '../services/user.service';
 import { T30Validators } from '../t30validators';
 
@@ -16,10 +16,12 @@ export class RegisterComponent implements OnInit {
   loading = false;
   submitted = false;
   samePw = true;
+  showIEWarning = false;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private userService: UserService,
+    private deviceDetectorService: DeviceDetectorService,
   ) {
     // redirect to home if already logged in
     /*    if (this.authenticationService.currentUserValue) {
@@ -41,6 +43,9 @@ export class RegisterComponent implements OnInit {
       password1: ['', [Validators.required, Validators.minLength(5)]],
       password2: ['', Validators.required],
     }, { validator: T30Validators.checkPasswords });
+    if (this.deviceDetectorService.browser === BROWSERS.IE ) {
+      this.showIEWarning = true;
+    }
   }
   checkValidateError(fieldname: string, errorType: string): boolean {
     const field = this.registerForm.get(fieldname);

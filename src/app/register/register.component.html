@@ -2,7 +2,8 @@
   <h1 class="mat-h1">Registrieren</h1>
   <h3 class="mat-h3">ADFC Tempo 30 an sozialen Einrichtungen</h3>
 </div>
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<app-browser-warning></app-browser-warning>
+<form *ngIf="!showIEWarning" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <mat-form-field class="t30-half-width">
       <input matInput placeholder="Vorname" formControlName="firstName" autocomplete="given-name" required>

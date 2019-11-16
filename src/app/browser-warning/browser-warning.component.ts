@@ -15,7 +15,7 @@ export class BrowserWarningComponent implements OnInit {
   ) {
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     if (this.deviceDetectorService.browser === BROWSERS.IE ) {
       this.showIEWarning = true;
     } else {

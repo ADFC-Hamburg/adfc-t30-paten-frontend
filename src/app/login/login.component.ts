@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { DeviceDetectorService } from 'ngx-device-detector';
-
+import { DeviceDetectorService, BROWSERS } from 'ngx-device-detector';
 import { ErrorHandleService } from '../services/error-handle.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { T30Validators } from '../t30validators';
@@ -18,9 +17,9 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
 
+  showBrowserWarning = false;
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
     private errorHandleService: ErrorHandleService,
@@ -54,7 +53,11 @@ export class LoginComponent implements OnInit {
       }
     });
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+    if (!([ BROWSERS.FIREFOX, BROWSERS.CHROME, BROWSERS.MS_EDGE_CHROMIUM].includes(this.deviceDetectorService.browser))) {
+        this.showBrowserWarning = true;
+    }
+
   }
 
   checkValidateError(fieldname: string, errorType: string): boolean {

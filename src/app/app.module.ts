@@ -52,7 +52,7 @@ import { StreetSectionEditComponent } from './street-section-edit/street-section
 import { ForderungViewComponent } from './forderung-view/forderung-view.component';
 import { StarLegendeComponent } from './star-legende/star-legende.component';
 import { AppSnackBarComponent } from './app-snack-bar/app-snack-bar.component';
-
+import { DeviceDetectorModule } from 'ngx-device-detector';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -119,6 +119,7 @@ export function tokenGetter() {
       }
     }),
     MatTooltipModule,
+    DeviceDetectorModule.forRoot(),
   ],
   providers: [
     ErrorHandleService,

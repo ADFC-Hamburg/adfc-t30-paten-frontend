@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 import { ErrorHandleService } from '../services/error-handle.service';
 import { AuthenticationService } from '../services/authentication.service';
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private errorHandleService: ErrorHandleService,
+    private deviceDetectorService: DeviceDetectorService,
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUser) {

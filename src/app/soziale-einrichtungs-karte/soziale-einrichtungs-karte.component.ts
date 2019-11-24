@@ -1,6 +1,7 @@
 import { OSM_TILE_LAYER_URL } from '@yaga/leaflet-ng2';
 import { Component, OnInit } from '@angular/core';
 import { marker, Icon } from 'leaflet';
+import { Observable, interval } from 'rxjs';
 
 import { T30SozialeEinrichtungService } from '../services/t30-soziale-einrichtung.service';
 import { FARBCODE } from '../const';
@@ -53,38 +54,50 @@ export class SozialeEinrichtungsKarteComponent implements OnInit {
   public tileLayerUrl: string = OSM_TILE_LAYER_URL;
   public popupProperties: any = {};
   public showLegende = false;
+  private timestamp = 0;
+  private timer: Observable<number>;
   constructor(
     private sozEinrService: T30SozialeEinrichtungService,
     private geoPositionService: GeoPositionService,
   ) { }
 
-  ngOnInit() {
-    this.sozEinrService.listFast().subscribe(
+
+  load(): void {
+    console.log('load');
+    this.sozEinrService.listFastTimestamp().subscribe(
       data => {
-        const items = [];
-        for (const item of data) {
-          items.push({
-            'type': 'Feature',
-            'properties': item,
-            'geometry': {
-              'type': 'Point',
-              'coordinates': item.position
-            }
-          });
+        if (data.timestamp !== this.timestamp) {
+          console.log('realLoad');
+          const items = [];
+          this.timestamp = data.timestamp;
+          for (const item of data.data) {
+            items.push({
+              'type': 'Feature',
+              'properties': item,
+              'geometry': {
+                'type': 'Point',
+                'coordinates': item.position
+              }
+            });
+          }
+          this.geoData = {
+            'type': 'FeatureCollection',
+            'name': 'KeinTempo30ohne',
+            'crs': {
+              'type': 'name',
+              'properties': {
+                'name': 'urn:ogc:def:crs:OGC:1.3:CRS84'
+              }
+            },
+            'features': items
+          };
         }
-        this.geoData = {
-          'type': 'FeatureCollection',
-          'name': 'KeinTempo30ohne',
-          'crs': {
-            'type': 'name',
-            'properties': {
-              'name': 'urn:ogc:def:crs:OGC:1.3:CRS84'
-            }
-          },
-          'features': items
-        };
       }
     );
+  }
+  ngOnInit(): void {
+    this.timer = interval(10 * 1000);
+    this.timer.subscribe(num => this.load());
   }
   getGeoPosService(): GeoPositionService {
     return this.geoPositionService;

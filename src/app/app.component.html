@@ -55,7 +55,12 @@
     </a>
   </div>
 </nav>
-<router-outlet></router-outlet>
+<div [style.display]="(myRoute =='/sozEinrKarte') ? 'block' : 'none'">
+  <app-soziale-einrichtungs-karte></app-soziale-einrichtungs-karte>
+</div>
+<div *ngIf="(myRoute !='/sozEinrKarte')">
+  <router-outlet></router-outlet>
+</div>
 <hr>
 <a href="https://hamburg.adfc.de/datenschutzhinweise/" target="_blank" rel="noopener" class="footer-link">Datenschutzhinweise</a>
 <a href="https://hamburg.adfc.de/impressum/" target="_blank" rel="noopener" class="footer-link">Impressum</a>
@@ -65,7 +70,7 @@ Dieses Webtool hilft dir, Tempo 30 im Umfeld sozialer Einrichtungen beim zustän
 Es ist Teil der Kampagne des ADFC Hamburg <a target="_blank" href="{{CAMPAIN_URL}}">Tempo 30 an sozialen Einrichtungen</a>.
 Bitte sende uns Fragen, Probleme, Lob, Feedback an: <a href="mailto:{{CONTACT_MAIL}}">{{CONTACT_MAIL}}</a>
 <hr>
-Version: GUI: {{ version }} API: {{ API_VERSION}}
+Version: GUI: {{ version }} API: {{ API_VERSION}}  {{ myRoute }}
 <div *ngIf="isLoggedIn()">Angemeldet</div>
 <div *ngIf="!isLoggedIn()">Abgemeldet</div>
 {{ logoutInSeconds }}

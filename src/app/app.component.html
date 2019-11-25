@@ -58,9 +58,7 @@
 <div [style.display]="(myRoute =='/sozEinrKarte') ? 'block' : 'none'">
   <app-soziale-einrichtungs-karte></app-soziale-einrichtungs-karte>
 </div>
-<div *ngIf="(myRoute !='/sozEinrKarte')">
-  <router-outlet></router-outlet>
-</div>
+<router-outlet></router-outlet>
 <hr>
 <a href="https://hamburg.adfc.de/datenschutzhinweise/" target="_blank" rel="noopener" class="footer-link">Datenschutzhinweise</a>
 <a href="https://hamburg.adfc.de/impressum/" target="_blank" rel="noopener" class="footer-link">Impressum</a>

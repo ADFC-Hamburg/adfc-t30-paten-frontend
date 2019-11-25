@@ -49,11 +49,12 @@ export class SozialeEinrichtungsKarteComponent implements OnInit {
         'name': 'urn:ogc:def:crs:OGC:1.3:CRS84'
       }
     },
-
   };
+  newData= [];
   public tileLayerUrl: string = OSM_TILE_LAYER_URL;
   public popupProperties: any = {};
   public showLegende = false;
+  public loadingMap = true;
   private timestamp = 0;
   private timer: Observable<number>;
   constructor(
@@ -62,38 +63,53 @@ export class SozialeEinrichtungsKarteComponent implements OnInit {
   ) { }
 
 
+  loadNewData(): void {
+    this.loadingMap = true;
+    setTimeout(() => {
+      console.log('Loading...');
+      this.geoData={
+        'features': this.newData,
+        'type': 'FeatureCollection',
+        'name': 'KeinTempo30ohne',
+        'crs': {
+          'type': 'name',
+          'properties': {
+            'name': 'urn:ogc:def:crs:OGC:1.3:CRS84'
+          }
+        },
+      };
+      this.newData=[];
+      console.log('done');
+      this.loadingMap = false;
+   }, 100);
+  }
   load(): void {
-    console.log('load');
     this.sozEinrService.listFastTimestamp().subscribe(
       data => {
         if (data.timestamp !== this.timestamp) {
-          console.log('realLoad');
-          const items = [];
           this.timestamp = data.timestamp;
-          for (const item of data.data) {
-            items.push({
-              'type': 'Feature',
-              'properties': item,
-              'geometry': {
-                'type': 'Point',
-                'coordinates': item.position
-              }
-            });
-          }
-          this.geoData = {
-            'type': 'FeatureCollection',
-            'name': 'KeinTempo30ohne',
-            'crs': {
-              'type': 'name',
-              'properties': {
-                'name': 'urn:ogc:def:crs:OGC:1.3:CRS84'
-              }
-            },
-            'features': items
-          };
+         
+            const items = [];
+            for (const item of data.data) {
+              items.push({
+                'type': 'Feature',
+                'properties': item,
+                'geometry': {
+                  'type': 'Point',
+                  'coordinates': item.position
+                }
+              });
+            }
+            this.newData = items;
+            if (this.geoData.features.length ===0) {
+              this.loadNewData();
+            }
         }
       }
     );
+  }
+  hasNewMapData(): boolean {
+    return this.newData.length >0;
   }
   ngOnInit(): void {
     this.timer = interval(10 * 1000);

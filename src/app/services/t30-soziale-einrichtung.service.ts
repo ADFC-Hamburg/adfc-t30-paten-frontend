@@ -40,7 +40,7 @@ export class T30SozialeEinrichtungService extends AbstractCrudService<SozialeEin
       ));
   }
   listFastTimestamp(): Observable<SozialeEinrichtungListResult> {
-    return this.http.get<SozialeEinrichtungListResult>(environment.API_BASE_URL + 'institutionList.php?timestamp=' + this.timestamp)
+    return this.http.get<SozialeEinrichtungListResult>(environment.API_BASE_URL + 'institutionListTS.php?timestamp=' + this.timestamp)
       .pipe(map(
         res => {
           if (res.timestamp !== this.timestamp) {

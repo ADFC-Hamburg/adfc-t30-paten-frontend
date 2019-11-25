@@ -54,6 +54,7 @@ import { StarLegendeComponent } from './star-legende/star-legende.component';
 import { AppSnackBarComponent } from './app-snack-bar/app-snack-bar.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { BrowserWarningComponent } from './browser-warning/browser-warning.component';
+import { EmptyComponent } from './empty/empty.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -88,6 +89,7 @@ export function tokenGetter() {
     StarLegendeComponent,
     AppSnackBarComponent,
     BrowserWarningComponent,
+    EmptyComponent,
   ],
   imports: [
     BrowserModule,

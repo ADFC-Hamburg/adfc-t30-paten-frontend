@@ -3,8 +3,12 @@
   <button *ngIf="showLegende===false" mat-raised-button (click)="showLegende=true;">
     <mat-icon>help</mat-icon> Legende
   </button>
+  <button *ngIf="hasNewMapData() && (loadingMap===false)" mat-raised-button color="primary" (click)="loadNewData()">
+      <mat-icon>refresh</mat-icon> Landkarte neu laden
+  </button>
 </mat-action-row>
 <app-star-legende [(showLegende)]="showLegende"></app-star-legende>
+<div *ngIf="loadingMap"><mat-spinner></mat-spinner>Bitte warten, lade neue Daten...</div>
 <div class="t30-map-div">
   <yaga-map class="adfc-map" [(zoom)]="getGeoPosService().zoom" [(lat)]="getGeoPosService().lat" [(lng)]="getGeoPosService().lon">
     <yaga-tile-layer [(url)]="tileLayerUrl"></yaga-tile-layer>

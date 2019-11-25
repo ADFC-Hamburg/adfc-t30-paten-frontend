@@ -6,8 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: []
 })
 export class EmptyComponent  {
-
-  constructor() { }
-
-  
 }

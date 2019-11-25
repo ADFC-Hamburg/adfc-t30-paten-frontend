@@ -34,7 +34,7 @@ export class T30SozialeEinrichtungService extends AbstractCrudService<SozialeEin
   listFast(): Observable<SozialeEinrichtung[]> {
     return this.listFastTimestamp()
       .pipe(map(
-        res => {
+        () => {
           return this.cacheData;
         },
       ));

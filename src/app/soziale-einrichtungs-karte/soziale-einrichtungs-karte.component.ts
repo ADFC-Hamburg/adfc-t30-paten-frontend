@@ -110,7 +110,7 @@ export class SozialeEinrichtungsKarteComponent implements OnInit {
   }
   ngOnInit(): void {
     this.timer = timer(100, environment.RELOAD_MAP_TIMER * 1000);
-    this.timer.subscribe(num => this.load());
+    this.timer.subscribe(() => this.load());
   }
   getGeoPosService(): GeoPositionService {
     return this.geoPositionService;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { DeviceDetectorService, BROWSERS } from 'ngx-device-detector';
@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   showIEWarning = false;
   constructor(
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -53,7 +54,7 @@ export class LoginComponent implements OnInit {
       }
     });
     // get return url from route parameters or default to '/'
-
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     if (this.deviceDetectorService.browser === BROWSERS.IE ) {
       this.showIEWarning = true;
     }

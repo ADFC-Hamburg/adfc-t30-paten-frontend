@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-
+import { DeviceDetectorService, BROWSERS } from 'ngx-device-detector';
 import { ErrorHandleService } from '../services/error-handle.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { T30Validators } from '../t30validators';
@@ -17,12 +17,13 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
 
+  showIEWarning = false;
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
     private errorHandleService: ErrorHandleService,
+    private deviceDetectorService: DeviceDetectorService,
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUser) {
@@ -52,7 +53,10 @@ export class LoginComponent implements OnInit {
       }
     });
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+    if (this.deviceDetectorService.browser === BROWSERS.IE ) {
+      this.showIEWarning = true;
+    }
   }
 
   checkValidateError(fieldname: string, errorType: string): boolean {

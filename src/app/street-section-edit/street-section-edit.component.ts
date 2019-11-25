@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { AbstractControl, ValidatorFn, FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 export function requiredOptionValues(values: string[]): ValidatorFn {
@@ -12,7 +12,7 @@ export function requiredOptionValues(values: string[]): ValidatorFn {
   templateUrl: './street-section-edit.component.html',
   styleUrls: ['./street-section-edit.component.css']
 })
-export class StreetSectionEditComponent implements OnInit {
+export class StreetSectionEditComponent {
 
   public isLoading = false;
   @Input() strassenliste: string[] = [];
@@ -79,11 +79,6 @@ export class StreetSectionEditComponent implements OnInit {
     return fg;
   }
 
-  constructor(
-  ) { }
-
-  ngOnInit() {
-  }
   changeStrassenname(search) {
     this.isLoading = true;
     const newEntries = [];

@@ -1,6 +1,6 @@
 export class BasicCrudResponse {
   code: number;
-  id: String;
+  id: string;
   message: string;
   severity: number;
 }

@@ -3,8 +3,10 @@
   <h3 class="mat-h3">ADFC Tempo 30 an sozialen Einrichtungen</h3>
 </div>
 <p class="enterData" *ngIf="(!isDefaultReturnUrl())">Danke, dass du dich an unserer Kampagne "Tempo 30 an sozialen Einrichtungen"
-beteiligen möchtest. Um Informationen zu einer Einrichtung einzugeben oder Tempo-30-Forderungen zu versenden, bitten wir dich, dich einzuloggen bzw. dich erst zu registrieren. Damit beugen wir einer missbräuchlichen Nutzung vor.</p>
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+beteiligen möchtest. Um Informationen zu einer Einrichtung einzugeben oder Tempo-30-Forderungen zu versenden, bitten wir dich, dich einzuloggen bzw. dich erst zu registrieren. Damit beugen wir einer missbräuchlichen Nutzung vor.
+</p>
+<app-browser-warning></app-browser-warning>
+<form *ngIf="!showIEWarning" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
     <input matInput type="email" placeholder="E-Mail" autocomplete="email" formControlName="email" required>
   </mat-form-field>

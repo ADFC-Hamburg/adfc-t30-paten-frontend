@@ -52,6 +52,7 @@ import { StreetSectionEditComponent } from './street-section-edit/street-section
 import { ForderungViewComponent } from './forderung-view/forderung-view.component';
 import { StarLegendeComponent } from './star-legende/star-legende.component';
 import { AppSnackBarComponent } from './app-snack-bar/app-snack-bar.component';
+import { SpendenComponent } from './spenden/spenden.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { BrowserWarningComponent } from './browser-warning/browser-warning.component';
 
@@ -87,6 +88,7 @@ export function tokenGetter() {
     ForderungViewComponent,
     StarLegendeComponent,
     AppSnackBarComponent,
+    SpendenComponent,
     BrowserWarningComponent,
   ],
   imports: [

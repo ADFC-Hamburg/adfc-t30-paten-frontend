@@ -17,6 +17,7 @@ import { SozialeEinrichtungEditComponent } from './soziale-einrichtung-edit/sozi
 import { CanDeactivateGuard } from './can-deactivate.guard';
 import { ForderungEditComponent } from './forderung-edit/forderung-edit.component';
 import { ForderungViewComponent } from './forderung-view/forderung-view.component';
+import { SpendenComponent } from './spenden/spenden.component';
 
 const routes: Routes = [{
   path: 'main',
@@ -66,6 +67,9 @@ const routes: Routes = [{
 }, {
   path: 'login',
   component: LoginComponent,
+}, {
+  path: 'spenden',
+  component: SpendenComponent,
 }, {
   path: 'register',
   component: RegisterComponent

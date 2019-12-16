@@ -213,7 +213,7 @@ export class ForderungEditComponent extends CanDeactivateFormControlComponent im
           emailId = rtnData.id;
         }
         this.forderungService.sendMail(emailId, data.password).subscribe(rtnMailSend => {
-          this.router.navigate(['/einrichtung/view', this.einrichtung.id]);
+          this.router.navigate(['/spenden']);
           this.notifierService.addSuccess('Die E-Mail wurde versandt. Du findest sie unter "Meine Forderungsmails" wieder.');
         });
       } else {

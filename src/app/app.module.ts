@@ -55,6 +55,7 @@ import { AppSnackBarComponent } from './app-snack-bar/app-snack-bar.component';
 import { SpendenComponent } from './spenden/spenden.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { BrowserWarningComponent } from './browser-warning/browser-warning.component';
+import { EmptyComponent } from './empty/empty.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -90,6 +91,7 @@ export function tokenGetter() {
     AppSnackBarComponent,
     SpendenComponent,
     BrowserWarningComponent,
+    EmptyComponent,
   ],
   imports: [
     BrowserModule,

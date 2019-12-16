@@ -31,6 +31,7 @@ export class ErrorHandleService implements ErrorHandler {
     } else {
       // A client-side or network error occurred.
       console.error('An error occurred:', error.message);
+      console.log(error.stack);
       this.clientNotifierService.addError(error.message);
       // throw error;
     }

@@ -9,7 +9,7 @@ import { MainComponent } from './main/main.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './auth.guard';
-import { SozialeEinrichtungsKarteComponent } from './soziale-einrichtungs-karte/soziale-einrichtungs-karte.component';
+import { EmptyComponent } from './empty/empty.component';
 import { SozialeEinrichtungsListeComponent } from './soziale-einrichtungs-liste/soziale-einrichtungs-liste.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SozialeEinrichtungViewComponent } from './soziale-einrichtung-view/soziale-einrichtung-view.component';
@@ -51,7 +51,7 @@ const routes: Routes = [{
   canActivate: [AuthGuard],
 }, {
   path: 'sozEinrKarte',
-  component: SozialeEinrichtungsKarteComponent,
+  component: EmptyComponent,
 }, {
   path: 'sozEinrListe',
   component: SozialeEinrichtungsListeComponent,

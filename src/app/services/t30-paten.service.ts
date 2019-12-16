@@ -22,7 +22,7 @@ export class T30PatenService {
   submitPasswordChangeToken(token: string) {
     return this.http.get<any>(this.baseUrl + 'portal.php?passwordChange=' + token, httpOptions);
   }
-  submitToken(email: String, token: String) {
+  submitToken(email: string, token: string) {
     return this.http.get<any>(this.baseUrl + 'portal.php?user=' + email + '&verify=' + token, httpOptions);
   }
 }

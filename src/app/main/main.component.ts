@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { take } from 'rxjs/operators';
 
 import { UserService } from '../services/user.service';
 import { ForderungService } from '../services/forderung.service';
-import { take } from 'rxjs/operators';
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',

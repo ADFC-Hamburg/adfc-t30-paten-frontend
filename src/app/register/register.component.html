@@ -2,56 +2,60 @@
   <h1 class="mat-h1">Registrieren</h1>
   <h3 class="mat-h3">ADFC Tempo 30 an sozialen Einrichtungen</h3>
 </div>
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <mat-form-field class="t30-half-width">
-        <input matInput placeholder="Vorname" formControlName="firstName" autocomplete="given-name" required>
-        <mat-error class="error-message" *ngIf="checkValidateError('firstName', 'required')">Vorname erforderlich</mat-error>
-      </mat-form-field>
-      <mat-form-field class="t30-half-width">
-        <input matInput placeholder="Nachname" formControlName="lastName" autocomplete="family-name" required>
-        <mat-error class="error-message" *ngIf="checkValidateError('lastName', 'required')">Nachname erforderlich</mat-error>
-      </mat-form-field>
-      <mat-form-field class="t30-full-width">
-        <input matInput placeholder="E-Mail" type="email" formControlName="user" autocomplete="email" required>
-        <mat-error class="error-message" *ngIf="checkValidateError('user', 'required')">E-Mail erforderlich</mat-error>
-        <mat-error class="error-message" *ngIf="checkValidateError('user', 'email')">ungültige E-Mail</mat-error>
-      </mat-form-field>
-      <mat-form-field class="t30-full-width">
-        <input matInput placeholder="Passwort" type="password" formControlName="password1" required>
-        <mat-error class="error-message" *ngIf="checkValidateError('password1', 'required')">Passwort erforderlich</mat-error>
-        <mat-error class="error-message" *ngIf="checkValidateError('password1', 'minlength')">Passwort zu kurz</mat-error>
-      </mat-form-field>
-      <mat-form-field class="t30-full-width">
-        <input matInput placeholder="Passwort wiederholen" type="password" formControlName="password2" required>
-        <mat-error class="error-message"  *ngIf="checkValidateError('password2', 'notMatched')"><mat-icon>warning</mat-icon>Passwörter sind nicht identisch.</mat-error>
-      </mat-form-field>
-      <p>Name, E-Mail und Passwort werden für die Registrierung benötigt. Die weiteren Felder enthalten keine Pflichtangaben. Name, Email, Straße, Hausnummer und PLZ werden ggf. in die Forderungsmail an das zuständige Polizeikommissariat übernommen. Die Telefonnummer hilft dem Kampagnenteam, ggf. schnell Kontakt mit dir aufzunehmen.</p>
-      <mat-form-field class="t30-full-width">
-        <input matInput placeholder="Straße und Hausnummer" formControlName="street_house_no" autocomplete="street-address">
-        <mat-error class="error-message" *ngIf="checkValidateError('street_house_no', 'minlength')">zu kurz</mat-error>
-      </mat-form-field>
-      <mat-form-field class="t30-half-width">
-        <input matInput placeholder="PLZ" formControlName="zip" autocomplete="postal-code">
-        <mat-error class="error-message" *ngIf="checkValidateError('zip', 'pattern')">PLZ besteht aus 5 Ziffern</mat-error>
-      </mat-form-field>
-      <mat-form-field class="t30-half-width">
-        <input matInput placeholder="Ort" formControlName="city" autocomplete="address-level1">
-        <mat-error class="error-message" *ngIf="checkValidateError('city', 'minlength')">zu kurz</mat-error>
-      </mat-form-field>
-      <mat-form-field class="t30-full-width">
-        <input matInput placeholder="Telefon" formControlName="phone" autocomplete="tel">
-        <mat-error class="error-message" *ngIf="checkValidateError('phone', 'minlength')">zu kurz</mat-error>
-        <mat-error class="error-message" *ngIf="checkValidateError('phone', 'pattern')">unerlaubte Zeichen</mat-error>
-      </mat-form-field>
-      <div>
-        <mat-checkbox class="t30-cb" formControlName="mailingliste">
-          Ich möchte die Infomails zur Kampagne "Tempo 30 an sozialen Einrichtungen" vom ADFC Hamburg erhalten.
-        </mat-checkbox>
-        <div *ngIf="(registerForm.get('mailingliste').value)">
-          <mat-icon>email</mat-icon> Du erhältst eine seperate E-Mail von unserer Mailinglisten-Software, um deine Anmeldung zu bestätigen.
-        </div>
+<app-browser-warning></app-browser-warning>
+<form *ngIf="!showIEWarning" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <mat-form-field class="t30-half-width">
+      <input matInput placeholder="Vorname" formControlName="firstName" autocomplete="given-name" required>
+      <mat-error class="error-message" *ngIf="checkValidateError('firstName', 'required')">Vorname erforderlich</mat-error>
+    </mat-form-field>
+    <mat-form-field class="t30-half-width">
+      <input matInput placeholder="Nachname" formControlName="lastName" autocomplete="family-name" required>
+      <mat-error class="error-message" *ngIf="checkValidateError('lastName', 'required')">Nachname erforderlich</mat-error>
+    </mat-form-field>
+    <mat-form-field class="t30-full-width">
+      <input matInput placeholder="E-Mail" type="email" formControlName="user" autocomplete="email" required>
+      <mat-error class="error-message" *ngIf="checkValidateError('user', 'required')">E-Mail erforderlich</mat-error>
+      <mat-error class="error-message" *ngIf="checkValidateError('user', 'email')">ungültige E-Mail</mat-error>
+    </mat-form-field>
+    <mat-form-field class="t30-full-width">
+      <input matInput placeholder="Passwort" type="password" formControlName="password1" required>
+      <mat-error class="error-message" *ngIf="checkValidateError('password1', 'required')">Passwort erforderlich</mat-error>
+      <mat-error class="error-message" *ngIf="checkValidateError('password1', 'minlength')">Passwort zu kurz</mat-error>
+    </mat-form-field>
+    <mat-form-field class="t30-full-width">
+      <input matInput placeholder="Passwort wiederholen" type="password" formControlName="password2" required>
+      <mat-error class="error-message" *ngIf="checkValidateError('password2', 'notMatched')">
+        <mat-icon>warning</mat-icon>Passwörter sind nicht identisch.
+      </mat-error>
+    </mat-form-field>
+    <p>Name, E-Mail und Passwort werden für die Registrierung benötigt. Die weiteren Felder enthalten keine Pflichtangaben. Name, Email, Straße, Hausnummer und PLZ werden ggf. in die Forderungsmail an das zuständige Polizeikommissariat übernommen.
+      Die Telefonnummer hilft dem Kampagnenteam, ggf. schnell Kontakt mit dir aufzunehmen.</p>
+    <mat-form-field class="t30-full-width">
+      <input matInput placeholder="Straße und Hausnummer" formControlName="street_house_no" autocomplete="street-address">
+      <mat-error class="error-message" *ngIf="checkValidateError('street_house_no', 'minlength')">zu kurz</mat-error>
+    </mat-form-field>
+    <mat-form-field class="t30-half-width">
+      <input matInput placeholder="PLZ" formControlName="zip" autocomplete="postal-code">
+      <mat-error class="error-message" *ngIf="checkValidateError('zip', 'pattern')">PLZ besteht aus 5 Ziffern</mat-error>
+    </mat-form-field>
+    <mat-form-field class="t30-half-width">
+      <input matInput placeholder="Ort" formControlName="city" autocomplete="address-level1">
+      <mat-error class="error-message" *ngIf="checkValidateError('city', 'minlength')">zu kurz</mat-error>
+    </mat-form-field>
+    <mat-form-field class="t30-full-width">
+      <input matInput placeholder="Telefon" formControlName="phone" autocomplete="tel">
+      <mat-error class="error-message" *ngIf="checkValidateError('phone', 'minlength')">zu kurz</mat-error>
+      <mat-error class="error-message" *ngIf="checkValidateError('phone', 'pattern')">unerlaubte Zeichen</mat-error>
+    </mat-form-field>
+    <div>
+      <mat-checkbox class="t30-cb" formControlName="mailingliste">
+        Ich möchte die Infomails zur Kampagne "Tempo 30 an sozialen Einrichtungen" vom ADFC Hamburg erhalten.
+      </mat-checkbox>
+      <div *ngIf="(registerForm.get('mailingliste').value)">
+        <mat-icon>email</mat-icon> Du erhältst eine seperate E-Mail von unserer Mailinglisten-Software, um deine Anmeldung zu bestätigen.
       </div>
+    </div>
     <!--  <div>
         <mat-checkbox formControlName="newsletter">
           Ich möchte den Newsletter des ADFC Hamburg bekommen (1 x im Monat,
@@ -61,22 +65,24 @@
           <mat-icon>email</mat-icon> Du erhältst eine seperate E-Mail von unserer Newsletter-Software, um dich anzumelden.
         </div>
       </div>-->
-      <div>
-        <mat-checkbox formControlName="speichern">
-          Der ADFC Hamburg darf meine Daten für diese Kampagne speichern, verwenden und mich kontaktieren.
-          Ich habe die <a href="https://hamburg.adfc.de/datenschutzhinweise/">Datenschutzhinweise</a> zur Kentniss genommen.
-        </mat-checkbox>
-        <div *ngIf="!(registerForm.get('speichern').value)">
-         Ohne diese Einwilligung kannst du dich leider nicht registrieren, um Angaben zu Einrichtungen zu machen oder Forderungsmails zu verfassen.
-        </div>
+    <div>
+      <mat-checkbox formControlName="speichern">
+        Der ADFC Hamburg darf meine Daten für diese Kampagne speichern, verwenden und mich kontaktieren.
+        Ich habe die <a href="https://hamburg.adfc.de/datenschutzhinweise/">Datenschutzhinweise</a> zur Kentniss genommen.
+      </mat-checkbox>
+      <div *ngIf="!(registerForm.get('speichern').value)">
+        Ohne diese Einwilligung kannst du dich leider nicht registrieren, um Angaben zu Einrichtungen zu machen oder Forderungsmails zu verfassen.
       </div>
-      <p> * Pflichtangaben für die Registrierung </p>
-      <mat-action-row>
+    </div>
+    <p> * Pflichtangaben für die Registrierung </p>
+    <mat-action-row>
       <button mat-raised-button color="primary" type="submit" [disabled]="!(registerForm.get('speichern').value)">
         <mat-icon>person_add</mat-icon> Registieren
-        </button>
-        <button mat-raised-button colort="accent" routerLink="/login"><mat-icon>send</mat-icon>Ich habe mich schon registiert.</button>
+      </button>
+      <button mat-raised-button colort="accent" routerLink="/login">
+        <mat-icon>send</mat-icon>Ich habe mich schon registiert.
+      </button>
     </mat-action-row>
     <mat-spinner *ngIf="loading"> </mat-spinner>
-    </div>
+  </div>
 </form>

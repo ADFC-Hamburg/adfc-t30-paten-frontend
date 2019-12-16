@@ -1,0 +1,16 @@
+<div class="BWarn" *ngIf="showIEWarning">
+        <div color="error"> <mat-icon color="error">error</mat-icon>
+     Du Verwendest den Internet Explorer. Diesen wird leider von unserer Webanwendung nicht unterstützt.</div>
+
+     2015 hat Microsoft selbst die Entwicklung für Internet Explorer eingestellt, seitdem wird der veraltete Browser nicht mehr mit neuen Funktionen versorgt.
+
+     Sicher unterstützt, wird die Seite vom Firefox und Google Chrome.
+     <ul>
+       <li><a href="https://www.mozilla.org/de/firefox/new/">Firefox installieren</a>
+       </li>
+       <li><a href="https://www.google.com/intl/de_de/chrome/">Chrome installieren</a></li>
+     </ul>
+</div>
+<div class="BWarn" *ngIf="showBrowserWarning">
+         <mat-icon color="warning">warning</mat-icon> Wir haben diese Webanwendung nicht mit deinem Browser getestet. Wenn Du Fehler feststellst, verwende bitte den Firefox oder Chrome Browser.
+</div>

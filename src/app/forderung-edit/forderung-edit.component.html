@@ -89,53 +89,53 @@
         der E-Mail ohne personenbezogenen Daten archiviert und in diesem Tool öffentlich sichtbar.</p>
       <div>Die E-Mailadresse des zuständigen Polizeikommissariats wird automatisch anhand der Adresse der sozialen Einrichtung ermittelt.</div>
       <p>Anonyme Mails an die Polizei sind nicht möglich. Wir setzen deine bei der Registrierung angegebene E-Mailadresse in CC und bitten im E-Mailtext die Polizei, an deine E-Mailadresse zu antworten.
-      <mat-form-field class="t30-full-width">
-        <input matInput placeholder="Von" matTooltip="Von dieser Adresse wird die Mail versandt. Die Antwort geht an deine bei der Registrierung eingegeben Mailadresse und das Kampagnenteam." readonly="true" value="&lt;bitte-nicht-antworten-t30f@tools.adfc-hamburg.de&gt;">
-      </mat-form-field>
-      <mat-form-field class="t30-full-width">
-        <input matInput placeholder="An" matTooltip="Der Empfänger wird automatisch anhand der Postion der Einrichtung ermittelt und ist nicht änderbar." readonly="true" value="Polizei {{ polizeiData.name }} &lt;{{ polizeiData.email }}&gt;">
-      </mat-form-field>
-      <mat-form-field class="t30-full-width">
-        <input matInput placeholder="CC" matTooltip="Du und das Kampagnenteam erhalten eine Kopie der Email. An diese soll auch die Antwort der Polizei geschickt werden." readonly="true" value="{{ currentUser.firstName }} {{ currentUser.lastName  }} &lt;{{ currentUser.user }}&gt;, ADFC Hamburg &lt;{{ CONTACT_MAIL }}&gt;">
-      </mat-form-field>
-      <div *ngIf="forderungFG.get('mailSend').value">
-        <mat-icon>report</mat-icon><b>Die E-Mail wurde bereits verschickt und kann nicht mehr bearbeitet werden</b>
-      </div>
-      <mat-form-field class="t30-full-width">
-        <input matInput placeholder="Betreff" formControlName="mail_subject">
-      </mat-form-field>
-      <mat-form-field class="t30-full-width">
-        <textarea class="t30-emailstart-area" readonly=true matInput placeholder="Hinweis (nicht editierbar)">Diese E-Mail wurde mit Hilfe des Online-Tools "Tempo 30 an sozialen Einrichtungen" des ADFC Hamburg verschickt. Bitte senden Sie Ihre Antwort auf das Gesuch an {{ currentUser.user }} und {{ CONTACT_MAIL }}.</textarea>
-      </mat-form-field>
-      <mat-form-field class="t30-full-width">
-        <textarea class="t30-emailstart-area" matInput formControlName="mail_start" placeholder="Begrüßungsteil der E-Mail (wird an die Polizei geschickt, aber nicht veröffentlicht)">
+        <mat-form-field class="t30-full-width">
+          <input matInput placeholder="Von" matTooltip="Von dieser Adresse wird die Mail versandt. Die Antwort geht an deine bei der Registrierung eingegeben Mailadresse und das Kampagnenteam." readonly="true" value="&lt;bitte-nicht-antworten-t30f@tools.adfc-hamburg.de&gt;">
+        </mat-form-field>
+        <mat-form-field class="t30-full-width">
+          <input matInput placeholder="An" matTooltip="Der Empfänger wird automatisch anhand der Postion der Einrichtung ermittelt und ist nicht änderbar." readonly="true" value="Polizei {{ polizeiData.name }} &lt;{{ polizeiData.email }}&gt;">
+        </mat-form-field>
+        <mat-form-field class="t30-full-width">
+          <input matInput placeholder="CC" matTooltip="Du und das Kampagnenteam erhalten eine Kopie der Email. An diese soll auch die Antwort der Polizei geschickt werden." readonly="true" value="{{ currentUser.firstName }} {{ currentUser.lastName  }} &lt;{{ currentUser.user }}&gt;, ADFC Hamburg &lt;{{ CONTACT_MAIL }}&gt;">
+        </mat-form-field>
+        <div *ngIf="forderungFG.get('mailSend').value">
+          <mat-icon>report</mat-icon><b>Die E-Mail wurde bereits verschickt und kann nicht mehr bearbeitet werden</b>
+        </div>
+        <mat-form-field class="t30-full-width">
+          <input matInput placeholder="Betreff" formControlName="mail_subject">
+        </mat-form-field>
+        <mat-form-field class="t30-full-width">
+          <textarea class="t30-emailstart-area" readonly=true matInput placeholder="Hinweis (nicht editierbar)">Diese E-Mail wurde mit Hilfe des Online-Tools "Tempo 30 an sozialen Einrichtungen" des ADFC Hamburg verschickt. Bitte senden Sie Ihre Antwort auf das Gesuch an {{ currentUser.user }} und {{ CONTACT_MAIL }}.</textarea>
+        </mat-form-field>
+        <mat-form-field class="t30-full-width">
+          <textarea class="t30-emailstart-area" matInput formControlName="mail_start" placeholder="Begrüßungsteil der E-Mail (wird an die Polizei geschickt, aber nicht veröffentlicht)">
         </textarea>
-      </mat-form-field>
-      <mat-form-field class="t30-full-width">
-        <textarea class="t30-email-area" matInput formControlName="mail_body" placeholder="Haupttext der E-Mail (wird veröffentlicht, bitte hier keine personenbezogenen Daten angeben)">
+        </mat-form-field>
+        <mat-form-field class="t30-full-width">
+          <textarea class="t30-email-area" matInput formControlName="mail_body" placeholder="Haupttext der E-Mail (wird veröffentlicht, bitte hier keine personenbezogenen Daten angeben)">
    </textarea>
-      </mat-form-field>
-      <mat-form-field class="t30-full-width">
-        <textarea class="t30-emailend-area" matInput formControlName="mail_end" placeholder="Grußformel und Absender (wird an die Polizei geschickt, aber nicht veröffentlicht)">
+        </mat-form-field>
+        <mat-form-field class="t30-full-width">
+          <textarea class="t30-emailend-area" matInput formControlName="mail_end" placeholder="Grußformel und Absender (wird an die Polizei geschickt, aber nicht veröffentlicht)">
   </textarea>
-      </mat-form-field>
-      <p>
-        Diese E-Mail wird unter Angabe Deiner E-Mailadresse als Antwort-E-Mailadresse an das für die
-        Einrichtung zuständige Polizeikommissariat übermittelt. Dein Name und deine
-        Adresse werden ebenfalls als Absenderinformation in die E-Mail übernommen,
-        sofern du sie im Profil angegeben hast und nicht aus der E-Mail gelöscht hast.
-        Durch Klick auf "Speichern und E-Mail absenden" stimmst Du diesem Vorgang zu.
-      </p>
-      <mat-action-row>
-        <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="primary" (click)="onSave(false)">
-          <mat-icon>save</mat-icon> Speichern und später weiter bearbeiten
-        </button>
-        <span matTooltip="Bitte gib das Aktionskennwort (s.o.) ein um die Forderung zu verschicken." [matTooltipDisabled]="(this.isPasswordOkay!=0)">
-          <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="accent" (click)="onSave(true)"  [disabled]="(this.isPasswordOkay==0)">
-            <mat-icon>email</mat-icon> Speichern und E-Mail Absenden
+        </mat-form-field>
+        <p>
+          Diese E-Mail wird unter Angabe Deiner E-Mailadresse als Antwort-E-Mailadresse an das für die
+          Einrichtung zuständige Polizeikommissariat übermittelt. Dein Name und deine
+          Adresse werden ebenfalls als Absenderinformation in die E-Mail übernommen,
+          sofern du sie im Profil angegeben hast und nicht aus der E-Mail gelöscht hast.
+          Durch Klick auf "Speichern und E-Mail absenden" stimmst Du diesem Vorgang zu.
+        </p>
+        <mat-action-row>
+          <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="primary" (click)="onSave(false)">
+            <mat-icon>save</mat-icon> Speichern und später weiter bearbeiten
           </button>
-        </span>
-      </mat-action-row>
+          <span matTooltip="Bitte gib das Aktionskennwort (s.o.) ein um die Forderung zu verschicken." [matTooltipDisabled]="(this.isPasswordOkay!=0)">
+            <button mat-raised-button *ngIf="!(forderungFG.get('mailSend').value)" color="accent" (click)="onSave(true)" [disabled]="(this.isPasswordOkay==0)">
+              <mat-icon>email</mat-icon> Speichern und E-Mail Absenden
+            </button>
+          </span>
+        </mat-action-row>
     </div>
   </div>
 </div>

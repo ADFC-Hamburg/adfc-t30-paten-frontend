@@ -25,9 +25,11 @@ export class AppNotification {
     return this.msg;
   }
 }
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class NotifierService {
   public messages = new Subject<AppNotification>();
   private addMsg(type: AppNotificationType, msg: string, duration: number) {
@@ -46,5 +48,4 @@ export class NotifierService {
   public clearAllErrrors() {
     this.addMsg(AppNotificationType.Clear, '', 0);
   }
-  constructor() { }
 }

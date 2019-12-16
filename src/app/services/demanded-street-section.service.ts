@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { NotificationError } from '../notification-error';
-// import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -31,6 +31,7 @@ export class DemandedStreetSectionService {
     });
     return entry;
   }
+
   get(id) {
     return this.http.get<any>(
       this.baseUrl + 'crud.php?entity=demandedstreetsection&refs=(format,data)&nores=[]&filter=[id,' + id + ']', httpOptions).pipe(
@@ -42,6 +43,13 @@ export class DemandedStreetSectionService {
         }));
 
   }
+
+  remove(id): Observable<any> {
+    return this.http.delete(
+      this.baseUrl + 'crud.php?entity=demandedstreetsection&refs=(format,data)&nores=[]&filter=[id,' + id + ']', httpOptions
+    );
+  }
+
   list(institutionId) {
     return this.http.get<any>(
       this.baseUrl + 'crud.php?entity=demandedstreetsection&nores=[]&filter=[institution,' +
@@ -55,6 +63,7 @@ export class DemandedStreetSectionService {
           return res.map(this.optionValueToString);
         }));
   }
+
   create(einr) {
     return this.http.post<any>(this.baseUrl + 'crud.php?entity=demandedstreetsection', einr, httpOptions)
       .pipe(
@@ -64,6 +73,7 @@ export class DemandedStreetSectionService {
           }
         }));
   }
+
   save(streetSection) {
     let saveData = streetSection;
     if (streetSection.mail_sent) {

@@ -3,10 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { shareReplay, map } from 'rxjs/operators';
+
 const CACHE_SIZE = 1;
+
 class StreetEntry {
-  public street_name: String;
+  public street_name: string;
 }
+
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',

@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   VERSION: require('../../package.json').version,
   API_BASE_URL: '/t30/api/',
-  CONTACT_MAIL: 'tempo30sozial@hamburg.adfc.de',
-  CAMPAIN_URL: 'https://hamburg.adfc.de/index.php?id=1729',
+  CONTACT_MAIL: 'laeuft@hamburg.adfc.de',
+  CAMPAIN_URL: 'https://hamburg.adfc.de/artikel/tempo30sozial',
   RELOAD_MAP_TIMER: 10,
 };
 

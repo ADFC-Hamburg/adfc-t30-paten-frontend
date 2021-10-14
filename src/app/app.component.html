@@ -6,9 +6,11 @@
   <a href="{{CAMPAIN_URL}}" target="_blank" rel="noopener">
     <img src="assets/T30_Herz.png" class="t30-herz" height="94" width="133" alt="Tempo 30 an sozialen Einrichtung">
   </a>
-  <a href="https://www.ndr.de/fernsehen/sendungen/bingo_die_umweltlotterie/" target="_blank" class="bingo" rel="noopener">
+  <a href="https://www.ndr.de/fernsehen/sendungen/bingo_die_umweltlotterie/" target="_blank" class="bingo"
+    rel="noopener">
     <div class="bingo">Gefördert durch:</div>
-    <img src="assets/Bingo-die-Umweltlotterie.jpg" height="94" width="102" class="bingo" alt="Bingo! die Umweltlotterie">
+    <img src="assets/Bingo-die-Umweltlotterie.jpg" height="94" width="102" class="bingo"
+      alt="Bingo! die Umweltlotterie">
   </a>
 </div>
 <hr>
@@ -20,16 +22,22 @@
       <li>Dokumentation des Tempo-30-Status im Umfeld der sozialen Einrichtungen: <br>
         Wähle die Einrichtung in der Karte oder über die Suchfunktion in der Liste aus und klicke auf „Bearbeiten“.
         Gib im Abschnitt „Straßenabschnitt hinzufügen“ bitte jeden Straßenabschnitt im Umfeld der Einrichtung ein, der
-        Haupteingänge und/oder An- und Abreiseverkehr aufweist, inklusive des Tempo-30-Status pro Straßenabschnitt und auch
-        wenn dort schon Tempo 30 gilt. Dies hilft uns einen hamburgweiten Überblick zu bekommen und besser zu argumentieren.</li>
-      <li>Fehlende Einrichtungen kannst du über den entsprechenden Button unterhalb der Karte oder Liste hinzufügen.</li>
-      <li>Jede Nebenstelle einer Einrichtung (z. B. Turnhalle, Mensa, Zweigstelle) mit einer eigenen Adresse muss als eigene
+        Haupteingänge und/oder An- und Abreiseverkehr aufweist, inklusive des Tempo-30-Status pro Straßenabschnitt und
+        auch
+        wenn dort schon Tempo 30 gilt. Dies hilft uns einen hamburgweiten Überblick zu bekommen und besser zu
+        argumentieren.</li>
+      <li>Fehlende Einrichtungen kannst du über den entsprechenden Button unterhalb der Karte oder Liste hinzufügen.
+      </li>
+      <li>Jede Nebenstelle einer Einrichtung (z. B. Turnhalle, Mensa, Zweigstelle) mit einer eigenen Adresse muss als
+        eigene
         soziale Einrichtung angelegt werden. </li>
       <li>E-Mail mit Forderung nach Tempo 30 für eine bestimmte Einrichtung versenden:<br>
         Lege zunächst die relevanten Straßenabschnitte im Umfeld der Einrichtung an (siehe 1. - 3.).
-        Dann kannst du auf der Seite "Details" der jeweiligen Einrichtung für jeden Straßenabschnitt, an dem Tempo 30 fehlt
+        Dann kannst du auf der Seite "Details" der jeweiligen Einrichtung für jeden Straßenabschnitt, an dem Tempo 30
+        fehlt
         oder schon mal abgelehnt wurde, auf den Button "Tempo 30 fordern" klicken.</li>
-      <li>Bei Reaktionen auf dein Gesuch oder Änderung am Tempo-30-Status aktualisiere bitte die entsprechenden Angaben zur Einrichtung auf der Seite "Bearbeiten".</li>
+      <li>Bei Reaktionen auf dein Gesuch oder Änderung am Tempo-30-Status aktualisiere bitte die entsprechenden Angaben
+        zur Einrichtung auf der Seite "Bearbeiten".</li>
     </ol>
   </mat-card-content>
   <mat-card-actions>
@@ -49,7 +57,8 @@
 </div>
 <nav mat-tab-nav-bar>
   <div *ngFor="let link of myNavLinks">
-    <a mat-tab-link *ngIf="showLink(link)" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [ngClass]="{'adfc-t30-tab-extra': link.extra }">
+    <a mat-tab-link *ngIf="showLink(link)" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+      [active]="rla.isActive" [ngClass]="{'adfc-t30-tab-extra': link.extra }">
 
       {{ link.label }} &nbsp; <mat-icon *ngIf="link.icon!==undefined">{{ link.icon }}</mat-icon>
     </a>
@@ -60,15 +69,16 @@
 </div>
 <router-outlet></router-outlet>
 <hr>
-<a href="https://hamburg.adfc.de/datenschutzhinweise/" target="_blank" rel="noopener" class="footer-link">Datenschutzhinweise</a>
+<a href="https://hamburg.adfc.de/datenschutz" target="_blank" rel="noopener" class="footer-link">Datenschutzhinweise</a>
 <a href="https://hamburg.adfc.de/impressum/" target="_blank" rel="noopener" class="footer-link">Impressum</a>
 <a routerLink="/spenden" class="footer-link">Spenden</a>
 <hr>
 Dieses Webtool hilft dir, Tempo 30 im Umfeld sozialer Einrichtungen beim zuständigen Polizeikommissariat zu fordern.
-Es ist Teil der Kampagne des ADFC Hamburg <a target="_blank" href="{{CAMPAIN_URL}}">Tempo 30 an sozialen Einrichtungen</a>.
+Es ist Teil der Kampagne des ADFC Hamburg <a target="_blank" href="{{CAMPAIN_URL}}">Tempo 30 an sozialen
+  Einrichtungen</a>.
 Bitte sende uns Fragen, Probleme, Lob, Feedback an: <a href="mailto:{{CONTACT_MAIL}}">{{CONTACT_MAIL}}</a>
 <hr>
-Version: GUI: {{ version }} API: {{ API_VERSION}}  {{ myRoute }}
+Version: GUI: {{ version }} API: {{ API_VERSION}} {{ myRoute }}
 <div *ngIf="isLoggedIn()">Angemeldet</div>
 <div *ngIf="!isLoggedIn()">Abgemeldet</div>
 {{ logoutInSeconds }}

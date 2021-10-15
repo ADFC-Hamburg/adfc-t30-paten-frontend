@@ -115,7 +115,7 @@ export function tokenGetter() {
     MatRadioModule,
     MatTableModule,
     MatTabsModule,
-    // YagaModule,
+    YagaModule,
     HttpClientModule,
     JwtModule.forRoot({
       config: {

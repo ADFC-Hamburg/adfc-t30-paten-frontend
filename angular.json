@@ -16,6 +16,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/t30-paten",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -52,6 +53,10 @@
                   "type": "initial",
                   "maximumWarning": "3mb",
                   "maximumError": "6mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             },
@@ -76,6 +81,10 @@
                   "type": "initial",
                   "maximumWarning": "3mb",
                   "maximumError": "6mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }

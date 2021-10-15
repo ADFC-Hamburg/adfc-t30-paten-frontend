@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TokenEingebenComponent } from './token-eingeben.component';
 
@@ -6,7 +6,7 @@ describe('TokenEingebenComponent', () => {
   let component: TokenEingebenComponent;
   let fixture: ComponentFixture<TokenEingebenComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [TokenEingebenComponent]
     })

@@ -121,7 +121,7 @@ export function tokenGetter() {
       config: {
         tokenGetter: tokenGetter,
         headerName: 'Access-Control-Allow-Credentials',
-        whitelistedDomains: ['tools.adfc-hamburg.de'],
+        allowedDomains: ['tools.adfc-hamburg.de'],
       }
     }),
     MatTooltipModule,

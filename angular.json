@@ -95,12 +95,12 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-              "browserTarget": "t30-paten:build",
-              "proxyConfig": "proxy.conf.json"
+            "browserTarget": "t30-paten:build",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
-                "browserTarget": "t30-paten:build:production"
+              "browserTarget": "t30-paten:build:production"
             }
           }
         },
@@ -128,14 +128,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
             ]
           }
         }

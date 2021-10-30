@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   VERSION: require('../../package.json').version,
   API_BASE_URL: '/t30/api/',
-  CONTACT_MAIL: 'tempo30sozial@hamburg.adfc.de',
-  CAMPAIN_URL: 'https://hamburg.adfc.de/index.php?id=1729',
+  CONTACT_MAIL: 'laeuft@hamburg.adfc.de',
+  CAMPAIN_URL: 'https://hamburg.adfc.de/artikel/tempo30sozial',
   RELOAD_MAP_TIMER: 10,
 };
 
@@ -18,4 +18,4 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.

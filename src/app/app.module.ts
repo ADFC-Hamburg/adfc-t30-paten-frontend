@@ -53,7 +53,7 @@ import { ForderungViewComponent } from './forderung-view/forderung-view.componen
 import { StarLegendeComponent } from './star-legende/star-legende.component';
 import { AppSnackBarComponent } from './app-snack-bar/app-snack-bar.component';
 import { SpendenComponent } from './spenden/spenden.component';
-import { DeviceDetectorModule } from 'ngx-device-detector';
+//import { DeviceDetectorModule } from 'ngx-device-detector';
 import { BrowserWarningComponent } from './browser-warning/browser-warning.component';
 import { EmptyComponent } from './empty/empty.component';
 
@@ -121,11 +121,11 @@ export function tokenGetter() {
       config: {
         tokenGetter: tokenGetter,
         headerName: 'Access-Control-Allow-Credentials',
-        whitelistedDomains: ['tools.adfc-hamburg.de'],
+        allowedDomains: ['tools.adfc-hamburg.de'],
       }
     }),
     MatTooltipModule,
-    DeviceDetectorModule.forRoot(),
+    //    DeviceDetectorModule.forRoot(),
   ],
   providers: [
     ErrorHandleService,

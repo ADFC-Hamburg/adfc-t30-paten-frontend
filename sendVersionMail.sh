@@ -22,4 +22,4 @@ Diese Mail wurde automatisch erstellt von $0
 EOF
 
 cat $output
-mutt pg-karten@lists.hamburg.adfc.de -c tempo30@hamburg.adfc.de -c wiebke.hansen@hamburg.adfc.de -c julian.lindner@hamburg.adfc.de -s "[ADFC-Paten] Neue Frontend Version ${new_version}" <$output
+mutt pg-karten@lists.hamburg.adfc.de -c tempo30@hamburg.adfc.de  -s "[ADFC-Paten] Neue Frontend Version ${new_version}" <$output

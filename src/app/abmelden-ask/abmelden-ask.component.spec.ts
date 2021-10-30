@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AbmeldenAskComponent } from './abmelden-ask.component';
 
@@ -6,7 +6,7 @@ describe('AbmeldenAskComponent', () => {
   let component: AbmeldenAskComponent;
   let fixture: ComponentFixture<AbmeldenAskComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AbmeldenAskComponent ]
     })

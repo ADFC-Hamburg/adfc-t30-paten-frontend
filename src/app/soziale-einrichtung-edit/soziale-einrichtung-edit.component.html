@@ -8,12 +8,13 @@
       <mat-option *ngFor="let item of [1,2,3,4];" value="{{item}}">{{item |einrichtungsart }}</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field *ngIf="einrichtung.get('type').value==1" class="t30-full-width">
+  <mat-form-field *ngIf="einrichtung.get('type').value===1" class="t30-full-width">
     <mat-select placeholder="Träger des Kindergartens" formControlName="company">
       <mat-option value="0">Unbekannt</mat-option>
       <mat-option *ngFor="let item of getKitaTraegerKeys();" value="{{ KITA_TRAEGER[item] }}">{{ item }}</mat-option>
       <mat-option>- - - - -</mat-option>
-      <mat-option *ngFor="let item of getKitaTraegerPostKeys()" value="{{ KITA_TRAEGER_POST[item] }}">{{ item }}</mat-option>
+      <mat-option *ngFor="let item of getKitaTraegerPostKeys()" value="{{ KITA_TRAEGER_POST[item] }}">{{ item }}
+      </mat-option>
     </mat-select>
   </mat-form-field>
   <b>Adresse der Einrichtung bzw. Nebenstelle</b>
@@ -39,13 +40,17 @@
       <yaga-map class="t30-map" zoom="17" [(lat)]="mapPos[1]" [(lng)]="mapPos[0]" (dblclick)="mapDblClick($event)">
         <yaga-tile-layer [(url)]="tileLayerUrl"></yaga-tile-layer>
         <yaga-zoom-control></yaga-zoom-control>
-        <yaga-circle *ngIf="isMarkerMoved()" [(lat)]="position[1]" [(lng)]="position[0]" radius="5" fillColor="blue" color="blue">
+        <yaga-circle *ngIf="isMarkerMoved()" [(lat)]="position[1]" [(lng)]="position[0]" radius="5" fillColor="blue"
+          color="blue">
         </yaga-circle>
         <yaga-marker [(lat)]="newPos[1]" [(lng)]="newPos[0]" (moveend)="mapMoveEnd();" draggable="true">
-          <yaga-icon iconUrl="assets/marker-icon.png" shadowUrl="assets/marker-shadow.png" [(iconSize)]="marker.iconSize" [(iconAnchor)]="marker.iconAnchor" [(popupAnchor)]="marker.popupAnchor" [(tooltipAnchor)]="marker.tooltipAnchor" [(shadowSize)]="marker.shadowSize"></yaga-icon>
+          <yaga-icon iconUrl="assets/marker-icon.png" shadowUrl="assets/marker-shadow.png"
+            [(iconSize)]="marker.iconSize" [(iconAnchor)]="marker.iconAnchor" [(popupAnchor)]="marker.popupAnchor"
+            [(tooltipAnchor)]="marker.tooltipAnchor" [(shadowSize)]="marker.shadowSize"></yaga-icon>
         </yaga-marker>
       </yaga-map>
-      <mat-hint>Bitte ggf. Position korrigieren: Marker mit der Maus verschieben oder Doppelkick auf neue Position</mat-hint>
+      <mat-hint>Bitte ggf. Position korrigieren: Marker mit der Maus verschieben oder Doppelkick auf neue Position
+      </mat-hint>
     </div>
     <div class="t30-daneben-div">
       <div *ngIf="isMarkerMoved()">
@@ -63,7 +68,8 @@
   <div *ngIf="step===2">
     <h2 class="mat-h2">Existierende Einrichtungen in unserer Datenbank in der Nähe</h2>
     <ul>
-      <li *ngFor="let item of near; let i = index;">{{item.name}}, {{item.street_house_no}}, {{item.zip}} {{item.city}}</li>
+      <li *ngFor="let item of near; let i = index;">{{item.name}}, {{item.street_house_no}}, {{item.zip}} {{item.city}}
+      </li>
     </ul>
     <b>Ist diese Einrichtung wirklich neu?</b>
     <mat-action-row>
@@ -77,24 +83,31 @@
     <mat-spinner *ngIf="loading"> </mat-spinner>
   </div>
   <div *ngIf="step>2">
-    <h2 class="mat-h2">Hier kannst du alle Straßenabschnitte mit Haupteingängen und/oder An- und Abreiseverkehr im näheren Umfeld der Einrichtung einzeln eingeben.</h2>
+    <h2 class="mat-h2">Hier kannst du alle Straßenabschnitte mit Haupteingängen und/oder An- und Abreiseverkehr im
+      näheren Umfeld der Einrichtung einzeln eingeben.</h2>
     <div *ngIf=" getStrassenAbschnitte().length === 0">
       Hier fehlen noch Straßenabschnitte. Wir suchen Freiwillige mit Ortskenntnissen.
     </div>
-    <p>Einige der Angaben werden später automatisch in die E-Mail an das Polizeikommissariat übernommen (Name und Adresse der Einrichtung, Straßenabschnitt mit Hausnummer/Kreuzung, Begründung für Tempo 30 und Anmerkungen zum Busverkehr). Du kannst
+    <p>Einige der Angaben werden später automatisch in die E-Mail an das Polizeikommissariat übernommen (Name und
+      Adresse der Einrichtung, Straßenabschnitt mit Hausnummer/Kreuzung, Begründung für Tempo 30 und Anmerkungen zum
+      Busverkehr). Du kannst
       sie auch später noch direkt in der E-Mail anpassen. </p>
-    <div class="t30-full-width" formArrayName="streetSections" *ngFor="let item of getStrassenAbschnitte().controls; let i = index;">
-      <app-street-section-edit [fg]="item" [fgIndex]="i" [strassenliste]="strassenliste" (deleteStrassenAbschnitt)="deleteStrassenAbschnitt($event)">
+    <div class="t30-full-width" formArrayName="streetSections"
+      *ngFor="let item of getStrassenAbschnitte().controls; let i = index;">
+      <app-street-section-edit [fg]="item" [fgIndex]="i" [strassenliste]="strassenliste"
+        (deleteStrassenAbschnitt)="deleteStrassenAbschnitt($event)">
       </app-street-section-edit>
     </div>
     <div class="t30-full-width t30-streetsection-button">
-      <button mat-raised-button matTooltip="Neuen Straßenabschnitt hinzufügen" type="submit" (click)="addStrassenAbschnitt()">
+      <button mat-raised-button matTooltip="Neuen Straßenabschnitt hinzufügen" type="submit"
+        (click)="addStrassenAbschnitt()">
         Straßenabschnitt hinzufügen <mat-icon>add</mat-icon>
       </button>
     </div>
     <p>Wichtiger Hinweis für die Kampagne:</p>
     <div class="t30-checkbox">
-      <mat-checkbox formControlName="streetsection_complete">Alle mir bekannten Straßenabschnitte mit Haupteingang und/oder An- und Abreiseverkehr im näheren Umfeld der Einrichtung sind aufgeführt.</mat-checkbox>
+      <mat-checkbox formControlName="streetsection_complete">Alle mir bekannten Straßenabschnitte mit Haupteingang
+        und/oder An- und Abreiseverkehr im näheren Umfeld der Einrichtung sind aufgeführt.</mat-checkbox>
     </div>
     <hr>
     <mat-action-row>

@@ -8,8 +8,6 @@ export class AlertService implements OnInit {
   private keepAfterNavigationChange = false;
 
   constructor(private router: Router) {
-  }
-  ngOnInit() {
     // clear alert message on route change
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
